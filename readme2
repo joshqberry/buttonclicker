@@ -1,1 +1,19 @@
 may have to use ruby version 1.9.3 to make this work.
+
+Huh, so it appears that not precompiling my assets (by adding the assets.rake file and
+the interior code) doesn't stop my app from running locally... but it does slow it
+DOWN a fair bit. It's now not always registering clicks; and also, the outpput in the
+terminal is decidedly slower. In fact, sometimes the click registers on the webpage but
+NOT in the terminal. Strange.
+... No, maybe that's not the issue. My computer is moving slowly suddenly. Apparently
+because of all the Heroku push attempts I just made, although I don't understand why
+that'd be an issue... Seems to be an issue only with the button; using the in-page
+button works fine. Hope I didn't overload my Arduino...
+... well, I unplugged it, stopped Rails server, re-plugged it back in, re-started Rails
+server and all is well again...
+
+... However, the addition of that assets.rake file did not fix the Heroku-push error.
+
+... oh, wait, I THINK stuff has to be pushed to GitHub first, then to Heroku. I think
+you're supposed to be able to skip the GitHub step, but maybe I'm configured for to
+require that.
