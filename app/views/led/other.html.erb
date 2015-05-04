@@ -1,0 +1,83 @@
+
+
+<br>
+<br>
+<span id="client_event_example_log">Triggering event due to state change: x: 175, y: 6729</span>
+<br>
+<br>
+
+<button id="btn5">Toggle between hide() and show()</button>
+
+<p id="p2">This is a paragraph.</p>
+
+<br>
+<br>
+<br>
+<button id="btn6">Click me</button>
+
+<script>
+
+var outputEl = document.getElementById('client_event_example_log');
+var state = {
+currentX: 0,
+currentY: 0,
+lastX: undefined,
+lastY: undefined
+};
+
+
+// this method should be bound as a 'mousemove' event listener
+document.body.addEventListener('mousemove', onMouseMove, false);
+function onMouseMove(ev){
+ev = ev || window.event;
+state.currentX = ev.pageX || ev.clientX;
+state.currentY = ev.pageY || ev.clientY;
+}
+
+setInterval(function(){
+if(state.currentX !== state.lastX || state.currentY !== state.lastY){
+  state.lastX = state.currentX;
+  state.lastY = state.currentY;
+
+  var text = document.createTextNode(
+    'Triggering event due to state change: x: ' + state.currentX + ', y: ' + state.currentY
+  );
+  outputEl.replaceChild( text, outputEl.firstChild );
+
+}
+}, 1000); // send every 300 milliseconds if position has changed
+
+
+
+var thingo = document.getElementById('Btn5');
+
+
+
+$(document).ready(function(){
+    $("#btn5").click(function(){
+        $("#p2").toggle();
+    });
+});
+
+
+
+
+
+$(document).ready(function () {
+    $("#btn6").on("click", function() {
+        $(this).attr("disabled", "disabled");
+        doWork();
+    });
+});
+
+function doWork() {
+    alert("doing work");
+    //actually this function will do something and when processing is done the button is enabled by removing the 'disabled' attribute
+    //I use setTimeout so you can see the button can only be clicked once, and can't be clicked again while work is being done
+    setTimeout('$("#btn6").removeAttr("disabled")', 3000);
+}
+
+
+
+
+</script>

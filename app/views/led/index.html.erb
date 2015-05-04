@@ -1,0 +1,69 @@
+<button id="on">
+  On
+</button>
+<button id="off">
+  Off
+</button>
+
+<br>
+<br>
+
+<input style="position:relative; top:0px; bottom:0px; left:0px; right:0px; line-height:720px; font-size:700px; opacity:0.2" type="text" id="numberBig" value="0"/>
+
+<br>
+<br>
+<br>
+<input type="button" id="boofah" onclick="incrementValueBig()", value="Increment Value Big" />
+
+
+<script>
+
+  $('#on').click(function(){
+    $.get('/on')
+  });
+
+  $('#off').click(function(){
+    $.get('/off')
+  });
+
+
+  var pusher = new Pusher('<%= Pusher.key %>');
+  var channel = pusher.subscribe('button');
+
+
+  channel.bind('up', function(data) {
+    var value = parseInt(document.getElementById('numberBig').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('numberBig').value = value;
+    $('body').css({background: 'white'});
+    if (document.getElementById('numberBig').value == 11)
+    {document.getElementById('numberBig').value = "Nicole is awesome";}
+  });
+  channel.bind('down', function(data) {
+    $('body').css({background: 'red'})
+  });
+
+
+
+
+
+
+
+
+  function incrementValueBig()
+  {
+    var value = parseInt(document.getElementById('numberBig').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('numberBig').value = value;
+
+  }
+
+
+
+
+
+
+
+</script>
