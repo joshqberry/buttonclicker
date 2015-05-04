@@ -1,8 +1,8 @@
 pusher = YAML.load_file(File.join(Rails.application.root, 'config/pusher.yml'))
 
-Pusher.app_id = pusher['app_id']
-Pusher.key = pusher['key']
-Pusher.secret = pusher['secret']
+Pusher.app_id = ENV['app_id']
+Pusher.key = ENV['key']
+Pusher.secret = ENV['secret']
 
 begin
   Rails.application.config.board = Dino::Board.new(Dino::TxRx.new)

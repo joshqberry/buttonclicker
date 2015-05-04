@@ -17,3 +17,24 @@ server and all is well again...
 ... oh, wait, I THINK stuff has to be pushed to GitHub first, then to Heroku. I think
 you're supposed to be able to skip the GitHub step, but maybe I'm configured for to
 require that.
+
+... Huh, that did it. I STILL got the error saying that the rake had been aborted, and
+that I had an unitialized constant YAML... and yet the deploy was complete, apparently.
+Now, though, can I use this app via Heroku, or did I just block something that was
+necessary to have?
+
+Well, can't even see Heroku page for now... page said error occurred in application.
+Thought it might be a database issue. Tried to migrate database, it wouldn't let me...
+
+Hmm, I wonder if that's an issue with using Pusher.
+
+Well, someone on the internets told me, and maybe I knew this, I dunno, that you DON'T
+do a Heroku db:create. It won't let you. You instead to a db:migrate.
+
+OK, so next issue is back to same I've seen before: unintialized constant YAML. So
+neither a push nor a db:migrate will work till I've fixed this issue.
+
+OK, so, added the 'dotenv' gem, and a ".env" file with the pusher stuff in it, and
+added the ".env" file to the gitignore file. App still working locally, athough
+seems to be moving slower. Could be an issue other than that of the code changes,
+though...

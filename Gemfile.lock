@@ -53,6 +53,9 @@ GEM
     debug_inspector (0.0.2)
     dino (0.11.2)
       serialport
+    dotenv (2.0.0)
+    dotenv-rails (2.0.0)
+      dotenv (= 2.0.0)
     erubis (2.7.0)
     execjs (2.5.2)
     globalid (0.3.5)
@@ -156,6 +159,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   dino
+  dotenv-rails
   jbuilder (~> 2.0)
   jquery-rails
   pg
