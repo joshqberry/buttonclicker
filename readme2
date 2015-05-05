@@ -1,4 +1,4 @@
-may have to use ruby version 1.9.3 to make this work.
+may have to use ruby version 1.9.3 to make this work?
 
 Huh, so it appears that not precompiling my assets (by adding the assets.rake file and
 the interior code) doesn't stop my app from running locally... but it does slow it
@@ -15,7 +15,7 @@ server and all is well again...
 ... However, the addition of that assets.rake file did not fix the Heroku-push error.
 
 ... oh, wait, I THINK stuff has to be pushed to GitHub first, then to Heroku. I think
-you're supposed to be able to skip the GitHub step, but maybe I'm configured for to
+you're supposed to be able to skip the GitHub step, but maybe I'm configured to
 require that.
 
 ... Huh, that did it. I STILL got the error saying that the rake had been aborted, and
@@ -54,3 +54,27 @@ VERIFIED THIS; YOU HAD THE GEM 'PG' TWICE IN THE GEMFILE, THEN COMMENTED OUT ONE
 THEM, AND THEN TRIED TO PUSH TO HEROKU, BUT ERROR STILL SAID YOU HAD TWO LISTINGS OF
 THAT GEM. AFTER YOU COMMITTED YOUR CHANGE AND PUSHED TO GITHUB, YOU WERE ABLE TO PUSH
 TO HEROKU WITHOUT THAT ERROR.
+
+So: It's a good lesson, one that will take me forever to learn, but still:
+  You had been trying to push to Heroku for... what? At least a few hours? And each time,
+  you saw an error message that said you had the gem 'pg' listed in two different
+  places in your gemfile. But then there also was that "uninitialized constant YAML"
+  error, and so you were concentrating on that. FOR HOURS. And then finally you
+  decided to just get rid of that small error that you were sure was not the problem.
+  And after you did, you were able to push to Heroku.
+    For fuck's sake. I don't even know if that solves all of my Heroku-push problem,
+    but it sovles one I'd been at for hours. You have really got to slow your roll a
+    bit when problem-solving. If I'd just read that error and tackled that error first...
+
+Once again, just for the notes:
+  Removing the 'pg' duplicate from my gemfile (the one NOT under group :production do)
+  solved my issue.
+
+
+
+  Rake::Task["assets:precompile"].clear
+  namespace :assets do
+    task 'precompile' do
+        puts "Not pre-compiling assets..."
+    end
+  end
