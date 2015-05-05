@@ -1,0 +1,5 @@
+app_id=ENV['app_id']
+
+key=ENV['key']
+
+secret=ENV['secret']

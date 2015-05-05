@@ -38,3 +38,6 @@ OK, so, added the 'dotenv' gem, and a ".env" file with the pusher stuff in it, a
 added the ".env" file to the gitignore file. App still working locally, athough
 seems to be moving slower. Could be an issue other than that of the code changes,
 though...
+
+Oh wait, but that doesn't fix things for Heroku... it's still not gonna recognize
+the config/pusher
