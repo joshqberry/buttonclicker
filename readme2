@@ -45,3 +45,17 @@ an easy fix, although not the first thing I thought of...
 Fiddled with moving things around more, in order to make pusher.yaml file "viewable" by
 Heroku, and was able to push to Heroku once more... BUT still saw same error of
 'unitialized constant yaml.' So... yep, still can't open Heroku page.
+
+So one thing I think I'm verifying here
+
+
+
+
+
+
+
+
+
+require 'yaml'
+
+pusher = YAML.load_file(File.join(Rails.application.root, 'config/pusher.yml'))
