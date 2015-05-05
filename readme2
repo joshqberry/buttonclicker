@@ -39,5 +39,9 @@ added the ".env" file to the gitignore file. App still working locally, athough
 seems to be moving slower. Could be an issue other than that of the code changes,
 though...
 
-Oh wait, but that doesn't fix things for Heroku... it's still not gonna recognize
-the config/pusher
+... Actually, the "moving slower" thing was due to the connection loosening... that was
+an easy fix, although not the first thing I thought of...
+
+Fiddled with moving things around more, in order to make pusher.yaml file "viewable" by
+Heroku, and was able to push to Heroku once more... BUT still saw same error of
+'unitialized constant yaml.' So... yep, still can't open Heroku page.

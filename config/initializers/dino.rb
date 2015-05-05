@@ -1,3 +1,5 @@
+require 'yaml'
+
 pusher = YAML.load_file(File.join(Rails.application.root, 'config/pusher.yml'))
 
 Pusher.app_id = ENV['app_id']
