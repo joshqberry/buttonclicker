@@ -46,16 +46,11 @@ Fiddled with moving things around more, in order to make pusher.yaml file "viewa
 Heroku, and was able to push to Heroku once more... BUT still saw same error of
 'unitialized constant yaml.' So... yep, still can't open Heroku page.
 
-So one thing I think I'm verifying here
-
-
-
-
-
-
-
-
-
-require 'yaml'
-
-pusher = YAML.load_file(File.join(Rails.application.root, 'config/pusher.yml'))
+So one thing I think I'm verifying here, and maybe I knew this once upon a time, but I
+had damn well forgotten it, is that with my current app settings, I am UNABLE to push
+changes to Heroku unless I first push those changes to GitHub. (I suppose it's possible
+that all I have to do is COMMIT changes, not push them, but whatever.) YOU INDEED
+VERIFIED THIS; YOU HAD THE GEM 'PG' TWICE IN THE GEMFILE, THEN COMMENTED OUT ONE OF
+THEM, AND THEN TRIED TO PUSH TO HEROKU, BUT ERROR STILL SAID YOU HAD TWO LISTINGS OF
+THAT GEM. AFTER YOU COMMITTED YOUR CHANGE AND PUSHED TO GITHUB, YOU WERE ABLE TO PUSH
+TO HEROKU WITHOUT THAT ERROR.
