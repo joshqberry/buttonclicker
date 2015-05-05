@@ -1,5 +1,5 @@
-app_id=ENV['app_id']
+app_id=118004
 
-key=ENV['key']
+key=ab8ca3ba009ab04d14a3
 
-secret=ENV['secret']
+secret=e1eb939df4e9c0876e99

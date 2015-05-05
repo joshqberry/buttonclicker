@@ -1,7 +1,7 @@
 may have to use ruby version 1.9.3 to make this work?
 
-Huh, so it appears that not precompiling my assets (by adding the assets.rake file and
-the interior code) doesn't stop my app from running locally... but it does slow it
+Huh, so it appears that not precompiling my assets (by adding the lib/assets.rake file
+and its interior code) doesn't stop my app from running locally... but it does slow it
 DOWN a fair bit. It's now not always registering clicks; and also, the outpput in the
 terminal is decidedly slower. In fact, sometimes the click registers on the webpage but
 NOT in the terminal. Strange.
@@ -70,11 +70,24 @@ Once again, just for the notes:
   Removing the 'pg' duplicate from my gemfile (the one NOT under group :production do)
   solved my issue.
 
-
-
+Indeed, even though I had created a lib/assets/assets.rake and added this:
   Rake::Task["assets:precompile"].clear
   namespace :assets do
     task 'precompile' do
         puts "Not pre-compiling assets..."
     end
   end
+... that turned out not to be the issue.
+
+The answer was staring at me the whole damnin' time.
+
+OK, SO AFTER ALL THAT... pushing the button does nothing to affect Heroku. Maybe I
+should have expected that. Then again... well, more to look at.
+
+Preliminary look makes it seem as though I needed wireless NOT ONLY to get cords away
+from ping pong table, but also to reach Heroku in the first place. Though I'm not
+convinced. Why WOULDN'T Heroku site be able to respond to this?
+
+HEY I did good that time. Couldn't connect Arduino to wifi. Only spend about 20 minutes
+looking online before I just went back and considered that my network password was
+wrong. Fixed password, and got connected. Cool.
