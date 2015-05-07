@@ -8,7 +8,7 @@ Pusher.secret = ENV['secret']
 
 begin
   Rails.application.config.board = Dino::Board.new(Dino::TxRx.new)
-  button = Dino::Components::Button.new(pin: 2, board: Rails.application.config.board)
+  button = Dino::Components::Button.new(pin: 5, board: Rails.application.config.board)
 
   button.down do
     puts 'up'

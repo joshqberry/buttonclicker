@@ -1,3 +1,72 @@
+Potential issues:
+
+Some sites say Arduino 1.0.5 wasn't working with shield, but that 1.0.3 was. Am
+currently using 1.6.3. Don't know if that version has known issues. Haven't seen any
+sites say that it does. Although you'd have to go back and check if they're talking
+about the official Arduino shield or the CC3000.
+
+Might consider adding antenna to boost signal
+
+
+-------------
+
+Wednesday 5/6 8:30 p.m.
+
+Where are we:
+  With shield attached, am still able to upload dino sketch and then can run app via
+  local host. (Changed button input to pin 5; I think that that 2 wasn't available with
+  the shield, although I can't remember if I tried it or not.)
+
+  Also with shield attached, can connect to internet from home and send get requests to
+  some sites, although currently not Heroku.
+
+  ... Well, I wrote the above, but now I AM having issues connecting. The internet
+  connection test isn't returning anything.
+  ... OK ran a test, and it shows Arduino isn't identifying the wifi shield at all.
+  ... In fact, I took off the shield and tried just the basic app on localhost, and
+  terminal tells me the board is not connected!
+  ... huh, so I saw that the usual serial port I was supposed to be using was not
+  listed... which I guess stemmed from me upgrading to Arduino 6.3 yesterday. I
+  know this because when I opened 1.0.6, I was able to see that port was available.
+  And now, my app is once again OK to run on local host.
+  ... and connection test works again.
+
+  Don't tell me I'm gonna have to read all the Arduino update notes to figure out
+  if I should stick with this version or get the right drivers working on the latest
+  version...
+
+
+
+  connect to local host via wifi then use buttons?
+
+OK, think this through:
+  Button press can get to my computer via USB.
+  Wirelessly, want to do button press and see effect -- at least on home computer.
+    BUT there is no code on the Arduino telling it what to do with a button push.
+    The Rails server is running my program, and because that program can talk to
+    the Arduino through Dino, it can listen for the button push and act accordingly.
+  If program is on Heroku...   
+
+
+
+-------------
+
+Tuesday 5/5 midnight: Can't quite figure out how to access Heroku through the wifi.
+Can connect to other sites like www.example.com and www.google.com. Since my Heroku
+site doesn't have a "www", had to use the server "http://aqueous-scrubland-2496.herokuapp.com".
+Seems to almost connect, then says it can't make a TCP/IP connection.
+
+Also: Downloaded the Adafruit library, but that just wouldn't work. I thought it
+might. Guess the code don't match up. Still, the sketch that Adafruit suggested
+may have some usage for me... Although I just tried to delete it, so you might have
+to find it on the web. Also, try to get rid of the Adafruit Library listing under
+"Examples" (as well as any other associated files.)
+
+Huh, the on-off buttons that turn on/off led on arduino aren't working anymore. Not
+worrying about that, though -- button still works.
+
+----------------------
+
 may have to use ruby version 1.9.3 to make this work?
 
 Huh, so it appears that not precompiling my assets (by adding the lib/assets.rake file
@@ -91,3 +160,24 @@ convinced. Why WOULDN'T Heroku site be able to respond to this?
 HEY I did good that time. Couldn't connect Arduino to wifi. Only spend about 20 minutes
 looking online before I just went back and considered that my network password was
 wrong. Fixed password, and got connected. Cool.
+
+----------------------
+
+So here are the pins that I think are off-limits (this comes from
+https://learn.sparkfun.com/tutorials/cc3000-hookup-guide):
+
+The pins used by the shield are as follows:
+
+2 (INT) is the interrupt pin that the CC3000 uses to notify the Arduino that it has data.
+
+7 (EN) is the enable pin that the Arduino uses to turn the CC3000 off and on.
+
+8 (SDCS) is the chip select for the SD card.
+
+10 (CS) is the chip select for the CC3000.
+
+11 (MOSI) is the SPI communication line from the Arduino to the CC3000.
+
+12 (MISO) is the SPI communication line from the CC3000 to the Arduino.
+
+13 (SCK) is the SPI clock line.

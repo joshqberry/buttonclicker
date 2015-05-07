@@ -50,10 +50,10 @@ void Dino::process() {
     case 98: setHeartRate        ();  break;
     default:                          break;
   }
-  
+
   // Write the response.
   if (response[0] != '\0') writeResponse();
-  
+
   #ifdef debug
    Serial.print("Responded with - "); Serial.println(response);
    Serial.println();
@@ -89,7 +89,7 @@ void Dino::updateDigitalListeners() {
       if (rval != digitalListenerValues[i]) {
         digitalListenerValues[i] = rval;
         writeResponse();
-      } 
+      }
     }
   }
 }
@@ -144,7 +144,7 @@ void Dino::dWrite() {
 }
 
 // CMD = 02 // Digital Read
-void Dino::dRead() { 
+void Dino::dRead() {
   rval = digitalRead(pin);
   sprintf(response, "%02d:%02d", pin, rval);
 }
@@ -254,4 +254,3 @@ void Dino::setHeartRate() {
     Serial.print("Heart rate set to "); Serial.print(heartRate); Serial.println(" microseconds");
   #endif
 }
-
