@@ -7,6 +7,52 @@ about the official Arduino shield or the CC3000.
 
 Might consider adding antenna to boost signal
 
+Heroku add-ons? Can I add on dino or arduino?
+
+
+OK, some info gathered from Heroku info pages (all bookmarked):
+
+"The Heroku platform automatically routes HTTP requests sent to your app’s hostname(s)
+to your web dynos."
+"Inbound requests are received by a load balancer that offers SSL termination. From here
+they are passed directly to a set of routers. The routers are responsible for
+determining the location of your application’s web dynos and forwarding the HTTP
+request to one of these dynos. A request’s unobfuscated path from the end-client
+through the Heroku infrastructure to your application allows for full support of
+HTTP 1.1 features such as chunked responses, long polling, websockets, and using an
+async webserver to handle multiple responses from a single web process."
+
+... There's some info on timeouts, not quite sure if it applies for this case, but
+you may want to look at it...
+... also on response buffering, same thing...
+... also for "100-continue", which I don't think I'd need
+... Also a whole page on worker dynos, which I don't think I'd need
+
+From this page:
+http://en.wikipedia.org/wiki/Push_technology
+"For example, BOSH is a popular, long-lived HTTP technique used as a long-polling
+alternative to TCP when TCP is difficult or impossible to employ directly (e.g.,
+in a web browser); it is also an underlying technology in the XMPP, which Apple
+uses for its iCloud push support."
+
+YOU MAY VERY MUCH NEED TO LOOK AT WHAT BOSH HAS TO OFFER!
+http://en.wikipedia.org/wiki/BOSH
+
+So here's a typical request that goes to Heroku. This request was made when I
+refreshed the page at Heroku. So I guess this is the type of request you'd have
+to send to Heroku one way or another. (NOTE: At the very beginning of the request,
+there an extra bit, "at=info", but the Heroku info page doesn't indicate that that
+is a necessary part of the request.):
+  method=GET path="/" host=aqueous-scrubland-2496.herokuapp.com
+  request_id=2e89beee-6b43-475e-a05a-f7180cb4762d fwd="75.166.2.229" dyno=web.1
+  connect=1ms service=107ms status=200 bytes=2975
+
+"WebSocket functionality is supported for all applications."
+
+...Lots more, too much, on the Dynos page. Leaving it open for now.
+
+
+
 
 -------------
 
@@ -35,9 +81,28 @@ Where are we:
   if I should stick with this version or get the right drivers working on the latest
   version...
 
+  Well, I did see something about 6.3 fixing an issue with being able to connect
+  to urls that start with https, and my Heroku app is one of those, so...
 
+  OK, tried using "heroku console" command in terminal, that is no longer offered.
+  Was able to do "heroku run rails s" instead, but it doesn't recognize the existence
+  of the board... So I've gotta think that pretty much answers that I'm not going to
+  be able to affect Heroku via a button plugged into my computer (never had planned
+  to, anyway -- but it woulda be a helpful midpoint. I suppose I could get a program
+  to trigger a pusher event and therefore Heroku, but... nope, not unless I'm
+  totally out of ideas).
+  ... while reading a bunch of Heroku info pages, saw an option to use "heroku run
+  bash". Which I did... but same issue: "the board is not connected".
 
-  connect to local host via wifi then use buttons?
+  Maybe try to connect to local host via wifi then use buttons? Maybe. But that's
+  going to involve new challenges.
+  If you're gonna try that, see this:
+  http://forum.arduino.cc/index.php?topic=177527.0
+  Googling your ip address returned this: 75.166.2.229
+  ... although I don't know if that's the right address, or if there's a second one
+  associated with my computer, or if I need my router address.
+  ... by the way, the Google IP address provided by the above site didn't work for me,
+  but don't know why.
 
 OK, think this through:
   Button press can get to my computer via USB.
@@ -45,7 +110,8 @@ OK, think this through:
     BUT there is no code on the Arduino telling it what to do with a button push.
     The Rails server is running my program, and because that program can talk to
     the Arduino through Dino, it can listen for the button push and act accordingly.
-  If program is on Heroku...   
+  If program is on Heroku... well, it can't sense the board is there. Upon deploy, it
+  says as much: "The board is not connected." So...
 
 
 
