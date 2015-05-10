@@ -1,4 +1,5 @@
 require 'yaml'
+require 'dino'
 
 pusher = YAML.load_file(File.join(Rails.application.root, 'config/pusher.yml'))
 

@@ -51,7 +51,94 @@ is a necessary part of the request.):
 
 ...Lots more, too much, on the Dynos page. Leaving it open for now.
 
+-------------
 
+Saturday 5/9 10 a.m.
+
+Could this just be an issue of not waiting long enough for a connection? Well...
+maybe. I certainly do see the TCP error pop up sometimes in situations where I haven't
+come to expect seeing it.
+
+Adding "TCP" to the connection arguments like so:
+  if ( !client.connect(server, 80, TCP)
+... does not work... even though I got idea from a comment on SparkFun page that was
+only a year old...
+
+OK, think this through:
+
+Three issues here:
+
+  1. Can't press button and have heroku site change.
+
+      Button press can be recognized by my computer via USB.
+
+      When running Rails server on my computer, button press works. Why.
+
+      Because computer recognizes board, and therefore can read the button press.
+
+      There is no code on the Arduino telling it what to do with a button push. BUT
+      because I'm using Dino, the Dino code on the Arduino is able to read my Ruby
+      code. The Ruby code is running the show as far as recognizing a button push
+      and making things happen when it recognizes that button push.
+
+      Heroku can't sense the board is there. That is the first and crucial issue.
+
+      Upon deploy, it says as much: "The board is not connected." So...
+
+      Two potential issues here:
+        1. Some folks are using ethernet cables
+        2. some folks are using node.js.
+
+
+  2. Can't connect to localhost to test wifi.
+
+      This is actually not a necessary step but a half-step. So maybe I should stop
+      fucking with this step.
+
+  3. Can't get wifi to connect to Heroku.
+
+      From what I can surmise, this is an issue with the https. Can get wifi to do
+      GET requests to other sites. So this maybe is pretty solvable if you just
+      get a domain that doesn't have https.
+
+      I think I need to totally give up on wifi for now, though. It's a complicated
+      issue. The goal should just be to click, and have heroku site change. That way,
+      at least, a player:
+          -- brings computer to table and plugs in
+          -- logs in to Heroku site on same computer
+          -- Heroku site reads button presses and acts accordingly.
+
+Saturday 3 p.m. Can't figure things out, need to start thinking about quitting or
+asking for some serious help. Just don't have the knowledge. Nonetheless, am back
+on trying to connect via wifi...
+
+    -- As always, can connect to www.example.com
+    -- If I change "client.println("GET /index.html HTTP/1.1");" to
+    "client.println("GET / HTTP/1.1");", still works fine.
+
+    HOWEVER, my app doesn't HAVE an index.html. Could this be the issue?
+
+    Well, "client.println("Host: pongtester.herokuapp.com");" doesn't work, but that
+    could be because of the https issue...
+
+    But trying to connect to my local host with just the / doesn't work either...
+
+-------------
+
+Thursday 5/7 midnight
+
+changed production.rb code; added:
+config.force_ssl = false
+Nope, didn't work.
+
+if that doesn't work, try just renaming Heroku site to
+http://whatever
+... and see if that works.
+Nope, won't let you do that.
+
+
+if that doesn't work, you might try this in config file:
+config.allow_ssl_in_production = false
 
 
 -------------
@@ -98,22 +185,29 @@ Where are we:
   going to involve new challenges.
   If you're gonna try that, see this:
   http://forum.arduino.cc/index.php?topic=177527.0
-  Googling your ip address returned this: 75.166.2.229
+  Googling "how to find my ip address" returned this: 75.166.2.229 (as my "public"
+  address...)
+  ... although when I'm trying to connect via the shield, it tells me that the IP
+  address is 192.168.0.20
+  HOWEVER, looking up my ip address on the mac returns something slightly different:
+  192.168.0.4 -- this should be my "internal" ip address...
+  And it give my router address as 192.168.0.1, so I don't know where that "20" is
+  coming from...
+  Neat, if you enter 192.168.0.1 in a browser, you actually get a page corresponding
+  to the router...
   ... although I don't know if that's the right address, or if there's a second one
   associated with my computer, or if I need my router address.
   ... by the way, the Google IP address provided by the above site didn't work for me,
   but don't know why.
-
-OK, think this through:
-  Button press can get to my computer via USB.
-  Wirelessly, want to do button press and see effect -- at least on home computer.
-    BUT there is no code on the Arduino telling it what to do with a button push.
-    The Rails server is running my program, and because that program can talk to
-    the Arduino through Dino, it can listen for the button push and act accordingly.
-  If program is on Heroku... well, it can't sense the board is there. Upon deploy, it
-  says as much: "The board is not connected." So...
-
-
+  Note that you can type "127.0.0.1:3000" into your browser window (while
+  Rails server is running) and see the page you're seeking...
+  But even with Rails server running, "192.168.0.4:3000" and "192.168.0.4:3000" don't
+  do anyting. They immediately say webpage isn't available. Interestingly,
+  "192.168.0.20:3000" at least appears to be trying to connect... same with
+  "75.166.2.229:3000"
+  From the web: "If the Mac is connected to a network as well as the internet, then
+  it will have an internal IP address which marks its location on the local network,
+  and an external IP, which is the IP address of your internet connection. "
 
 -------------
 
@@ -247,3 +341,106 @@ The pins used by the shield are as follows:
 12 (MISO) is the SPI communication line from the CC3000 to the Arduino.
 
 13 (SCK) is the SPI clock line.
+
+--------------------------------
+
+This is pretty interesting -- here's what I got when trying to connect to unsecured
+network at Galvanize Platte:
+
+---------------------------
+SparkFun CC3000 - WebClient
+---------------------------
+CC3000 initialization complete
+Connecting to SSID: galvanize guest platte
+IP Address: 10.6.66.128
+Performing HTTP GET of: www.google.com
+
+HTTP/1.1 307 Temporary Redirect
+X-Frame-Options: deny
+Cache-Control: no-cache
+Location: https://n76.network-auth.com/splash/?mac=00%3A18%3A0A%3A08%3AE5%3A50&client_ip=10.20.161.111&client_mac=70:FF:76:02:05:06&vap=1&a=f1abd670358e036c31296e66b3b66c382ac00812&b=78604&auth_version=5&key=b87659b9cf9b8e785eea48a06fb4b2cb99677e4f&acl_ver=P351250V2&continue_url=http%3A%2F%2Fwww.google.com%2Findex.html
+Content-Type: text/html
+Pragma: no-cache
+Expires: 0
+Continue: close
+Connection: close
+Transfer-Encoding: chunked
+Server: lighttpd/1.4.35
+
+17b
+<html>
+<body>You are being <a href='https://n76.network-auth.com/splash/?mac=00%3A18%3A0A%3A08%3AE5%3A50&client_ip=10.20.161.111&client_mac=70:FF:76:02:05:06&vap=1&a=f1abd670358e036c31296e66b3b66c382ac00812&b=78604&auth_version=5&key=b87659b9cf9b8e785eea48a06fb4b2cb99677e4f&acl_ver=P351250V2&continue_url=http%3A%2F%2Fwww.google.com%2Findex.html'>redirected</a>.</body></html>
+
+0
+
+Finished WebClient test
+
+--------------------------------
+
+When I tried to connect to www.example.com using what I THOUGHT was its IP address,
+I got this:
+
+---------------------------
+SparkFun CC3000 - WebClient
+---------------------------
+CC3000 initialization complete
+Connecting to SSID: LolaDog
+IP Address: 192.168.0.20
+Performing HTTP GET of: 93.184.216.119
+
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Content-Type: text/html
+Date: Sat, 09 May 2015 16:46:30 GMT
+Last-Modified: Sat, 09 May 2015 15:54:18 GMT
+Server: ECS (mdw/1399)
+Content-Length: 94
+Connection: close
+
+<html><head><title>edgecastcdn.net</title></head><body><h1>edgecastcdn.net</h1></body></html>
+
+Finished WebClient test
+
+--------------------------------
+
+Hmm, this is promising: When I tried to use
+client.print("Host: pongtester.herokuapp.com");,
+... I got this back
+
+NOTE THAT YOU DIDN'T USE "PRINTLN", ALSO NOTE THAT YOU SHOULD'VE ACTUALLY BEEN
+CONNECTING TO WWW.EXAMPLE.COM STILL, AS FAR AS I CAN TELL...
+
+Note that when using client.println("Host: pongtester.herokuapp.com");, with the "ln",
+I got nothing at all (could not make TCP connection):
+
+
+---------------------------
+SparkFun CC3000 - WebClient
+---------------------------
+CC3000 initialization complete
+Connecting to SSID: LolaDog
+IP Address: 192.168.0.20
+Performing HTTP GET of: www.example.com
+
+HTTP/1.1 404 Not Found
+Content-Type: text/html
+Date: Sat, 09 May 2015 21:19:04 GMT
+Server: ECS (mdw/1275)
+Content-Length: 345
+Connection: close
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>404 - Not Found</title>
+	</head>
+	<body>
+		<h1>404 - Not Found</h1>
+	</body>
+</html>
+
+Finished WebClient test
+
+--------------------------------
