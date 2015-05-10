@@ -63,6 +63,17 @@ Sunday 5/10 1 p.m.
   Note that you've ADDED A CREDIT CARD to Heroku in hopes of add the pusher addon,
   which isn't functioning correctly yet...
 
+  Was taking a look at how Javascript was working on Heroku page (as part of trying
+  to just make a GET request to that page). Was seeing an error saying something along
+  the lines of "you have to declare your API key when you instantiate Pusher." Not
+  sure what did it, but after updating the pusher script call in my application layout
+  file, and getting rid of two extra jquery script calls, and moving the pusher script
+  call above the jquery call, and sticking Pusher.app_id = ENV['app_id'] in several
+  spots, including the index definition in the controller, as well as the development
+  and production environments files... AND adding the Heroku pusher addon... that error
+  is gone. Ooofah.
+
+
 -------------
 
 Saturday 5/9 10 a.m.
