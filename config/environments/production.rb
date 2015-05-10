@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  Pusher.app_id = ENV['app_id']
+  Pusher.key = ENV['key']
+  Pusher.secret = ENV['secret']
 end
