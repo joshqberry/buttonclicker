@@ -1,4 +1,11 @@
 Rails.application.configure do
+
+  require 'pusher'
+
+  Pusher.app_id = ENV['app_id']
+  Pusher.key = ENV['key']
+  Pusher.secret = ENV['secret']
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

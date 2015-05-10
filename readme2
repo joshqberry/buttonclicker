@@ -60,6 +60,8 @@ Sunday 5/10 1 p.m.
 
   Huh, note that running Rails c ALSO says board is not found. Why is it not found?
 
+  Note that you've ADDED A CREDIT CARD to Heroku in hopes of add the pusher addon,
+  which isn't functioning correctly yet...
 
 -------------
 
