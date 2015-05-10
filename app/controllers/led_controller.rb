@@ -1,11 +1,10 @@
 class LedController < ApplicationController
   before_filter :set_up_led, only: [:on, :off]
 
-  Pusher.app_id = ENV['app_id']
-  Pusher.key = ENV['key']
-  Pusher.secret = ENV['secret']
-
   def index
+    Pusher.app_id = ENV['app_id']
+    Pusher.key = ENV['key']
+    Pusher.secret = ENV['secret']
   end
 
   def other
