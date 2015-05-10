@@ -19,6 +19,12 @@ class LedController < ApplicationController
     render :nothing => true
   end
 
+  def numberup
+  respond_to do |format|
+    format.js { render :js => "incrementValueBig();" }
+  end
+end
+
   private
 
   def set_up_led

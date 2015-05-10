@@ -53,6 +53,16 @@ is a necessary part of the request.):
 
 -------------
 
+Sunday 5/10 1 p.m.
+
+  New approach. See if you can set a GET to Heroku, then see if you can program
+  Arduino to do that.
+
+  Huh, note that running Rails c ALSO says board is not found. Why is it not found?
+
+
+-------------
+
 Saturday 5/9 10 a.m.
 
 Could this just be an issue of not waiting long enough for a connection? Well...
