@@ -1,26 +1,3 @@
-
-
-<script type="text/javascript">
-var xhr = new XMLHttpRequest();
-
-
-xhr.onreadystatechange=function() {
-  if (this.readyState === 4 && this.status === 200)
-    {
-    document.getElementById("myDiv").innerHTML="hooptydoo";
-    }
-  }
-xhr.open("GET", "/numberup", true);
-xhr.send(null);
-}
-</script>
-
-<div id="myDiv"><h2>Let AJAX change this text</h2></div>
-<button type="button" onclick="loadXMLDoc()">Change Content</button>
-
-<br>
-<br>
-
 <button id="on">
   On
 </button>
