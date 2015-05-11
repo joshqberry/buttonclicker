@@ -73,6 +73,18 @@ Sunday 5/10 1 p.m.
   and production environments files... AND adding the Heroku pusher addon... that error
   is gone. Ooofah.
 
+Sunday 8:30 p.m. After a couple of adjustments (see way at the bottom), I can
+PERFORM A GET REQUEST OF HEROKU. Oh hell yeah. Now: Can I make a GET request that
+doesn't return the page but rather makes something happen?
+
+OK, so this doesn't work in postman:
+pongtester.herokuapp.com/numberup
+... but THIS does:
+pongtester.herokuapp.com?numberup
+... although it doesn't change the number...
+
+Well, you can enter pongtester.herokuapp.com?blah and the page still renders...
+
 
 -------------
 
@@ -467,3 +479,28 @@ Connection: close
 Finished WebClient test
 
 --------------------------------
+
+OK, also promising. Using pongtester.herokuapp.com for both:
+
+char server[] = "pongtester.herokuapp.com";
+
+... and:
+
+#define HOST "pongtester.herokuapp.com"
+
+... I get another 404 Not Found.
+
+So why does entering the same thing as a GET in postman return my app?
+
+Is this just a matter of needing a delay?
+
+Mabye... I also needed to be seeking a page that actually existed... not index.html,
+but rather just "/"... and... SUCCESS!
+
+Here's the complete heroku log from my successfull attempt:
+
+2015-05-11T02:32:37.785257+00:00 heroku[router]: at=info method=GET path="/" host=pongtester.herokuapp.com request_id=9b6d5dbb-950b-4eab-8db7-473cd4bdf254 fwd="75.166.74.55" dyno=web.1 connect=1ms service=15ms status=200 bytes=2903
+2015-05-11T02:32:37.779953+00:00 app[web.1]: Started GET "/" for 75.166.74.55 at 2015-05-11 02:32:37 +0000
+2015-05-11T02:32:37.788165+00:00 app[web.1]:   Rendered led/index.html.erb within layouts/application (0.7ms)
+2015-05-11T02:32:37.786120+00:00 app[web.1]: Processing by LedController#index as HTML
+2015-05-11T02:32:37.789421+00:00 app[web.1]: Completed 200 OK in 3ms (Views: 2.8ms | ActiveRecord: 0.0ms)
