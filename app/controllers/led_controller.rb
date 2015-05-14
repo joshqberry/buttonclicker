@@ -2,9 +2,9 @@ class LedController < ApplicationController
   before_filter :set_up_led, only: [:on, :off]
 
   def index
-    Pusher.app_id = ENV['app_id']
-    Pusher.key = ENV['key']
-    Pusher.secret = ENV['secret']
+    Pusher.app_id = ENV['heroku_app_id']
+    Pusher.key = ENV['heroku_key']
+    Pusher.secret = ENV['heroku_secret']
   end
 
   def other
@@ -32,9 +32,6 @@ class LedController < ApplicationController
 end
 
 def alsonumberup
-  Pusher.app_id = ENV['app_id']
-  Pusher.key = ENV['key']
-  Pusher.secret = ENV['secret']
   Pusher['button'].trigger!('up', { :some => 'data' })
 end
 
