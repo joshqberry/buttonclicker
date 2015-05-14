@@ -53,6 +53,27 @@ is a necessary part of the request.):
 
 -------------
 
+Monday 5/13 8 p.m.
+
+  Plan of attack:
+  use puma
+  make sure shit still works
+  test get call to local
+  test get call to heroku
+  see if you can get Arduino to make get call
+  then fuck with websockers
+
+  OK, going to try to use the Puma webserver for Heroku, mainly just for (hopefully) added
+stability.
+  -- Heroku says: "You can only utilize threads in Puma if your entire code-base is thread
+  safe." I assume mine is. Not gonna worry about that for now.
+  -- also, this is kinda mainly for a app where multiple people will be using it at the same
+  time. Nonetheless...
+  -- You'll have to keep an eye out for possible timeouts, and take appropriate action.
+
+
+-------------
+
 Sunday 5/10 1 p.m.
 
   New approach. See if you can set a GET to Heroku, then see if you can program
@@ -102,6 +123,10 @@ incrementValueBig();
 
 Hmm, the internets tell me: "Browsers do not provide an API for listening for any HTTP
 request." So that's maybe not an option... but then what is?
+
+I suppose websockets. So that they're constantly listening for updating information.
+
+I dunno, does that mean I'm back where I was?
 
 -------------
 
@@ -273,6 +298,7 @@ might. Guess the code don't match up. Still, the sketch that Adafruit suggested
 may have some usage for me... Although I just tried to delete it, so you might have
 to find it on the web. Also, try to get rid of the Adafruit Library listing under
 "Examples" (as well as any other associated files.)
+... and also try to get rid of the SFE_cc3000_Library-master2 listing. I think I deleted this too...
 
 Huh, the on-off buttons that turn on/off led on arduino aren't working anymore. Not
 worrying about that, though -- button still works.

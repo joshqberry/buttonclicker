@@ -10,6 +10,9 @@ class LedController < ApplicationController
   def other
   end
 
+  def maybe
+  end
+
   def on
     @led.on
 
@@ -26,6 +29,10 @@ class LedController < ApplicationController
   respond_to do |format|
     format.js { render :js => "incrementValueBig();" }
   end
+end
+
+def alsonumberup
+  Pusher['button'].trigger!('up', { :some => 'data' })
 end
 
   private

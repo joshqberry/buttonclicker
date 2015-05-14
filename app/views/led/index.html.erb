@@ -7,6 +7,9 @@
 <button id="goingup">
   numberup
 </button>
+<button id="alsogoingup">
+  alsonumberup
+</button>
 <br>
 <br>
 
@@ -30,6 +33,10 @@
 
   $('#goingup').click(function(){
     $.get('/numberup')
+  });
+
+  $('#alsogoingup').click(function(){
+    $.get('/alsonumberup')
   });
 
   var pusher = new Pusher('<%= Pusher.key %>');
