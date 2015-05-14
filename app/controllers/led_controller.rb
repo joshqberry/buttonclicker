@@ -11,6 +11,9 @@ class LedController < ApplicationController
   end
 
   def maybe
+    Pusher['test_channel'].trigger('greet', {
+  :greeting => "Hello there!"
+})
   end
 
   def on

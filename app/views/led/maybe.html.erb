@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Arduino Web Page</title>
-  <script>
-  function GetSwitchState()
-  {
-    nocache = "&nocache=" + Math.random() * 1000000
-    var request =jew XMLHttpRequest
-    request.onreadystatechange = function()
-    {
-      if (this.readyState === 4) {
-        if (this.status === 200) {
-          if (this.responseText != null) {
-            document.getElementbyId("switch_txt").innerHTML = this.responseText;
+<script src="//js.pusher.com/2.2/pusher.min.js"></script>
+<script>
+// If your Heroku application is within the EU region,
+// uncomment the followling lines
+// Pusher.host = 'ws-eu.pusher.com';
+// Pusher.sockjs_host = 'sockjs-eu.pusher.com';
 
-          }
-        }
-      }
-    }
-    request.open("GET", "ajax_switch" + nocache, true);
-    request.send(null);
-    setTimeout("GetSwitchState()", 1000)
-  }
-  </script>
-</head>
-<body onload="GetSwitchState()">
-  <h1>Arduino AJAX Switch Status</h1>
-  <p id="switch_text">Switch state: Not requested...</p>
-</body>
-</html>
+var pusher = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
+var channel = pusher.subscribe('test_channel');
+channel.bind('greet', function(data) {
+  alert(data.greeting);
+});
+</script>
