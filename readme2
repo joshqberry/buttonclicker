@@ -97,7 +97,9 @@ stability.
   ... For Heroku config, I had tried to use ENV['app_id'], etc., but I've now changed that to
   more simply Pusher.key = 0000000, etc....
   -- that's not doin' it.
-  ...
+  ... OK, tried defining the app_id, etc., within the method I was calling... (still don't
+  see why this should be needed when it wasn't needed on localhost...)
+  ... still no good... maybe it's the Dino.rb file? So let's get entirely rid of that...
 
 -------------
 
@@ -598,3 +600,32 @@ xhr.send();
 <button type="button" onclick="loadXMLDoc()">Change Content</button>
 
 ------------------------------------------
+
+THIS BELONGS IN DINO.RB
+
+require 'yaml'
+require 'dino'
+
+pusher = YAML.load_file(File.join(Rails.application.root, 'config/pusher.yml'))
+
+Pusher.app_id = ENV['app_id']
+Pusher.key = ENV['key']
+Pusher.secret = ENV['secret']
+
+begin
+  Rails.application.config.board = Dino::Board.new(Dino::TxRx.new)
+  button = Dino::Components::Button.new(pin: 5, board: Rails.application.config.board)
+
+  button.down do
+    puts 'up'
+    Pusher['button'].trigger!('down', { :some => 'data' })
+  end
+
+  button.up do
+    puts 'down'
+    Pusher['button'].trigger!('up', { :some => 'data' })
+end
+
+rescue Dino::BoardNotFound
+  puts 'The board is not connected'
+end
