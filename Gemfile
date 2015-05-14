@@ -14,7 +14,6 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'pusher'
 gem 'dino'
 
 # Use jquery as the JavaScript library
@@ -35,6 +34,9 @@ group :production do
   gem 'pg'
 
   gem 'rails_12factor'
+
+  gem 'pusher'
+
 end
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
