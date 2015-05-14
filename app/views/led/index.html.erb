@@ -42,7 +42,7 @@
   var pusherr = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
   var channell = pusherr.subscribe('button');
 
-  channel.bind('up', function(data) {
+  channell.bind('up', function(data) {
 
    var value = parseInt(document.getElementById('numberBig').value, 10);
 

@@ -123,6 +123,8 @@ stability.
   api key, etc. Maybe it's an issue with not having a view associated with that action.
   Maybe I'm setting global variables for both Pusher.new's and both channels that have the same
   name, and so those are fucking with each other.
+  -- Nope, that last one's not it; I tried changing one pair; no success with the button still.
+  OK, fuck the button. Can I get pusher to make the fucking number go up?
 
 -------------
 
