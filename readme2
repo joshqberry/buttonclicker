@@ -100,6 +100,7 @@ stability.
   ... OK, tried defining the app_id, etc., within the method I was calling... (still don't
   see why this should be needed when it wasn't needed on localhost...)
   ... still no good... maybe it's the Dino.rb file? So let's get entirely rid of that...
+  -- still no good. Shit, I'm at loss now.
 
 -------------
 
