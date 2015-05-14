@@ -2,7 +2,7 @@ class LedController < ApplicationController
   before_filter :set_up_led, only: [:on, :off]
 
   def index
-    
+
   end
 
   def other
@@ -33,9 +33,7 @@ class LedController < ApplicationController
 end
 
 def alsonumberup
-  respond_to do |format|
-    format.js { render :js => "incrementValueBig();" }
-  end
+  Pusher['button'].trigger!('up', { :some => 'data' })
 end
 
   private

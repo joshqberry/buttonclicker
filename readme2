@@ -113,6 +113,10 @@ stability.
   ... I dunno. Really I don't.
   ... OK, let's get rid of reference to Pusher key, etc., everywhere else... and leave that
   solely in development.rb, as I was told...
+  -- OK, fuckin' FINALLY. The first time I went to the page, it rendered, as before, without
+  doing anything. But second time around, for Christ's fuckin' sake, the alert popped up.
+  JEEEESUS what a fuckin' problem. It's now midnight. This has been my whole night.
+
 
 -------------
 
