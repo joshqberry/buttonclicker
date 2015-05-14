@@ -39,7 +39,29 @@
     $.get('/alsonumberup')
   });
 
-  
+  channel.bind('up', function(data) {
+
+   var value = parseInt(document.getElementById('numberBig').value, 10);
+
+   value = isNaN(value) ? 0 : value;
+
+   value++;
+
+   document.getElementById('numberBig').value = value;
+
+   $('body').css({background: 'white'});
+
+   if (document.getElementById('numberBig').value == 11)
+
+   {document.getElementById('numberBig').value = "Nicole is awesome";}
+
+ });
+
+ channel.bind('down', function(data) {
+
+   $('body').css({background: 'red'})
+
+ });
 
 
 
