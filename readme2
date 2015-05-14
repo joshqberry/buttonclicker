@@ -91,6 +91,13 @@ stability.
   out the stuff I had in the production.rb file (just the same stuff as in the Dino.rb file...)
   -- So now, localhost still works in full, Heroku site... same thing still. Not reading the
   client configuration.
+  ... OK, took out all the stuff about the Dino board in the development.rb file. THAT's gotta
+  do it, right?
+  -- localhost still works in full, Heroku site... still not in full.
+  ... For Heroku config, I had tried to use ENV['app_id'], etc., but I've now changed that to
+  more simply Pusher.key = 0000000, etc....
+  -- that's not doin' it.
+  ...
 
 -------------
 

@@ -32,6 +32,9 @@ class LedController < ApplicationController
 end
 
 def alsonumberup
+  Pusher.app_id = ENV['app_id']
+  Pusher.key = ENV['key']
+  Pusher.secret = ENV['secret']
   Pusher['button'].trigger!('up', { :some => 'data' })
 end
 
