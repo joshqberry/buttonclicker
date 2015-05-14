@@ -89,7 +89,8 @@ stability.
   Even though I'd thought I'd made that accessible...
   ... well, the guidelines say to configure your app for development mode only, so I've cut
   out the stuff I had in the production.rb file (just the same stuff as in the Dino.rb file...)
-  
+  -- So now, localhost still works in full, Heroku site... same thing still. Not reading the
+  client configuration.
 
 -------------
 
