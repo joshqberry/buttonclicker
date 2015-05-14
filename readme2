@@ -130,7 +130,7 @@ stability.
 
 Sunday 5/10 1 p.m.
 
-  New approach. See if you can set a GET to Heroku, then see if you can program
+  New approach. See if you can send a GET to Heroku, then see if you can program
   Arduino to do that.
 
   Huh, note that running Rails c ALSO says board is not found. Why is it not found?
