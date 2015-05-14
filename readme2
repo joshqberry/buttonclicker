@@ -85,7 +85,7 @@ stability.
   please check that key, secret and app_id are configured.):"
   ... uh oh, you know what? The "also numberup" is the ONLY method that is currently using
   Pusher. So that's a problem. Heroku is not responding to Pusher.
-  ... OK, well, Heroku config tells me that it does see Pusher.key, but not the other stuff.
+  ... OK, well, Heroku config tells me that it does see Pusher key, but not the other stuff.
   Even though I'd thought I'd made that accessible...
   ... well, the guidelines say to configure your app for development mode only, so I've cut
   out the stuff I had in the production.rb file (just the same stuff as in the Dino.rb file...)
@@ -95,15 +95,24 @@ stability.
   do it, right?
   -- localhost still works in full, Heroku site... still not in full.
   ... For Heroku config, I had tried to use ENV['app_id'], etc., but I've now changed that to
-  more simply Pusher.key = 0000000, etc....
+  more simply Pusher key = 0000000, etc....
   -- that's not doin' it.
   ... OK, tried defining the app_id, etc., within the method I was calling... (still don't
   see why this should be needed when it wasn't needed on localhost...)
   ... still no good... maybe it's the Dino.rb file? So let's get entirely rid of that...
   -- still no good. Shit, I'm at loss now.
   ... tried moving pusher gem to production group, no good.
-  ... tried deleting pusher.yml file (wasn't using it anyway), no good.
-
+  ... tried deleting pusher yml file (wasn't using it anyway), no good.
+  ... OK, huh. Tried using the example test that Heroku provided. On a different page. And the
+  first time I tried, the page rendered, although the alert didn't fire. And then the second
+  time, I got an error message. And the Heroku logs show that the first rendering was fine
+  and that the second gave me a 500 error again.
+  ... and after I went back -- after a couple of minutes -- same thing again. First time
+  rendered although alert didn't fire; then I went to a different page; then back to the
+  original page, where I got an error message.
+  ... I dunno. Really I don't.
+  ... OK, let's get rid of reference to Pusher key, etc., everywhere else... and leave that
+  solely in development.rb, as I was told...
 
 -------------
 
@@ -382,7 +391,7 @@ though...
 ... Actually, the "moving slower" thing was due to the connection loosening... that was
 an easy fix, although not the first thing I thought of...
 
-Fiddled with moving things around more, in order to make pusher.yaml file "viewable" by
+Fiddled with moving things around more, in order to make pusher yaml file "viewable" by
 Heroku, and was able to push to Heroku once more... BUT still saw same error of
 'unitialized constant yaml.' So... yep, still can't open Heroku page.
 
@@ -605,34 +614,7 @@ xhr.send();
 
 ------------------------------------------
 
-THIS BELONGS IN DINO.RB
 
-require 'yaml'
-require 'dino'
-
-pusher = YAML.load_file(File.join(Rails.application.root, 'config/pusher.yml'))
-
-Pusher.app_id = ENV['app_id']
-Pusher.key = ENV['key']
-Pusher.secret = ENV['secret']
-
-begin
-  Rails.application.config.board = Dino::Board.new(Dino::TxRx.new)
-  button = Dino::Components::Button.new(pin: 5, board: Rails.application.config.board)
-
-  button.down do
-    puts 'up'
-    Pusher['button'].trigger!('down', { :some => 'data' })
-  end
-
-  button.up do
-    puts 'down'
-    Pusher['button'].trigger!('up', { :some => 'data' })
-end
-
-rescue Dino::BoardNotFound
-  puts 'The board is not connected'
-end
 
 --------------------------------
 
