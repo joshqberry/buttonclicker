@@ -39,6 +39,9 @@
     $.get('/alsonumberup')
   });
 
+  var pusher = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
+  var channel = pusher.subscribe('up');
+
   channel.bind('up', function(data) {
 
    var value = parseInt(document.getElementById('numberBig').value, 10);

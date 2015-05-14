@@ -116,7 +116,10 @@ stability.
   -- OK, fuckin' FINALLY. The first time I went to the page, it rendered, as before, without
   doing anything. But second time around, for Christ's fuckin' sake, the alert popped up.
   JEEEESUS what a fuckin' problem. It's now midnight. This has been my whole night.
-
+  ... huh, so I put back some of the stuff I took out, just to see if I could pinpoint the
+  problem. I put back the stuff that related to the "alsonumberup" button, and that stuff
+  still doesn't work, but the alert still does. I can't figure why the button won't work,
+  though, if the alert will. 
 
 -------------
 
