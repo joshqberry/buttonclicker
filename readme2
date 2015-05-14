@@ -119,7 +119,10 @@ stability.
   ... huh, so I put back some of the stuff I took out, just to see if I could pinpoint the
   problem. I put back the stuff that related to the "alsonumberup" button, and that stuff
   still doesn't work, but the alert still does. I can't figure why the button won't work,
-  though, if the alert will. 
+  though, if the alert will. Maybe I bound that earlier channel, somehow, to the earlier
+  api key, etc. Maybe it's an issue with not having a view associated with that action.
+  Maybe I'm setting global variables for both Pusher.new's and both channels that have the same
+  name, and so those are fucking with each other.
 
 -------------
 

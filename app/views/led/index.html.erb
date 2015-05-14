@@ -39,8 +39,8 @@
     $.get('/alsonumberup')
   });
 
-  var pusher = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
-  var channel = pusher.subscribe('up');
+  var pusherr = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
+  var channell = pusherr.subscribe('button');
 
   channel.bind('up', function(data) {
 
