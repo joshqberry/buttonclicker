@@ -33,7 +33,7 @@ class LedController < ApplicationController
 end
 
 def alsonumberup
-  Pusher['button'].trigger!('up', { :some => 'data' })
+  Pusher['button'].trigger('up', { :some => 'data' })
 end
 
   private
