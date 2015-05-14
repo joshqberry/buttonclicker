@@ -70,7 +70,26 @@ stability.
   -- also, this is kinda mainly for a app where multiple people will be using it at the same
   time. Nonetheless...
   -- You'll have to keep an eye out for possible timeouts, and take appropriate action.
-
+  -- So when I start Rails server now, I see this (just noting it...)
+        Puma 2.11.2 starting...
+      * Min threads: 0, max threads: 16
+      * Environment: development
+      * Listening on tcp://localhost:3000
+  -- OK, all good as far as I can tell. Can see page on localhost, can see page on Heroku.
+  HOWEVER... the "alsonumberup" button DOESN'T work on Heroku. And I'm not sure why! I'm
+  seeing, in the Heroku logs, a "500" error, which, according to Wikipedia, is "A generic
+  error message, given when an unexpected condition was encountered and no more specific
+  message is suitable." Well, maybe I can't trigger the same Pusher action in two different
+  ways -- at least via Heroku.
+  ... OK, the logs also say "Pusher::ConfigurationError (Missing client configuration:
+  please check that key, secret and app_id are configured.):"
+  ... uh oh, you know what? The "also numberup" is the ONLY method that is currently using
+  Pusher. So that's a problem. Heroku is not responding to Pusher.
+  ... OK, well, Heroku config tells me that it does see Pusher.key, but not the other stuff.
+  Even though I'd thought I'd made that accessible...
+  ... well, the guidelines say to configure your app for development mode only, so I've cut
+  out the stuff I had in the production.rb file (just the same stuff as in the Dino.rb file...)
+  
 
 -------------
 
