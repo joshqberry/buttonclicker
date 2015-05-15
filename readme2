@@ -125,7 +125,9 @@ on in Heroku vs. one error in local host. On Heroku, when I refresh the page, I 
 that says, basically, code 4005: path not found. Then clicking button gives me a 500 error.
 So I assume that fixing the FIRST error would make it so I could get the button on Heroku
 working, even if it was still showing the same error as on localhost.
-
+... by the way note that the "maybe" view is now not working either, although I don't
+think that's a concern since I've been fucking with stuff. It was working before,
+even when the button wasn't -- I think I need to reset the Heroku config stuff...
 
 -------------
 
