@@ -3,7 +3,9 @@
 <head>
 <script src="//js.pusher.com/2.2/pusher.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
+<script type="text/javascript">
+   window.pusher_key = '<%= ENV['heroku_key'] %>';
+ </script>
   <title>Buttonclicker</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>

@@ -117,10 +117,14 @@ authentication hash, is being sent back. But that's actually got me confused. I 
 placed any code yet that is supposed to be TAKING the socket_id and channel_name and
 CREATING a hash out of it. Huh... Why would that be working?
 
-Well, nonetheless,  THE BUTTON IS WORKING!!!!! HOORAY!!!!
+Now... as far as the button goes, it still works, and yet I still get a 500 error each time
+I click the button. Not sure of the cause or the solution.
 
-However, I'm still seeing, in the console, a 500 error each time I click the button. Not
-sure of the cause or the solution.
+OK, so I pushed to Heroku just now, button still not working. But there are TWO errors going
+on in Heroku vs. one error in local host. On Heroku, when I refresh the page, I get an error
+that says, basically, code 4005: path not found. Then clicking button gives me a 500 error.
+So I assume that fixing the FIRST error would make it so I could get the button on Heroku
+working, even if it was showing the same error as on localhost.
 
 
 -------------
