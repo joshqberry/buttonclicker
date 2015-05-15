@@ -64,7 +64,7 @@ provide the key. Well, not looking at that now.
 
 -------------
 
-Tuesday 5/14 5 p.m.
+Thursday 5/14 5 p.m. - Friday 5/15
 
 OK, after a bunch of reading, it seems that I need to create PRIVATE CHANNELS in order to let
 a client (such as the client pressing the button) trigger an event. Am going through the
@@ -129,12 +129,36 @@ working, even if it was still showing the same error as on localhost.
 think that's a concern since I've been fucking with stuff. It was working before,
 even when the button wasn't -- I think I need to reset the Heroku config stuff...
 
+OK, so I got rid of the "window.pusher_key = '<%= ENV['heroku_key'] %>';" line I had
+placed in my application layout file... (I had thought maybe that was what I needed,
+based on what I saw at https://github.com/dipth/pusher_demo), and then re-added the
+heroku-specific pusher app_id, key and secret using Heroku config... ANNNNNDDDDDD success!
+
+YAH! So I just checked, and the button works on both localhost and Heroku, and the maybe
+view alert works on both localhost and heroku. For fuck's sake, I can move on. Although
+I'm still seeing that "GET http://localhost:3000/alsonumberup 500 (Internal Server Error)"
+on both, I'm gonna assume for now that's just an issue with the GET request looking for a
+template that isn't there.
+
+But will that GET error cause an issue with my attempt to make a GET request to these sites
+from other sources?
+
+Well, not in localhost. I get a "template is missing" error.
+
+All, right, AWESOME. I needed to add "render :nothing => true" to the action. Now, when I
+make a GET call with Postman, and have my Rails server running, my localhost page is
+responding (by incrementing the number.)
+
+
+
+
+
+
 -------------
 
 Monday 5/13 8 p.m.
 
   Plan of attack:
-  make sure shit still works
   test get call to local
   test get call to heroku
   see if you can get Arduino to make get call
