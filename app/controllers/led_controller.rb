@@ -9,6 +9,8 @@ class LedController < ApplicationController
         Pusher.secret = ENV['heroku_secret']
   end
 
+
+
   def other
   end
 
@@ -37,7 +39,7 @@ class LedController < ApplicationController
 end
 
 def alsonumberup
-  Pusher['button'].trigger('up', { :some => 'data' })
+  Pusher['private-button'].trigger!('up', { :some => 'data' })
 end
 
   private

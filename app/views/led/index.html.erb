@@ -39,10 +39,10 @@
     $.get('/alsonumberup')
   });
 
-  var pusherr = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
-  var channell = pusherr.subscribe('button');
+  var pusher = new Pusher('<%= Pusher.key %>',{ authEndpoint: '/pusher/auth' }); // uses your APP KEY
+  var channel = pusher.subscribe('private-button');
 
-  channell.bind('up', function(data) {
+  channel.bind('up', function(data) {
 
    var value = parseInt(document.getElementById('numberBig').value, 10);
 

@@ -1,4 +1,3 @@
-Potential issues:
 
 Some sites say Arduino 1.0.5 wasn't working with shield, but that 1.0.3 was. Am
 currently using 1.6.3. Don't know if that version has known issues. Haven't seen any
@@ -8,7 +7,6 @@ about the official Arduino shield or the CC3000.
 Might consider adding antenna to boost signal
 
 Heroku add-ons? Can I add on dino or arduino?
-
 
 OK, some info gathered from Heroku info pages (all bookmarked):
 
@@ -51,12 +49,85 @@ is a necessary part of the request.):
 
 ...Lots more, too much, on the Dynos page. Leaving it open for now.
 
+Hey, SHOULD I be using
+  window.pusher_key = '<%= ENV['heroku_key'] %>';
+in my application layout?
+Wes sez: you should never give keys to your client, because they can impersonate you.
+So any need for a key should involve an ajax call to the server site, which will then
+provide the key. Well, not looking at that now.
+... huh, looks like taking this out of application layout:
+    <script type="text/javascript">
+       window.pusher_key = '<%= ENV['heroku_key'] %>';
+     </script>
+... doesn't affect the button. It's still working. But will it on heroku?
+
+
+-------------
+
+Tuesday 5/14 5 p.m.
+
+OK, after a bunch of reading, it seems that I need to create PRIVATE CHANNELS in order to let
+a client (such as the client pressing the button) trigger an event. Am going through the
+process of doing so on localhost...
+... am seeing the right thing when I load page -- a 404 error ("couldn't get auth info from
+your webapp"). And then clicking on button gives a 500 ("internal server error"). That's the
+one that's worrisome.
+... then again, maybe not. After setting up routes for the callback, I'm pretty sure it's
+now going to the right spot... just not working because the setup isn't done. In other words,
+I'm no longer seeing a 404 error, just a 500 error.
+
+  OK, this may be awesome?  Following https://github.com/dipth/pusher_demo, I added access to
+  to the pusher key within the browser window. Then, I started the Rails server,
+  then went to browser window. Interestingly, as soon as I clicked on the tab,
+  there was some movement in the terminal  -- although I guess that makes sense;
+  the javascript stuff is firing only on the... well, I guess the "activation"
+  of that specific window, although I don't know exactly what function is doing
+  the activating (load? ready?) -- and so I saw this:
+
+  Started GET "/" for ::1 at 2015-05-15 10:35:57 -0600
+Processing by LedController#index as HTML
+  Rendered led/index.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 667ms (Views: 666.2ms | ActiveRecord: 0.0ms)
+
+(then some of the usual GET "assets/etc." stuff...)
+
+Started POST "/pusher/auth" for ::1 at 2015-05-15 10:35:59 -0600
+Processing by PusherController#auth as */*
+  Parameters: {"socket_id"=>"45441.3484269", "channel_name"=>"private-button"}
+Completed 200 OK in 2ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+THEN, I refreshed and saw this:
+
+Started GET "/" for ::1 at 2015-05-15 10:36:21 -0600
+Processing by LedController#index as HTML
+  Rendered led/index.html.erb within layouts/application (0.1ms)
+Completed 200 OK in 40ms (Views: 39.2ms | ActiveRecord: 0.0ms)
+
+(then some of the usual GET "assets/etc." stuff...)
+
+Started POST "/pusher/auth" for ::1 at 2015-05-15 10:36:21 -0600
+Processing by PusherController#auth as */*
+  Parameters: {"socket_id"=>"45439.3485084", "channel_name"=>"private-button"}
+Completed 200 OK in 1ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+
+AND, THIS IS GOOD, no visible errors when I look at the inspect-elements network
+tab! Whereas before, I'd been getting that 500 error! So as of now, I can see that
+pusher is sending me a socket_id and channel_name. And a response, in the form of an
+authentication hash, is being sent back. But that's actually got me confused. I haven't
+placed any code yet that is supposed to be TAKING the socket_id and channel_name and
+CREATING a hash out of it. Huh... Why would that be working?
+
+Well, nonetheless,  THE BUTTON IS WORKING!!!!! HOORAY!!!!
+
+However, I'm still seeing, in the console, a 500 error each time I click the button. Not
+sure of the cause or the solution.
+
+
 -------------
 
 Monday 5/13 8 p.m.
 
   Plan of attack:
-  use puma
   make sure shit still works
   test get call to local
   test get call to heroku
@@ -124,6 +195,12 @@ stability.
   Maybe I'm setting global variables for both Pusher.new's and both channels that have the same
   name, and so those are fucking with each other.
   -- Nope, that last one's not it; I tried changing one pair; no success with the button still.
+  ... although on localhost, BOTH the button and the alert work.
+  Weird, even though localhost WORKS, in "inspect element" I can see errors: It says:
+  "GET http://localhost:3000/alsonumberup 500 (Internal Server Error)". So why does the button
+  work anyway? Is this just a problem of using the verb GET, and somehow localhost weasels
+  around that, but Heroku won't?
+
   OK, fuck the button. Can I get pusher to make the fucking number go up?
 
 -------------
