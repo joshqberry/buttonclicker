@@ -124,7 +124,7 @@ OK, so I pushed to Heroku just now, button still not working. But there are TWO 
 on in Heroku vs. one error in local host. On Heroku, when I refresh the page, I get an error
 that says, basically, code 4005: path not found. Then clicking button gives me a 500 error.
 So I assume that fixing the FIRST error would make it so I could get the button on Heroku
-working, even if it was showing the same error as on localhost.
+working, even if it was still showing the same error as on localhost.
 
 
 -------------

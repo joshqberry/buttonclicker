@@ -1,5 +1,12 @@
 Rails.application.configure do
 
+  require 'pusher'
+
+
+  Pusher.app_id = ENV['heroku_app_id']
+  Pusher.key = ENV['heroku_key']
+  Pusher.secret = ENV['heroku_secret']
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
