@@ -10,15 +10,39 @@
 <button id="alsogoingup">
   alsonumberup
 </button>
+
+<div style="float:right">
+  <button id="goingupright">
+    numberupright
+  </button>
+  <button id="alsogoingupright">
+    alsonumberupright
+  </button>
+</div>
 <br>
 <br>
 
-<input style="position:relative; top:0px; bottom:0px; left:0px; right:0px; line-height:720px; font-size:700px; opacity:0.2" type="text" id="numberBig" value="0"/>
+<input style="float:left; top:0px; bottom:0px; left:0px; right:0px; width: 300px; line-height:400px; font-size:400px; opacity:0.2" type="text" id="numberBigLeft" value="0"/>
+<input style="float:right; top:0px; bottom:0px; left:0px; right:0px; width: 300px; line-height:400px; font-size:400px; opacity:0.2" type="text" id="numberBigRight" value="0"/>
 
 <br>
 <br>
 <br>
-<input type="button" id="boofah" onclick="incrementValueBig()", value="Increment Value Big" />
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<input type="button" id="boofah" onclick="incrementValueLeft()", value="Increment Value Left" />
+
+<input type="button" id="scooby" onclick="incrementValueRight()", value="Increment Value Right" style="float:right" />
 
 
 <script>
@@ -32,34 +56,60 @@
   });
 
   $('#goingup').click(function(){
-    $.get('/numberup')
+    $.get('/numberupleft')
+  });
+
+  $('#goingupright').click(function(){
+    $.get('/numberupright')
   });
 
   $('#alsogoingup').click(function(){
     $.get('/alsonumberup')
   });
 
+  $('#alsogoingupright').click(function(){
+    $.get('/alsonumberupright')
+  });
+
+
   var pusher = new Pusher('<%= Pusher.key %>',{ authEndpoint: '/pusher/auth' }); // uses your APP KEY
   var channel = pusher.subscribe('private-button');
 
   channel.bind('up', function(data) {
 
-   var value = parseInt(document.getElementById('numberBig').value, 10);
+   var value = parseInt(document.getElementById('numberBigLeft').value, 10);
 
    value = isNaN(value) ? 0 : value;
 
    value++;
 
-   document.getElementById('numberBig').value = value;
+   document.getElementById('numberBigLeft').value = value;
 
    $('body').css({background: 'white'});
 
-   if (document.getElementById('numberBig').value == 11)
+   if (document.getElementById('numberBigLeft').value == 11)
 
-   {document.getElementById('numberBig').value = "Nicole is awesome";}
+   {document.getElementById('numberBigLeft').value = "Nicole is awesome";}
 
  });
 
+ channel.bind('upright', function(data) {
+
+  var value = parseInt(document.getElementById('numberBigRight').value, 10);
+
+  value = isNaN(value) ? 0 : value;
+
+  value++;
+
+  document.getElementById('numberBigRight').value = value;
+
+  $('body').css({background: 'white'});
+
+  if (document.getElementById('numberBigRight').value == 11)
+
+  {document.getElementById('numberBigRight').value = "Nicole is awesome";}
+
+});
 
 
 
@@ -67,16 +117,26 @@
 
 
 
-  function incrementValueBig()
+
+
+
+  function incrementValueLeft()
   {
-    var value = parseInt(document.getElementById('numberBig').value, 10);
+    var value = parseInt(document.getElementById('numberBigLeft').value, 10);
     value = isNaN(value) ? 0 : value;
     value++;
-    document.getElementById('numberBig').value = value;
+    document.getElementById('numberBigLeft').value = value;
 
   }
 
+  function incrementValueRight()
+  {
+    var value = parseInt(document.getElementById('numberBigRight').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('numberBigRight').value = value;
 
+  }
 
 
 

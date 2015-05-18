@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   get '/on' => 'led#on'
     get '/off' => 'led#off'
-    get '/numberup' => 'led#numberup'
+    get '/numberupleft' => 'led#numberupleft'
+    get '/numberupright' => 'led#numberupright'
+
     get '/alsonumberup', to: 'led#alsonumberup'
+    get '/alsonumberupright' => 'led#alsonumberupright'
 
     root to: 'led#index'
 

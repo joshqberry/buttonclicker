@@ -61,6 +61,125 @@ provide the key. Well, not looking at that now.
      </script>
 ... doesn't affect the button. It's still working. But will it on heroku?
 
+HEY, something you'll want to come back to: You can set some or all of the Arduino pins to
+act as pull-up/down resistors. You'll want to do that eventually just to have less pieces
+on your board.
+
+-------------
+
+Monday 5/17 1 a.m.
+
+With basic functionality happening and websockets not happening, I'm gonna try to add a
+second button and see how that goes.
+
+OK, just did a little setup. For some reason, I can't make pusher operate on a second
+button. Not sure if I need to create a new pusher instance or what. Well, not to be
+worried about for now; I'm not even using pusher currently.
+... nah, nevermind, just was moving too fast. It's all working now, including making
+postman GET requests to my functions. AND HEY: You ARE actually using pusher currently.
+You'd forgotten, but just a GET request to a controller action wasn't triggering anything.
+You needed pusher to do that. (I mean, there's surely a way I wouldn't need to use pusher,
+but be sure to note that you ARE.)
+
+
+
+
+
+-------------
+
+Saturday 5/16 8:30 p.m. - Sunday 5/17
+
+OK then. Was still going hard at it yesterday, trying to initiate a GET request using just
+the Arduino (pressing the button which would then fire off a GET request from the wifi
+shield). And, well, you learned something: Don't fucking set up Arduino loops without
+some sort of closure! Because I had given the Arduino instructions to just keep printing
+"not clicked" as long as the button was not clicked. And it looped so fast that it crashed
+my computer, including all my precious, precious tabs. Anyway, after rebooting and some other
+nonsense, back at it now.
+
+OK, so, I can use a simple button sketch, even with the shield attached. All this does is
+let me turn on the LED at pin 13 (on the board itself) by pressing the button.
+
+I was able to stick that button code into the WebClient code, and I can run either the
+WebClient GET of pongtester (at least the main page), OR turn on the LED by pressing the
+button, but NOT both. Whichever I do first works, and the other does not. Hmm. Perhaps
+because the wifi using pin 13, as does the button?
+
+COOL -- well, I can now run the WebClient, and have it only return what it GETs while the
+button is being pushed... otherwise, it waits... so will that work with /alsonumberup?
+Not quite, because the GET in this case is triggering a method, and so that happens even
+before the button push. What I need is an IF statement in the setup itself, and I'm not
+quite sure how to do that...
+
+OK, I'm sure I'm doing this in a very hapharzard way, but nonetheless, I'm now sending a
+GET request to /alsonumberup, USING the Arduino button and wifi!
+
+... there's gonna be a LOT of functionality to figure out, though. Not least of which is
+that currently, the button only triggers the GET request once. And then no more.
+
+OK, so I though that for some reason the wifi was only launching upon the opening of the
+serial monitor, but that's not the case -- opening the serial monitor simply RESTARTS the
+Arduino program. And I've verified that if I just don't open the serial monitor, the
+program functions the same way (on Heroku page, the number increments). And it apparently
+doesn't matter if I've got all that Serial.println stuff in the code (at least, not when
+the USB is connected. I don't know if that'd be an issue if the Arduino couldn't detect a
+serial port...)
+
+An interesting note: I can still only get the button to trigger the increment once. I tried
+using pin 2 (and changing code accordingly), but that made the request IMMEDIATELY fire,
+not waiting for the button push. I'd guess it has to do with an embedded pullup resistor
+for pin 2? I dunno. But since pin 5 is working, I'm just gonna stick with that for now.
+
+HUH! So now, changing the code to read Connection: Keep-Alive, I can click the button five
+times with success... but only five! What the hell? ... OK, it looks like there's a default
+timeout even with the Keep-Alive notation... and apparently that default timeout is after
+five transanctions! Odd.
+
+Although I put in code to make the Arduino show me when it was connected or not connected,
+and it's not showing me any "not connected" status... but the button stops affecting Heroku
+anyway.
+
+Note that you have taken out this stuff, as you currently don't need to get data back from
+the website...
+    if (client.available())
+   {
+     char c = client.read();
+     Serial.print(c);
+   }
+... far as I can tell, this hasn't affected things...
+
+Holy Christ, well, I got it. At least a big piece. By closing and restarting the connection
+each time the button is pressed, I can can continuously press the button and increment the
+number. WOW
+
+... it's funny how hitting that big piece still kinda feels anticlimactic. Weird. But I'm
+a'pressin' on.
+
+So -- I do want to check to see if the connection times out. I suppose it will... after all,
+the wifi connection is currenlty set to time out after 30 seconds. HUH but it doesn't look
+like it's timing out! I wonder why not. Maybe that timeout is just supposed to stop if
+the connection isn't made after 30 second, but is not supposed to close the connection after
+30 seconds. That would make more sense.
+
+OK, there IS a timeout issue -- I waited five minute before testing this... right now, I
+have to hit the button to restart the connection process... and THEN I can hit the button
+again to increment the number. THAT's a fix I'll want to make, somehow...
+
+However, I'm gonna hold off on websockets for now -- these GET requests may be fast enough,
+since I'm not actually looking to get any data back. I don't know that the back-and-forth
+that would be necessary for authorization would provide any faster solution -- and again,
+I may not need any faster solution. The delay right now is about a second -- I can live
+with that for now, I think. Besides, working with websockets is gonna be tough. Look at how
+many hoops you had to get through to get websockets working on Heroku, just with a Ruby app.
+You're gonna have to use callbacks and shit, programmed on the Arduino, to make them work.
+
+... yeah, as far as I tell from a brief look, websockets will be the way to fix that
+timeout issue. I'd probably have to have the Arduino continuously pinging to keep the
+connection open.
+
+So it looks like, right now, I can get about 50 seconds before the button stops working on
+first click. After that amount of time, you have to click it once to "prime" the code, and
+then again to increment. Not the end of the world.
 
 -------------
 
@@ -149,20 +268,42 @@ All, right, AWESOME. I needed to add "render :nothing => true" to the action. No
 make a GET call with Postman, and have my Rails server running, my localhost page is
 responding (by incrementing the number.)
 
+AND this works on Heroku!!! Ho fuck! I might be on the verge of actually making my Arduino
+affect Heroku!!
 
+OK, so first I've tried just a simple Arduino GET of the Heroku site. (Connection to my wifi
+is spotty, but that's just fine for now.) And that GET request is still working. Now...
+OH. FUCK. YEAH. It worked. I can make that GET request, and the number goes up. How many
+fucking hours did it take to get here. Too many.
 
+OK, I've spent some hours now just getting to the point where a test page (not in this app;
+it's in the buttontester app) has a button that I can click to execute a get request. I
+can now do that; however, I can't yet get my arduino button to do that. One interesting thing
+of note: right now I'm using the Dino rb file, and just using the button to fiddle with
+localhost still works fine. However, if, under the button.down do command, I take the quotes
+off of 'up', then, even though I haven't fiddled with the button.up do command, which tells
+it to put 'down' -- still in quotes -- NOTHING HAPPENS. So there's some kind of breakage
+happening here upon the first error. I didn't expect to see the terminal print 'up', but I
+was suprised that 'down' wasn't appearing, either. Anyway.
 
+HEY, YOU GOTTA REMEMBER to refresh browser when making changes. Otherwise page doesn't have
+the new stuff. Thanks, "inspect element". I almost thought that I wasn't able to press the
+button, and through a circuitous route, get my localhost number to increment. I saved myself
+a lot of time by inspecting element and seeing that the page didn't have my updated code.
 
+Oh, and yes, now I can do an Arduio GET request with a button push. At least to example.com.
+Trying to read localhost doesn't seem to work, but that makes pretty good sense, since I'm
+trying to set a GET request using the same program I'm trying to GET from.
+
+I CAN do a GET request to the main Heroku page using an Arduino button push. Test time: Can
+I do a GET request to /alsonumberup and have the number go up?
+
+AWESOME. Yes I can. For the very first time, I can push the button and make Heroku change.
+Awesome. Really. Still a lot of work to do, obviously. But this is good.
 
 -------------
 
 Monday 5/13 8 p.m.
-
-  Plan of attack:
-  test get call to local
-  test get call to heroku
-  see if you can get Arduino to make get call
-  then fuck with websockers
 
   OK, going to try to use the Puma webserver for Heroku, mainly just for (hopefully) added
 stability.
@@ -747,7 +888,7 @@ This was in the Maybe view:
   function GetSwitchState()
   {
     nocache = "&nocache=" + Math.random() * 1000000
-    var request =jew XMLHttpRequest
+    var request =new XMLHttpRequest
     request.onreadystatechange = function()
     {
       if (this.readyState === 4) {

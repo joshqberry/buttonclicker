@@ -27,14 +27,27 @@ class LedController < ApplicationController
     render :nothing => true
   end
 
-  def numberup
+  def numberupleft
   respond_to do |format|
-    format.js { render :js => "incrementValueBig();" }
+    format.js { render :js => "incrementValueLeft();" }
   end
+end
+
+def numberupright
+respond_to do |format|
+  format.js { render :js => "incrementValueRight();" }
+end
 end
 
 def alsonumberup
   Pusher['private-button'].trigger!('up', { :some => 'data' })
+
+  render :nothing => true
+
+end
+
+def alsonumberupright
+  Pusher['private-button'].trigger!('upright', { :some => 'data' })
 
   render :nothing => true
 
