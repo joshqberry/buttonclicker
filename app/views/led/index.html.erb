@@ -93,7 +93,24 @@
 
  });
 
- 
+ channel.bind('upright', function(data) {
+
+  var value = parseInt(document.getElementById('numberBigRight').value, 10);
+
+  value = isNaN(value) ? 0 : value;
+
+  value++;
+
+  document.getElementById('numberBigRight').value = value;
+
+  $('body').css({background: 'white'});
+
+  if (document.getElementById('numberBigRight').value == 11)
+
+  {document.getElementById('numberBigRight').value = "Nicole is awesome";}
+
+ });
+
 
 
 

@@ -56,7 +56,9 @@ def alsonumberup
 end
 
 def alsonumberupright
+  Pusher['private-button'].trigger!('upright', { :some => 'data' })
 
+  render :nothing => true
 
 end
 

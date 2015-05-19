@@ -74,33 +74,12 @@ GET requests to pusher. That's the same as I'm doing now, basically. Isn't it?
 
 OK, am working on understanding pusher.
 
-OK, am removing this in led controller:
-
-Pusher['private-button'].trigger!('upright', { :some => 'data' })
-
-render :nothing => true
-
-And this in index page:
-
-channel.bind('upright', function(data) {
-
- var value = parseInt(document.getElementById('numberBigRight').value, 10);
-
- value = isNaN(value) ? 0 : value;
-
- value++;
-
- document.getElementById('numberBigRight').value = value;
-
- $('body').css({background: 'white'});
-
- if (document.getElementById('numberBigRight').value == 11)
-
- {document.getElementById('numberBigRight').value = "Nicole is awesome";}
-
-});
-
-... to avoid an channel interference. Gonna push to Heroku, see what's what.
+2 p.m. -- OK, need to officially give up on websockets. Turns out pusher will ONLY work
+with Ethernet connection, not wifi. So that's mostly that.
+If I understood websockets better, perhaps I could get into using another websocket library
+with the arduino... but for now, you've GOT to get moving. It's time to settle on GET
+requests and just making them as fast as you can. If somehow there's time (there won't be),
+you can return to this. OK, settled.
 
 -------------
 
