@@ -67,6 +67,43 @@ on your board.
 
 -------------
 
+Tuesday 5/18 9:30 a.m.
+
+Do I even NEED to use the pusher client on the Arduino? Well, if not, you'd be sending
+GET requests to pusher. That's the same as I'm doing now, basically. Isn't it?
+
+OK, am working on understanding pusher.
+
+OK, am removing this in led controller:
+
+Pusher['private-button'].trigger!('upright', { :some => 'data' })
+
+render :nothing => true
+
+And this in index page:
+
+channel.bind('upright', function(data) {
+
+ var value = parseInt(document.getElementById('numberBigRight').value, 10);
+
+ value = isNaN(value) ? 0 : value;
+
+ value++;
+
+ document.getElementById('numberBigRight').value = value;
+
+ $('body').css({background: 'white'});
+
+ if (document.getElementById('numberBigRight').value == 11)
+
+ {document.getElementById('numberBigRight').value = "Nicole is awesome";}
+
+});
+
+... to avoid an channel interference. Gonna push to Heroku, see what's what.
+
+-------------
+
 Monday 5/17 1 a.m.
 
 With basic functionality happening and websockets not happening, I'm gonna try to add a
@@ -81,9 +118,16 @@ You'd forgotten, but just a GET request to a controller action wasn't triggering
 You needed pusher to do that. (I mean, there's surely a way I wouldn't need to use pusher,
 but be sure to note that you ARE.)
 
+OK, just checked, first button still works with new design elements...
 
+Also, I notice that my loop, when it can't connect, keeps looping through the attempt to
+connect, and keeps returning "could not connect" messages. I hope that won't crash shit...
 
+OK, got button hooked up and working -- which suprisingly didn't take me too long. Cool.
 
+However, the wifi doesn't seem to be working with external (9V) power source! That's odd.
+It was working when I had only one button. I suppose maybe I'm draining too much power
+now. Will have to look into that...
 
 -------------
 

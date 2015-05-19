@@ -1,3 +1,7 @@
+<button id="makealert" onclick>
+  makealert
+</button>
+
 <script>
 // If your Heroku application is within the EU region,
 // uncomment the followling lines
@@ -8,5 +12,11 @@ var pusher = new Pusher('<%= Pusher.key %>'); // uses your APP KEY
 var channel = pusher.subscribe('test_channel');
 channel.bind('greet', function(data) {
   alert(data.greeting);
+});
+
+
+
+$('#makealert').click(function(){
+  $.get('/alertme')
 });
 </script>

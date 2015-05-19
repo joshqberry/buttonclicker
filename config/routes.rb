@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     get '/alsonumberup', to: 'led#alsonumberup'
     get '/alsonumberupright' => 'led#alsonumberupright'
 
+    get 'alertme' => 'led#alertme'
+
+
     root to: 'led#index'
 
     get 'other' => 'led#other'

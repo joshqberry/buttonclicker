@@ -10,9 +10,18 @@ class LedController < ApplicationController
   end
 
   def maybe
+
+  end
+
+  def alertme
     Pusher['test_channel'].trigger('greet', {
   :greeting => "Hello there!"
 })
+
+
+
+render :nothing => true
+
   end
 
   def on
@@ -47,9 +56,7 @@ def alsonumberup
 end
 
 def alsonumberupright
-  Pusher['private-button'].trigger!('upright', { :some => 'data' })
 
-  render :nothing => true
 
 end
 
