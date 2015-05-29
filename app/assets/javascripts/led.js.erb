@@ -168,7 +168,17 @@ function changeImage() {
        {
          $('#playerpic').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic" %>" );
            document.getElementById("lefty").innerHTML="CASEY";
-       }
+         }
+       else if (document.getElementById('mySelect').value == "Jordan")
+           {
+             $('#playerpic').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic" %>" );
+               document.getElementById("lefty").innerHTML="JORDAN";
+           }
+       else if (document.getElementById('mySelect').value == "Jake")
+           {
+             $('#playerpic').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic" %>" );
+             document.getElementById("lefty").innerHTML="JAKE";
+           }
        else
        {
            document.getElementById("playerpic").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
@@ -217,14 +227,26 @@ function changeImage() {
           }
           else if (document.getElementById('mySelect2').value == "Wesley")
           {
-            $('#playerpic2').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic" %>" );
+            $('#playerpic2').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic2" %>" );
               document.getElementById("righty").innerHTML="WESLEY";
           }
           else if (document.getElementById('mySelect2').value == "Casey")
           {
 
-            $('#playerpic2').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic" %>" );
+            $('#playerpic2').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic2" %>" );
               document.getElementById("righty").innerHTML="CASEY";
+          }
+          else if (document.getElementById('mySelect2').value == "Jordan")
+          {
+
+            $('#playerpic2').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic2" %>" );
+              document.getElementById("righty").innerHTML="JORDAN";
+          }
+          else if (document.getElementById('mySelect2').value == "Jake")
+          {
+
+            $('#playerpic2').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic2" %>" );
+              document.getElementById("righty").innerHTML="JAKE";
           }
           else
           {

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     get '/alsonumberup', to: 'led#alsonumberup'
     get '/alsonumberupright' => 'led#alsonumberupright'
 
+    get '/testlefty', to: 'led#testlefty'
+    get '/testrighty' => 'led#testrighty'
+
     get 'alertme' => 'led#alertme'
 
 

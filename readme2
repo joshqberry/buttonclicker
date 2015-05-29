@@ -69,6 +69,16 @@ HEY ALSO, note that Texas Instruments is already abandoning their promoting of t
 instead recommending the cc3100 or cc3200. Shitfire. Well, you probably won't worry about
 upgrading now, but keep that in mind, I guess.
 
+
+
+$('#testleft').click(function(){
+  $.get('/testlefty')
+});
+
+$('#testright').click(function(){
+  $.get('/testrighty')
+});
+
 -------------
 
 Thursday 5/28 11:30 a.m.

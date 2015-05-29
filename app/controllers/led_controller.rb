@@ -37,6 +37,18 @@ render :nothing => true
     render :nothing => true
   end
 
+  def testlefty
+  respond_to do |format|
+    format.js { render :js => "incrementValueBig();" }
+  end
+  end
+
+  def testrighty
+  respond_to do |format|
+  format.js { render :js => "incrementValue3Big();" }
+  end
+  end
+
   def numberupleft
   respond_to do |format|
     format.js { render :js => "incrementValueLeft();" }
@@ -62,6 +74,8 @@ def alsonumberupright
   render :nothing => true
 
 end
+
+
 
   private
 
