@@ -40,14 +40,33 @@ render :nothing => true
   def testlefty
   respond_to do |format|
     format.js { render :js => "incrementValueBig();" }
+
+
   end
   end
 
   def testrighty
   respond_to do |format|
   format.js { render :js => "incrementValue3Big();" }
+
+
   end
   end
+
+  def alsolefty
+    Pusher['private-button'].trigger!('lefty', { :some => 'data' })
+
+    render :nothing => true
+
+  end
+
+  def alsorighty
+    Pusher['private-button'].trigger!('righty', { :some => 'data' })
+
+    render :nothing => true
+
+  end
+
 
   def numberupleft
   respond_to do |format|
