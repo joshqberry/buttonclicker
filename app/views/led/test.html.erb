@@ -240,37 +240,14 @@
 
    channel.bind('lefty', function(data) {
 
-    var value = parseInt(document.getElementById('numberBig').value, 10);
-
-    value = isNaN(value) ? 0 : value;
-
-    value++;
-
-    document.getElementById('numberBig').value = value;
-
-    $('body').css({background: 'white'});
-
-    if (document.getElementById('numberBig').value == 11)
-
-    {document.getElementById('numberBig').value = "Nicole is awesome";}
+     incrementValueBig();
 
    });
 
    channel.bind('righty', function(data) {
 
-   var value = parseInt(document.getElementById('numberBig3').value, 10);
-
-   value = isNaN(value) ? 0 : value;
-
-   value++;
-
-   document.getElementById('numberBig3').value = value;
-
-   $('body').css({background: 'white'});
-
-   if (document.getElementById('numberBig3').value == 11)
-
-   {document.getElementById('numberBig3').value = "Nicole is awesome";}
+     incrementValue3Big();
 
    });
+
    </script>
