@@ -1,0 +1,209 @@
+
+
+
+
+
+<div class="row">
+  <div class="col-md-3">
+    <h1>&nbsp;&nbsp; Pong Thing!</h1>
+  </div>
+
+  <div class="col-md-3">
+<br>
+<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;How many players?&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <label class="radio-inline">
+      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1v1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2v2
+    </label>
+
+</div>
+
+<div class="col-md-6">
+
+  <br>
+  <br>
+  Select player 1:
+
+    <select id="mySelect" onchange="changeImage()">
+      <option value="Bobby">Bobby
+      <option value="Shelby">Shelby
+      <option value="Zach">Zach
+      <option value="Alexandra">Alexandra
+      <option value="Andrew">Andrew
+      <option value="Caleb">Caleb
+      <option value="Cameron">Cameron
+      <option value="Casey">Casey
+      <option value="Daniel">Daniel
+      <option value="Danielle">Danielle
+      <option value="Finn">Finn
+      <option value="Hayley">Hayley
+      <option value="Jake">Jake
+      <option value="Jess">Jess
+      <option value="John">John
+      <option value="Jordan">Jordan
+      <option value="Josh">Josh
+      <option value="Kerry">Kerry
+      <option value="Kenneth">Kenneth
+      <option value="Mackenzie">Mackenzie
+      <option value="Melissa">Melissa
+      <option value="Missy">Missy
+      <option value="Nick K.">Nick K.
+      <option value="Nick P.">Nick P.
+      <option value="Nina">Nina
+      <option value="Peter">Peter
+      <option value="Reyna">Reyna
+      <!-- <option value="Robb">Robb -->
+      <!-- <option value="Sam">Sam -->
+      <option value="Ty">Ty
+      <option value="Wesley">Wesley
+    </select>
+
+
+    &nbsp;&nbsp;&nbsp;&nbsp;Select player 2:
+
+    <select id="mySelect2" onchange="changeImage2()">
+      <option value="Bobby">Bobby
+      <option value="Shelby">Shelby
+      <option value="Zach">Zach
+      <option value="Alexandra">Alexandra
+      <option value="Andrew">Andrew
+      <option value="Caleb">Caleb
+      <option value="Cameron">Cameron
+      <option value="Casey">Casey
+      <option value="Daniel">Daniel
+      <option value="Danielle">Danielle
+      <option value="Finn">Finn
+      <option value="Hayley">Hayley
+      <option value="Jake">Jake
+      <option value="Jess">Jess
+      <option value="John">John
+      <option value="Jordan">Jordan
+      <option value="Josh">Josh
+      <option value="Kerry">Kerry
+      <option value="Kenneth">Kenneth
+      <option value="Mackenzie">Mackenzie
+      <option value="Melissa">Melissa
+      <option value="Missy">Missy
+      <option value="Nick K.">Nick K.
+      <option value="Nick P.">Nick P.
+      <option value="Nina">Nina
+      <option value="Peter">Peter
+      <option value="Reyna">Reyna
+      <option value="Ty">Ty
+      <option value="Wesley">Wesley
+    </select>
+
+  </div>
+  </div>
+
+
+
+<section class="row" >
+
+  <div style="position:absolute; left:42%; right:42%; top:50%; text-align:center; height:140px; font-size:100px; background-color:orange; opacity:0.9; z-index:1">VS
+  </div>
+
+
+
+ <article class="col-sm-12 col-md-6">
+
+   <!--ROW LEFT-->
+   <div class="row">
+
+    <div class="col-sm-11" style="height:750px; width:550px">
+    <img class="playerpic" id="playerpic" style="width:700px; height:750px">
+    </img>
+    </div>
+
+    <input style="position:absolute; top:0px; bottom:0px; left:0px; right:0px; line-height:720px; font-size:600px; opacity:0.2" type="text" id="numberBig" value=" 0"/>
+    <div style="position:absolute; top:0px; bottom:0px; left:0px; right:0px; width:715px; font-size:200px; background-color:green; opacity:0.2">
+        </div>
+
+    <div class="col-sm-1"></div>
+   </div>
+ </article>
+
+ <article class="col-sm-12 col-md-6">
+
+   <!--ROW RIGHT-->
+   <div class="row">
+     <div class="col-sm-1"></div>
+    <div class="col-sm-11"></div>
+    <p><span class="pull-right"><img class="playerpic2" id="playerpic2" style="width:700px; height:750px">
+   </div>
+
+   <input style="position:absolute; top:0px; bottom:0px; left:0px; right:0px; line-height:700px; font-size:600px; opacity:0.2" type="text" id="numberBig3" value=" 0"/>
+   <div style="position:absolute; top:0px; bottom:0px; left:0px; right:0px; width:700px; font-size:200px; margin-left:20px; background-color:green; opacity:0.2">
+       </div>
+
+
+ </article>
+
+ </section>
+
+  <div class="row">
+    <div class="col-md-5" style="margin-left:40px">
+
+      <input type="text" id="number" value="0"/>
+    <input type="button" onclick="incrementValue()", value="Increment Value" />
+    <input type="button" onclick="incrementValueBig()", value="Increment Value Big" />
+    <input type="button" onclick="deincrementValue()", value="Deincrement Value" />
+
+    </div>
+
+
+
+
+
+
+
+    <div class="col-md-6" style="float:right">
+
+    <input type="text" id="colorthis" value="0"/>
+    <input type="button" onclick="incrementValue3()" value="Increment Value3" />
+    <input type="button" onclick="incrementValue3Big()", value="Increment Value Big" />
+    <input type="button" onclick="deincrementValue3()" value="DeIncrement Value3" /><br>
+    </div>
+
+
+  </div>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<h2 class="left"><span class="left" id="lefty">Choose player</span></h2>
+<h2 class="right"><span class="right" id="righty">Choose player</span></h2>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<hr>
+<hr>
+<hr>
+
+<br>
+<br>
+
+
+<br>
+<br>
+
+<div class="image">
+
+<img src="http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png" alt="whats" />
+
+</div>
+
+   <div style="line-height:720px; width:550px; height:750px; font-size:1000px; text-align:top; border: 1px solid black;">
+     <p>1</p>
+   </div>

@@ -65,6 +65,360 @@ HEY, something you'll want to come back to: You can set some or all of the Ardui
 act as pull-up/down resistors. You'll want to do that eventually just to have less pieces
 on your board.
 
+HEY ALSO, note that Texas Instruments is already abandoning their promoting of the cc3000,
+instead recommending the cc3100 or cc3200. Shitfire. Well, you probably won't worry about
+upgrading now, but keep that in mind, I guess.
+
+-------------
+
+Thursday 5/28 11:30 a.m.
+
+SO FUCKIN' CLOSE BABY!! OK, so I discovered that Heroku was sending me BACK response
+information (nothing more than just headers stuff and a "0"), and what was happening
+with double-clicks was that I wasn't allowing all that response stuff to arrive before I
+attempted a new request. THAT, I'm pretty sure, was the cause of the freezing. I added
+a "while" statement to force the program to wait until the entire response was received,
+and now I'm having very good luck with my clicks!!!!!
+... AND I'm using Keep-Alive connections, for now, which saves some time.
+My current efforts have been saved as HerokuReconnectTestingWithButtons_BETTER.
+
+This... is AWESOME. Now I need to get whatever safety measures in place... and then I
+THINK I can actually move on.
+
+As long as the fucking FREEZING issue is behind me, I should be able to implement the
+other safety measures without too much issue...
+
+I suppose the really big issue is if the Arduino is not able to detect a lost connection
+with Heroku. I NEED it to recognize a dropped connection, so it can start the re-connect
+process.
+
+NOTE: I just added bootstrap so I can get a test run of this going.
+
+Know what, I need a way to indicate ALL of this via my app. Not sure how...
+
+-------------
+
+All right, issues:
+
+ARDUINO POWER CUTS OUT
+  -- maybe a light that indicates power is on?
+  -- maybe ability to turn power on or off?
+ARDUINO IS FROZEN
+  -- hmm, I suppose I don't know... An ability to reboot? From the code itself?
+WIFI CONNECTION INITIALLY DOESN'T CONNECT
+  -- Goes to httpRequest, which should identify that connection is not there, and then loop
+  back to getConnected
+WIFI CONNECTION GOES OUT IN MIDDLE OF USAGE
+  -- Well, hopefully my "if (!client.connected)" statement, which is in the main loop,
+  should take care of that. Should revert to retryHeroku, which then loops to httpRequest,
+  which then would loop back to getConnected
+IF WIFI'S OK, BUT NO INITIAL CONNECTION TO HEROKU
+  -- The httpRequest should revert to retryHeroku, which then loops to httpRequest, and
+  that should continue until a connection is established
+  -- although note that this process currently takes about 30 seconds or so.
+IF WIFI'S OK, BUT HEROKU CONNECTION GOES OUT IN MIDDLE OF USAGE
+  -- Again, hopefully my "if (!client.connected)" statement in the main loop with see that
+  I am not connected, and then revert to retryHeroku, and on to httpRequest, and then back
+  to retryHeroku, etc.
+
+Doing a little testing with HerokuReconnectTestingWithButtons_BETTER:
+
+  -- Can do at least 15 clicks in a row, either button, no prob. Must pause for Heroku
+response to finish. No timeout occurs (which I expected -- Heroku should be restarting my
+30-second window for a connection each time a GET request is sent.)
+  -- Can let the program sit without any clicks, just looping through the httpRequest
+  section as each timeout occurs, and then start clicking after a few loops have gone by,
+  and everything is fine. Can then sit out another few loops, and then come back and
+  start clicking, and everything is still fine.
+  -- Can let program just sit and go through httpRequest loops, at least 10 iterations.
+  But the Heroku connection still cuts out somewhere in there. Gotta fix that...
+  -- Huh, that's weird: I just restarted, and it went from getConnected to httpRequest
+  even though it hadn't obtained the IP address. It's not supposed to call the httpRequest
+  unless the IP address has been obtained... Maybe that was something weird to do with
+  it staying plugged in even though I restarted (by closing and then reopening the serial
+  window).
+  -- A double-click doesn't seem to do anything (good). Only one GET request is sent.
+  However, holding down the button sends REPEATED GET requests...
+  -- Actually, looks like a slightly slower double-click DOES set two GET requests...
+  but that shouldn't be too much of a worry. I've only been able to make this happen when
+  double-clicking immediately after restarting. After that, double-clicks don't seem to
+  do anything...
+  -- Note that it doesn't take long (at least currently), after a single click, for another
+  single click to send another GET request. About a second.
+  -- pressing the buttons at any point during startup doesn't seem to affect anything...
+
+NOTED FREEZES:
+  -- One time, it froze after saying "Wifi status: connected." Maybe the client.stop command
+  created an issue?
+  -- It's not freezing on "Performing HTTP connection to:", but it is stopping there if
+ the connection to Heroku has been lost. And that's about a 30-second wait...
+
+Uh, for some reason, it looks like the whole process is starting again from the SETUP if
+the wifi is unable to connect. No idea why, but that's pretty awesome.
+  -- I saw it restart from SETUP after five unsucessful tries to connect to wifi.
+  -- Actually, that probably because the setup is supposed to run getConnected, and so
+  if that can't be completed, the setup can't be completed, and so it must just be starting
+  over either after a certain time or a certain number of attempts. Cool!
+
+-------------
+
+Wednesday 5/27 7 a.m.
+
+HerokuReconnectTestingwithBUTTONS now works... but there are still issues. I think those
+are related to debouncing -- the main issue I notice is a fuck-up if there are two
+button-presses too close together -- but this still needs testing.
+
+And dammit, note that if there is a button-press fuck-up, everything FREEZES. The re-connect
+doesn't work.
+
+I think ALSO what's happening is if I click the button during the Heroku timeout, then
+the whole thing also freezes. Although ONLY during the timeout; if I just click a couple
+times, then wait (so as to avoid the timeout) for the disconnect and re-connect, I can keep
+going.
+
+About time to give up and just have this fucker re-establish a connection every time a
+button is clicked.
+
+OK, maybe, just maybe, using the Keep-Alive means that I'm disconnecting, but actually
+re-connecting while Heroku just thinks the connection is still active. Then I'm hitting
+the 55 second timeout, and then I click the button, and shit freezes.
+
+Anyway, though, changing to a Close connection is not the answer... or at least not unless
+I want to continually reconnect. I HAVE verified that the button-click only works once
+with the Close connection.
+
+Dammit, but setting the re-connect to close to 55 seconds doesn't seem to do it either.
+Something's up. But I don't know what. HUH well for some reason my serial output just
+showed a shitton of button-pushes -- maybe all the ones that didn't work before. Maybe
+that's what was freezing it?
+
+Dammit, for some reason, a 30-second re-connect was working, but when I set the re-connect
+to 40 seconds, nothing happening! It's not disconnecting! WHA?
+
+Yeah, with 30 seconds, everything seems fine -- as long as I'm not clicking too fast...
+But VERFIED, with 40 seconds, it just doesn't disconnect. I just don't get it.
+
+And, weirdly, with 40 seconds, it seems like I can keep on going with button-pushes. But
+that can't be the case. The Keep-Alive must be allowing that.
+
+All I can surmise with the 40 seconds is that the client is not longer connected, which
+is why the re-connecting command does not get issued.
+
+OK, well, using millis to look at my button pushes, it's clear I have a debounce issue.
+Here's from the latest button click:
+
+button pushed
+143775
+button pushed
+143778
+button pushed
+143782
+button pushed
+143788
+button pushed
+143793
+button pushed
+143798
+button pushed
+143803
+button pushed
+143808
+button pushed
+143813
+button pushed
+143818
+button pushed
+143823
+button pushed
+143828
+button pushed
+143834
+button pushed
+143839
+button pushed
+143844
+button pushed
+143849
+button pushed
+143854
+button pushed
+143859
+button pushed
+143864
+button pushed
+143869
+button pushed
+143875
+button pushed
+143880
+button pushed
+143885
+button pushed
+143890
+button pushed
+143895
+button pushed
+143900
+button pushed
+143905
+
+... so clearly SOMETHING's fucked up there. Though I this was with the 40-second thing. With
+the 30 seconds, I get just one returned value per click:
+
+button pushed
+60201
+button pushed
+65246
+button pushed
+70740
+
+... Well, mostly. I did get a double-click, although I was able to keep going. Although
+two very fast clicks do stillfreeze the program.
+
+I didn't have delays built into my GET requests, let me try that...
+
+Yeah, you know, it seems ALSO that too many GET requests in too short a period seems to
+freeze the program. It looks like Heroku disconnects at that point.
+
+OK, one thing I've now done is to tell each http request to do client.stop before making a
+new connection...
+Oddly, 40 seconds STILL does not work. Ah well. 30 does. Gotta move on.
+But why the hell does the 40-second setting still seem to allow for continued clicks????
+
+35 seconds doesn't work either. Maybe it's Heroku's server (Puma, I guess), and how long
+it keeps Keep-Alives alive. AHA -- from this page:
+https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server#timeout
+... comes this:
+"The Heroku router will timeout all requests that exceed 30 seconds. Although an error
+will be returned back to the client, Puma will continue to work on the request as there
+is no way for the router to notify Puma that the request terminated early."
+
+... well, there ya go. That's why 30 seconds works and longer times don't. And it doesn't
+seem to matter whether there are button-clicks in that window or not -- that doesn't affect
+the length of the window.
+
+However, that may explain my ability to keep on clicking with a 40-second setting... that
+30 second window may have been being reset with each click.
+
+HEY awesome -- I think this might do it. By setting the lastConnectionTime with each GET
+request, it appears I'm able to extend the length of usage, as long as a click comes at
+least once every 30 seconds. And then if 30 seconds pass without a click, that's when I
+disconnect and re-connect.
+
+That's good enough. Would still like to move the re-connect stuff out of the "if client
+is connected" statement, with an attempt to reconnect after 55 seconds... but that's good
+enough for now. Move on to solving debounce issue.
+
+OK, as far as I can tell, Heroku DOES NOT LIKE more than four GET requests per 30 seconds.
+For some reason, the fifth request fucks things up, freezes the system. This should not
+be an immediate issue, but you'll need to know that. (It's either that, or the Arduino
+doesn't like more than four GET requests in 30 seconds...)
+
+Hmm, but I'm still getting the occasional issue, where I press the button, and everything
+freezes. Maybe not a debounce issue? Or am I debouncing wrongly?
+
+OK, DebounceTest1 seems to work well -- but it's just indicating a press and release, NOT
+triggering a GET request...
+
+GOD DAMMIT -- there's still a goddamn issue. I've got a debounce function set up with the
+buttons triggering GET requests, and it works, but the shit KEEPS ON FREEZING. God dammit,
+I don't know what else to try now.
+
+I think I HAVE to get the re-connect code out of the "if connected" statement. Maybe then
+I can avoid the freeze? ACTUALLY though, I already HAD gotten rid of that statement, and
+I was STILL having issues. I need to make the whole thing reboot maybe. God dammit.
+
+The worst part of this is that I can't seem to see where the issue is.
+
+OK, part of the issue with the debounce is the GET request. The code I'm following is
+not allowing for the wait for the GET request. So whereas I can just click away at a
+button and just have the serial output say "pressed-released-pressed-released" etc., I
+can't do that with the whole GET request thing. I need more time...
+
+If I could just get this to fucking reboot itself when it freezes...
+
+OK, using my debounce attempt, if I just leave things alone, it keeps connecting (at least
+through 7 iterations).
+If I do a couple of clicks per round, it keeps connecting.
+Huh, actually, no, maybe not. I was testing this, doing one click each round, and then
+it started to re-connect for the fifth round, and just froze. What the hell is the issue
+with the 5th round?
+
+Huh, this is interesting: I set the debounce to a whopping 150ms, and I actually had to
+HOLD DOWN the button for a slight while to get it to register the click. That makes sense,
+I guess. And again, this timed out after a few clicks (six, in this case).
+
+SO: No matter what I do, this is shutting down after four-six clicks.
+
+Running out of ideas.
+
+Tried not even re-upping the connection. I was, suprisingly, able to send a GET request
+after the 30 seconds that I thought were my limit... but then it froze up on the next try.
+I tried just getting entirely rid of the httpRequest to connect to Heroku... but then
+no GET request gets sent at all.
+
+... ALTHOUGH, I was able to note that without the connection, I was able to continually
+click the button without issue. So the problem here is NOT with the button. It is with
+the connection.
+
+Either the Arduino can't handle all these GET requests, or Heroku won't accept all these
+GET requests.
+
+Time to try just closing the connection after each button-push and then re-connecting
+directly afterward.
+
+Well, that actually works pretty well, and I was able to do a bunch of clicks, but now
+the connection to Heroku has been lost, and it doesn't seem to be coming back; it's just
+looping through its effort to connect, without success.
+HUH never mind, it re-connected now... OK, and NOW it froze...
+
+OK, THIS is probably explaining exactly what my problem is...
+http://forum.arduino.cc/index.php?topic=37358.0
+... though I don't know that I'm going to be able to fix it. One guy on this thread says,
+basically, that you just can't count on being able to connect to the server 100 percent
+of the time.
+
+Well, doing a reconnect every time seems to be working all right, although I've still
+got to write code that somehow de-freezes me...
+Maybe I can make this do something if there's a double-click...
+hmm, actually, it looks like a double-click either just freezes it for a sec, and then it
+continues -- OR the Heroku connection is lost, but then re-connected. This is good.
+... yeah, this isn't too bad. There ARE times when I click, and no GET is sent. Somehow
+I still need to check for a connection, and if I'm being told there is one, then figure
+out why there really isn't. But after a couple of clicks, the process seems to kick back
+into gear, which is cool.
+
+-------------
+
+Tuesday 5/26 3 p.m.
+
+OK, just making a note here that as of right now,
+  HerokuReconnectTesting works; and
+  WebClient_w_working_buttonS_forGSKOOL works.
+
+... so the first has the timing issue fixed, and the second has the buttons working.
+Just gotta figure out how to put them together.
+
+OK, I think I've got 'em together, but you have to be cautious right now: Clicking a button
+too soon after the previous click is breaking the whole thing. Even the dis- and re-connect
+stops working.
+
+God damnit, still having problems. Best I can figure is that I'm keeping the connection
+alive, and then even if I disconnect and re-connect, the connection's ALWAYS been open,
+from Heroku's viewpoint, and so then at the 55-second mark, it closes, the connection,
+and I'm lost. Wasn't client.stop supposed to avoid this?
+
+OK, MAYBE my issue was that it was going through the loop again, but I had an "if" statement
+using client.connected, and since it wasn't connected at that moment, the loop ended
+because the "if" statement evaluated to false. I added an if statment for when the
+client is NOT connected, and that seemed to do it...
+
+Nah, it didn't -- maybe the loop isn't actually repeating? Maybe I'm getting to the third
+and final possibility within my "if" statement, and so it's not going back to the top of
+the loop again? But shouldn't it?
+
+
+
 -------------
 
 Tuesday 5/18 9:30 a.m.
@@ -80,6 +434,248 @@ If I understood websockets better, perhaps I could get into using another websoc
 with the arduino... but for now, you've GOT to get moving. It's time to settle on GET
 requests and just making them as fast as you can. If somehow there's time (there won't be),
 you can return to this. OK, settled.
+
+A-HA: Check this out, from https://devcenter.heroku.com/articles/request-timeout:
+  "Cedar supports HTTP 1.1 features such as long-polling and streaming responses. An
+  application has an initial 30 second window to respond with a single byte back to the
+  client. However, each byte transmitted thereafter (either received from the client or
+  sent by your application) resets a rolling 55 second window. If no data is sent during
+  the 55 second window, the connection will be terminated."
+
+That, I think, explains why my clicks were not being read by heroku after 55 seconds.
+
+Also, from this: https://devcenter.heroku.com/articles/dynos:
+  "Apps that have only one 1X or 2X web dyno running will have that web dyno sleep after
+  one hour of inactivity."
+  "Apps that have more than one web dyno running never sleep."
+  "When you access the app in your web browser or by some other means of sending an HTTP
+  request, the router processing your request will signal the dyno manager to unidle (or
+  “wake up”) your dyno to run the web process type."
+  "This causes a few second delay for this first request. Subsequent requests will
+  perform normally."
+
+Anyway, maybe I can use this knowledge to re-up the connection every 50 seconds, NOT
+continuously.
+
+
+
+
+
+
+
+All right, one good discovery is that I can use wifi.getConnectionStatus(), which give
+true if I'm connected to the wifi and false if I'm not...
+
+With this code in the setup:
+  for (i = 0; i < 6; i++) {
+   delay(1000);
+   Serial.println("Time: ");
+   Serial.println(millis());
+   }
+... I can get this back:
+Time:
+10050
+Time:
+11049
+Time:
+12050
+Time:
+13050
+Time:
+14051
+... which is helpful. If that's the time since connection, that means it actually takes
+about 10 seconds for this code to process. (Which can probably be mitigated, depending on
+if I'm trying to return the IP address, etc.)
+    NOTE that you don't want this in the loop. Otherwise you print out five times, then the
+loop starts again, and you get another five, etc.
+
+I tried to stick this in the pre-setup:
+  unsigned long lastConnectionTime = 0;
+... and added this line inside the millis code above:
+  Serial.println(lastConnectionTime);
+... but was just getting back zeroes. I wonder if that means this is not measuring the
+length of the wifi connection, but rather the connection to a server (which I wasn't
+connecting to when I tried this...)
+
+OK, I don't think lastConnnectionTime is working for the Sparkfun shield...
+... all right, fuck it, I know it times out at 55 seconds, let's just see if I can get
+around that.
+
+Let's try delaying 10 seconds upon startup... OH -- actually, that EXTENDS the millis. Now
+I'm getting back times of 20000, etc. Well, that makes it a little harder to use millis to
+set when a reconnection to Heroku is needed...
+
+Huh, so millis must NOT be measuring time since connection to wifi. What the hell is it
+measuring? I know this because I was able to keep moving it further up the chain in my
+setup, even above the wifi.init command. The only thing I can't move it above is the
+serial port initialization, and actually, I CAN, but then I can't see what it's returning,
+obviously.
+
+Well, that may not work anyway. I don't want to count from when Arduino was turned on or
+rebooted... do I? Well, maybe I do. If I can get an on/off switch, then Arduino will only
+be ON when people are gonna play (i.e., when someone turns it on), in which case establishing
+a connection based on boot up time should be OK. Better would be to start the 50-second
+countdown on start of GAME...
+
+... Changing the connections to "close" rather than "Keep-Alive" doesn't seem to be helping
+any...
+
+SHIT -- I was able to make it restart the Heroku connection depending on the millis... BUT
+that seems to interfere with the buttons:
+  If I click the button, the first time, I get an increment, but then the millis-restart
+code never kicks in...
+  And, weirdly, even if I do click the button, it only works once! The second time, it
+says "button pressed" but doesn't do anything... and then things are stuck...
+  OK, I think the fact that I had set the connections to "close" was the issue for both.
+Since the connection was closed, the millis function didn't work... and I had set the
+buttons to work only if the connection was open (I didn't NEED to do that, but there's
+no point in clicking the button anyway if you're not connected...)
+
+Shit, if I hit the buttons too closely together, that also seems to break things.
+Nope, that's not it -- it's either heroku still timing out, or it's my attempt to do
+multiple re-connects.
+... OK, I'm pretty sure it's the Heroku timeout. I was able to have the connection re-up
+at 15 seconds, 30 seconds, 45 seconds. After that it closes out.
+A-HA no it's not... I'm able to do another re-up at 60 seconds, no problem. So what is
+going on? Well, maybe the heroku connection is ONLY timing out at 55 seconds, and then
+so for the buttons to work, I need to re-up AFTER that time? But then what the hell
+is client.stop doing? Could it be the case that it's doing nothing, and so whether I
+have it in my code or not, the connection's staying open for 55 seconds? In other words,
+even though I'm thinking that it's re-connecting, it's just using the same connection?
+
+OK... I think that's big piece of it. I took out client.stop, but then I was NOT able to
+go on to the next 60-second re-up. Buttons stopped working after 45 seconds. So
+client.stop DID NOT matter within the 55-second window, but DID matter for afterward.
+
+And THIS is interesting. I closed the serial port and reopened it. And then things got
+wonky. The buttons stopped working at different intervals -- sometimes after the 15-second
+re-up, sometimes after the 30-second re-up. I'm not quite sure what was going on there...
+but I'm pretty sure I need client.stop.
+
+Yeah, I just set a timeout for 50 seconds. Without client.stop, I think I've verified that
+Heroku times out on its own (this is with Keep-Alive connections), because the buttons just
+don't work after the re-up. But what's weird is, WITH client.stop, the buttons work after the
+re-up, but only briefly -- about 10 seconds, or five clicks worth. What the fuck?
+... yeah, I think it's a TIME thing and not a number-of-clicks thing (which makes much
+more sense.)
+
+I was even able to do 15, 30, 45, 60, 75, 90 -second re-ups, and everything worked until
+about 10 seconds after the last re-up.
+
+Yet if I set just a 50-second and a 100-second timeout, I'm only able to go up to, and a
+little past, the 50-second mark. But obviously the re-up doesn't HAVE to happen only after
+the Heroku timeout, as evidenced above. So what's up with this?
+Maybe there's an issue (there might be) with the large number I was using for the
+second timeout -- 100000? Or maybe 50000 is too close to the cutoff (due to variance of
+millis), and actually, the problem is that I've got to get client.stop to act before the
+heroku timeout?
+
+Damn, I just don't get it. I tried a 45-second and 90-second timeout, and yet this died
+10 seconds past the 45-second mark. And yet somehow I was able to do the 15-30-45-60-75-90
+above!
+And yet I WAS able to use a 40-second and 80-second timeout, and got all the way through
+the 80-second mark! (Although buttons stopped working after that.)
+
+Huh, I tried a 40, 70, 80 timeout structure, and the 80 never kicked in. Maybe just too
+close to the other?
+
+How weird! I tried a 40, 65, 80 without success. So how was I able to do a 40, 80?
+
+Tried using this type of code: millis() == 60*1000... but then it doesn't recognize the
+millis value at all. Hokay...
+
+OK, maybe the real issue here is that once you've "cleared" all the if-statements involving
+millis, there's no more re-up, and then the buttons stop working because the loop has an
+if client.connected statement.
+... damn, I thought that might be the answer. Added a delay, but buttons still seem to
+die on the vine after the final timeout.
+
+Hmm, well, I may have corrected one issue. I had a delay at the start of my connectHeroku
+function. So maybe that delay... well, I dunno, left an opening for Heroku to close its
+connection on me and therefore not allow me to do client.close?
+
+... Yeah, I think that was an issue. In fact, now things look promising. Was just able to
+do a 40, 55, 80, 95, -second structure, and then a 40, 55, 80, 95, 120 -second structure.
+In both cases, was able to make it to the final timeout, and then a few seconds afterward.
+
+So first of all, looks like I CAN use six-digit numbers like normal.
+
+And it seems pretty clear that those few seconds I'm getting after the final timeouts are
+due to using the "keep-alive" connection. Yeah, VERIFIED that using a "close" connection,
+at least with the way my code currently is, means that I get only ONE click of the button.
+The program then immediately is over. I click the button again, and the serial port registers
+the click, but the number is only incremented the first time.
+
+So I'm still confused about what the millis mean, and they seem to indicate time since
+whatever last connection, whether just turning on the Arduino, OR connecting to wifi, OR
+connecting to Heroku. Because isn't that the connection that's being closed when I use
+the "close" connection setting? The connection to Heroku? And isn't that why my code as
+written won't work with the "close" connection (because all the if statements involving
+millis never come to pass)?
+
+I guess I'm gonna have to get more systematic about trouble-shooting this, but for now,
+fuck it, let's try the way Wesley suggested. And actually, I might be mostly there. It
+appears that I could just continue to write if statements with incrementing millis counts
+and that the program would continue to work until a few seconds past the last if statement.
+If that last if statment triggered a GET request with a "close" connection, I'd only get
+one more successful click following. Because of the "keep-alive" connection, I'm able to
+get a few more clicks before timeout.
+
+So I've actually still been connected to Heroku when the buttons have stopped working...
+it's just that the program has... well, actually, it shouldn't end, but I guess, for
+some reason, since all the if statements have been executed at that point, it loops back,
+allows for one more execution of the button-press code, and then... I dunno, either ends
+or gets stuck.
+
+
+
+
+
+
+I'm getting bad connections when I close the serial port and re-open it without having
+changed a sketch. Don't know what the issue is with that, but I think it IS my issue,
+because unplugging and replugging the arduino seems to make the connection work again...
+
+It DOES also seem that the buttons are fucking up when I click twice quickly (like, a
+second apart...) -- Yeah, I DEFINITELY think that's an issue. I think this is actually a
+DEBOUNCE issue. Will have to try to add that soon.
+
+UGH -- it looks like there may be errors if I try to click the button while the re-connect
+is going on...
+
+OK, here are the concerns I need to address with code:
+  -- re-up connection to Heroku every 50 seconds.
+  -- check for dropped wifi connecting and restablish if necessary.
+
+OK, so I'm not clear on why exactly this connection is quitting on me. Need to add some
+serial indicators.
+
+Currently, what I see is:
+  Performing HTTP GET of: pongtester.herokuapp.com
+  button pushed
+... and then after a while the buttons are just not responsive.
+
+establish wifi connection
+alert if wifi not establish, otherwise
+establish heroku connection (maybe only on game start?)
+alert if heroku connection not established, otherwise
+allow for button clicks for 50 seconds
+close heroku connection
+restablish heroku connection
+go back to allowing button clicks
+
+... and, I guess, continually check for wifi connection and heroku connection?
+
+BY THE WAY, as far as power needs, I saw something that said the cc3000 needs 3.3 volts...
+am I giving it too much or too little power with my 9V? Why can't it just take what it
+needs?
+Internet sez: "Correct. You'll need level shifters (2 resistors) for WLAN_EN, WLAN_CS,
+WLAN_MOSI, and WLAN_SCK, and 1 resistor for the 3.3V pullup for WLAN_IRQ."
+The 9v battery may not provide enough current to power the wifi shield.
+They normally take a bit over 100ma.
+Hey, are there sparkfun cc3000 docs anywhere? How do I know what all methods I can use?
+
+is using a http 100 continue going to do any good...
 
 -------------
 

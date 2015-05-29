@@ -4,7 +4,8 @@ class LedController < ApplicationController
   def index
   end
 
-
+  def test
+  end
 
   def other
   end

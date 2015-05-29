@@ -1,0 +1,105 @@
+
+for (i = 0; i < 6; i++) {
+delay(3000);
+Serial.println("Time: ");
+Serial.println(millis());
+Serial.println(lastConnectionTime);
+}
+
+
+if (millis() - lastConnectionTime < postingInterval) {
+   Serial.println(millis());
+   Serial.println("time to reconnect!");
+   connectHeroku();
+ }
+
+
+Results of JQ Millis and lastConnectionTime test:
+
+---------------------------------
+JQ Millis and lastConnectionTime Test
+---------------------------------
+CC3000 initialization complete
+Connecting to: galvanizeEDU
+Connected!
+
+IP Address: 10.2.12.15
+SSID: galvanizeEDU
+
+Still connected!
+Time:
+9459
+0
+Time:
+10460
+0
+Time:
+11461
+0
+Time:
+12462
+0
+Time:
+13462
+0
+Time:
+14462
+0
+Finished connection test
+
+
+Results of JQ Wifi test (done at Galvanize)
+
+
+---------------------------------
+JQ Wifi Test
+---------------------------------
+CC3000 initialization complete
+Connecting to: galvanizeEDU
+Connected!
+
+IP Address: 10.2.12.15
+SSID: galvanizeEDU
+
+Still connected!
+Finished connection test
+
+
+
+
+---------------------------------
+SparkFun CC3000 - Connection Test
+---------------------------------
+CC3000 initialization complete
+Connecting to: LolaDog
+Connected!
+
+IP Address: 192.168.0.20
+SSID: LolaDog
+
+Disconnected
+Finished connection test
+
+
+Tried the ping test with https://pongtester.herokuapp.com, and got this:
+
+---------------------------
+SparkFun CC3000 - Ping Test
+---------------------------
+CC3000 initialization complete
+Connecting to: LolaDog
+Connected!
+IP Address: 192.168.0.20
+Looking up IP address of: https://pongtester.herokuapp.com
+IP address found: 0.0.0.0
+Pinging 0.0.0.0 3 times...
+Pong!
+
+Packets sent: 0
+Packets received: 0
+Min round time (ms): 0
+Max round time (ms): 0
+Avg round time (ms): 0
+
+Disconnected
+Finished ping test

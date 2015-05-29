@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
     get 'other' => 'led#other'
     get 'maybe' => 'led#maybe'
+    get 'test' => 'led#test'
 
     post '/pusher/auth', to: 'pusher#auth'
 
