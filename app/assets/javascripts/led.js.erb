@@ -16,19 +16,35 @@ function incrementValueBig()
   if (document.getElementById('numberBig').value === (" " + 11)) {
     if (document.getElementById("lefty").innerHTML === "WESLEY") {
       $('#playerpic').attr( "src" , "<%= image_path "WesleyWin.jpg", :id => "playerpic" %>" );
-      $('#playerpic2').attr( "src" , "<%= image_path "CaseyLose.jpg", :id => "playerpic2" %>" );
-
     }
     else if (document.getElementById("lefty").innerHTML === "CASEY") {
       $('#playerpic').attr( "src" , "<%= image_path "CaseyWin.jpg", :id => "playerpic" %>" );
-      $('#playerpic2').attr( "src" , "<%= image_path "WesleyLose.jpg", :id => "playerpic2" %>" );
-
     }
-    document.getElementById("lefty").innerHTML="VICTORY!!!";
-    document.getElementById("righty").innerHTML="DEFEAT!!!";
+    else if (document.getElementById("lefty").innerHTML === "JORDAN") {
+      $('#playerpic').attr( "src" , "<%= image_path "JordanWin.jpg", :id => "playerpic" %>" );
+    }
+    else if (document.getElementById("lefty").innerHTML === "JAKE") {
+      $('#playerpic').attr( "src" , "<%= image_path "JakeWin.jpg", :id => "playerpic" %>" );
+    }
+
+    if (document.getElementById("righty").innerHTML === "WESLEY") {
+      $('#playerpic2').attr( "src" , "<%= image_path "WesleyLose.jpg", :id => "playerpic2" %>" );
+    }
+      else if (document.getElementById("righty").innerHTML === "CASEY") {
+    $('#playerpic2').attr( "src" , "<%= image_path "CaseyLose.jpg", :id => "playerpic2" %>" );
+  }
+  else if (document.getElementById("righty").innerHTML === "JORDAN") {
+    $('#playerpic2').attr( "src" , "<%= image_path "JordanLose.jpg", :id => "playerpic2" %>" );
+  }
+  else if (document.getElementById("righty").innerHTML === "CASEY") {
+    $('#playerpic2').attr( "src" , "<%= image_path "JakeLose.jpg", :id => "playerpic2" %>" );
+  }
+  document.getElementById("lefty").innerHTML="VICTORY!!!";
+  document.getElementById("righty").innerHTML="DEFEAT!!!";
+}
 }
 
-}
+
 
 function deincrementValue()
 {
@@ -82,18 +98,34 @@ function incrementValue3Big()
   if (document.getElementById('numberBig3').value === (" " + 11)) {
     if (document.getElementById("righty").innerHTML === "WESLEY") {
       $('#playerpic2').attr( "src" , "<%= image_path "WesleyWin.jpg", :id => "playerpic2" %>" );
-      $('#playerpic').attr( "src" , "<%= image_path "CaseyLose.jpg", :id => "playerpic" %>" );
-
     }
-    else if (document.getElementById("righty").innerHTML === "CASEY") {
-      $('#playerpic2').attr( "src" , "<%= image_path "CaseyWin.jpg", :id => "playerpic2" %>" );
-      $('#playerpic').attr( "src" , "<%= image_path "WesleyLose.jpg", :id => "playerpic" %>" );
-
+      else if (document.getElementById("righty").innerHTML === "CASEY") {
+        $('#playerpic2').attr( "src" , "<%= image_path "CaseyWin.jpg", :id => "playerpic2" %>" );
     }
+    else if (document.getElementById("righty").innerHTML === "JORDAN") {
+      $('#playerpic2').attr( "src" , "<%= image_path "JordanWin.jpg", :id => "playerpic2" %>" );
+  }
+  else if (document.getElementById("righty").innerHTML === "JAKE") {
+    $('#playerpic2').attr( "src" , "<%= image_path "JakeWin.jpg", :id => "playerpic2" %>" );
+}
+if (document.getElementById("lefty").innerHTML === "WESLEY") {
+  $('#playerpic').attr( "src" , "<%= image_path "WesleyLose.jpg", :id => "playerpic" %>" );
+}
+else if (document.getElementById("lefty").innerHTML === "CASEY") {
+  $('#playerpic').attr( "src" , "<%= image_path "CaseyLose.jpg", :id => "playerpic" %>" );
+}
+else if (document.getElementById("lefty").innerHTML === "JORDAN") {
+  $('#playerpic').attr( "src" , "<%= image_path "JordanLose.jpg", :id => "playerpic" %>" );
+}
+else if (document.getElementById("lefty").innerHTML === "JAKE") {
+  $('#playerpic').attr( "src" , "<%= image_path "JakeLose.jpg", :id => "playerpic" %>" );
+}
+
     document.getElementById("lefty").innerHTML="DEFEAT!!!";
     document.getElementById("righty").innerHTML="VICTORY!!!";
 }
 }
+
 
 
 
