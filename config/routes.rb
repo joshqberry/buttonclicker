@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     get '/testlefty', to: 'led#testlefty'
     get '/testrighty' => 'led#testrighty'
 
+    get '/alsolefty', to: 'led#alsolefty'
+    get '/alsorighty' => 'led#alsorighty'
+
     get 'alertme' => 'led#alertme'
 
 
