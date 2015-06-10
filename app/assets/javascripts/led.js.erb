@@ -1,220 +1,524 @@
-function incrementValue()
-{
-  var value = parseInt(document.getElementById('number').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  document.getElementById('number').value = value;
+var player1nexty = " ";
+var player2nexty = " ";
+var player1nextyPopup = " ";
+var player2nextyPopup = " ";
+var nextiesQueue = [ ];
+var nextiesQueueee = [ ];
+var ppplayer = " ";
+
+function toggle(div_id) {
+	var el = document.getElementById(div_id);
+	if ( el.style.display == 'none' ) {	el.style.display = 'block';}
+	else {el.style.display = 'none';}
+}
+function blanket_size(popUpDivVar) {
+	if (typeof window.innerWidth != 'undefined') {
+		viewportheight = window.innerHeight;
+	} else {
+		viewportheight = document.documentElement.clientHeight;
+	}
+	if ((viewportheight > document.body.parentNode.scrollHeight) && (viewportheight > document.body.parentNode.clientHeight)) {
+		blanket_height = viewportheight;
+	} else {
+		if (document.body.parentNode.clientHeight > document.body.parentNode.scrollHeight) {
+			blanket_height = document.body.parentNode.clientHeight;
+		} else {
+			blanket_height = document.body.parentNode.scrollHeight;
+		}
+	}
+	var blanket = document.getElementById('blanket');
+	blanket.style.height = blanket_height + 'px';
+	var popUpDiv = document.getElementById(popUpDivVar);
+	popUpDiv_height=blanket_height/2-200;//200 is half popup's height
+	popUpDiv.style.top = popUpDiv_height + 'px';
+}
+function window_pos(popUpDivVar) {
+	if (typeof window.innerWidth != 'undefined') {
+		viewportwidth = window.innerHeight;
+	} else {
+		viewportwidth = document.documentElement.clientHeight;
+	}
+	if ((viewportwidth > document.body.parentNode.scrollWidth) && (viewportwidth > document.body.parentNode.clientWidth)) {
+		window_width = viewportwidth;
+	} else {
+		if (document.body.parentNode.clientWidth > document.body.parentNode.scrollWidth) {
+			window_width = document.body.parentNode.clientWidth;
+		} else {
+			window_width = document.body.parentNode.scrollWidth;
+		}
+	}
+	var popUpDiv = document.getElementById(popUpDivVar);
+	window_width=window_width/2-200;//200 is half popup's width
+	popUpDiv.style.left = window_width + 'px';
 
 }
+function popup(windowname) {
+	blanket_size(windowname);
+	window_pos(windowname);
+	toggle('blanket');
+	toggle(windowname);
+}
 
-function incrementValueBig()
+
+
+
+
+
+
+function oneVone(){
+  document.getElementById("single").style.visibility = "visible";
+  document.getElementById("double").style.visibility = "hidden";
+}
+
+function twoVtwo(){
+  document.getElementById("double").style.visibility = "visible";
+  document.getElementById("single").style.visibility = "hidden";
+}
+
+function startGame() {
+document.getElementById("single1score").style.visibility = "visible";
+document.getElementById("single2score").style.visibility = "visible";
+}
+
+function incrementValueLeft()
 {
-  var value = parseInt(document.getElementById('numberBig').value, 10);
+  var value = document.getElementById('single1score').innerHTML;
   value = isNaN(value) ? 0 : value;
   value++;
-  document.getElementById('numberBig').value = " " + value;
-  if (document.getElementById('numberBig').value === (" " + 11)) {
-    if (document.getElementById("lefty").innerHTML === "WESLEY") {
-      $('#playerpic').attr( "src" , "<%= image_path "WesleyWin.jpg", :id => "playerpic" %>" );
+  document.getElementById('single1score').innerHTML = value;
+  if (document.getElementById('single1score').innerHTML == 4) {
+    winnerPicLeft();
+    document.getElementById("leftoverlaytext").innerHTML = "VICTORY!!!";
+    document.getElementById("rightoverlaytext").innerHTML = "DEFEAT!!!";
+  }
+}
+
+function incrementValueRight()
+{
+  var value = document.getElementById('single2score').innerHTML;
+  value = isNaN(value) ? 0 : value;
+  value++;
+  document.getElementById('single2score').innerHTML = value;
+  if (document.getElementById('single2score').innerHTML == 4) {
+    winnerPicRight();
+    document.getElementById("rightoverlaytext").innerHTML = "VICTORY!!!";
+    document.getElementById("leftoverlaytext").innerHTML = "DEFEAT!!!";
+  }
+}
+
+function winnerPicLeft() {
+    if (document.getElementById("leftoverlaytext").innerHTML == "WESLEY") {
+      $('#playerpic1').attr( "src" , "<%= image_path "WesleyWin.jpg", :id => "playerpic1" %>" );
     }
-    else if (document.getElementById("lefty").innerHTML === "CASEY") {
-      $('#playerpic').attr( "src" , "<%= image_path "CaseyWin.jpg", :id => "playerpic" %>" );
+    else if (document.getElementById("leftoverlaytext").innerHTML == "CASEY") {
+      $('#playerpic1').attr( "src" , "<%= image_path "CaseyWin.jpg", :id => "playerpic1" %>" );
     }
-    else if (document.getElementById("lefty").innerHTML === "JORDAN") {
-      $('#playerpic').attr( "src" , "<%= image_path "JordanWin.jpg", :id => "playerpic" %>" );
+    else if (document.getElementById("leftoverlaytext").innerHTML == "JORDAN") {
+      $('#playerpic1').attr( "src" , "<%= image_path "JordanWin.jpg", :id => "playerpic1" %>" );
     }
-    else if (document.getElementById("lefty").innerHTML === "JAKE") {
-      $('#playerpic').attr( "src" , "<%= image_path "JakeWin.jpg", :id => "playerpic" %>" );
+    else if (document.getElementById("leftoverlaytext").innerHTML == "JAKE") {
+      $('#playerpic1').attr( "src" , "<%= image_path "JakeWin.jpg", :id => "playerpic1" %>" );
     }
 
-    if (document.getElementById("righty").innerHTML === "WESLEY") {
+    if (document.getElementById("rightoverlaytext").innerHTML == "WESLEY") {
       $('#playerpic2').attr( "src" , "<%= image_path "WesleyLose.jpg", :id => "playerpic2" %>" );
     }
-      else if (document.getElementById("righty").innerHTML === "CASEY") {
+    else if (document.getElementById("rightoverlaytext").innerHTML == "CASEY") {
     $('#playerpic2').attr( "src" , "<%= image_path "CaseyLose.jpg", :id => "playerpic2" %>" );
-  }
-  else if (document.getElementById("righty").innerHTML === "JORDAN") {
+    }
+    else if (document.getElementById("rightoverlaytext").innerHTML == "JORDAN") {
     $('#playerpic2').attr( "src" , "<%= image_path "JordanLose.jpg", :id => "playerpic2" %>" );
-  }
-  else if (document.getElementById("righty").innerHTML === "CASEY") {
+    }
+    else if (document.getElementById("rightoverlaytext").innerHTML == "CASEY") {
     $('#playerpic2').attr( "src" , "<%= image_path "JakeLose.jpg", :id => "playerpic2" %>" );
-  }
-  document.getElementById("lefty").innerHTML="VICTORY!!!";
-  document.getElementById("righty").innerHTML="DEFEAT!!!";
-}
-}
-
-
-
-function deincrementValue()
-{
-  var value = parseInt(document.getElementById('number').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value--;
-  document.getElementById('number').value = value;
-  if (document.getElementById('colorthis').value > 4) {
-    document.getElementById('colorthis').style.color = "red";
-    document.getElementById('colorthis').style.background="yellow";
-    document.getElementById("Daisy").style.visibility = "visible";
-  }
-  else
-  {
-    document.getElementById('colorthis').style.color = "black";
-    document.getElementById('colorthis').style.background="white";
-    document.getElementById("Daisy").style.visibility = "hidden";
-
-  }
-}
-
-
-
-
-
-function incrementValue3()
-{
-  var value = parseInt(document.getElementById('colorthis').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  document.getElementById('colorthis').value = value;
-  if (document.getElementById('colorthis').value > 4) {
-    document.getElementById('colorthis').style.color = "red";
-    document.getElementById('colorthis').style.background="yellow";
-    document.getElementById("Daisy").style.visibility = "visible";
-  }
-  else
-  {
-    document.getElementById('colorthis').style.color = "black";
-    document.getElementById('colorthis').style.background="white";
-    document.getElementById("Daisy").style.visibility = "hidden";
-  }
-}
-
-function incrementValue3Big()
-{
-  var value = parseInt(document.getElementById('numberBig3').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  document.getElementById('numberBig3').value = " " + value;
-  if (document.getElementById('numberBig3').value === (" " + 11)) {
-    if (document.getElementById("righty").innerHTML === "WESLEY") {
-      $('#playerpic2').attr( "src" , "<%= image_path "WesleyWin.jpg", :id => "playerpic2" %>" );
     }
-      else if (document.getElementById("righty").innerHTML === "CASEY") {
-        $('#playerpic2').attr( "src" , "<%= image_path "CaseyWin.jpg", :id => "playerpic2" %>" );
+}
+
+function winnerPicRight() {
+    if (document.getElementById("rightoverlaytext").innerHTML == "WESLEY") {
+      $('#playerpic2').attr( "src" , "<%= image_path "WesleyWin.jpg", :id => "playerpic1" %>" );
     }
-    else if (document.getElementById("righty").innerHTML === "JORDAN") {
-      $('#playerpic2').attr( "src" , "<%= image_path "JordanWin.jpg", :id => "playerpic2" %>" );
+    else if (document.getElementById("rightoverlaytext").innerHTML == "CASEY") {
+      $('#playerpic2').attr( "src" , "<%= image_path "CaseyWin.jpg", :id => "playerpic1" %>" );
+    }
+    else if (document.getElementById("rightoverlaytext").innerHTML == "JORDAN") {
+      $('#playerpic2').attr( "src" , "<%= image_path "JordanWin.jpg", :id => "playerpic1" %>" );
+    }
+    else if (document.getElementById("rightoverlaytext").innerHTML == "JAKE") {
+      $('#playerpic2').attr( "src" , "<%= image_path "JakeWin.jpg", :id => "playerpic1" %>" );
+    }
+
+    if (document.getElementById("leftoverlaytext").innerHTML == "WESLEY") {
+      $('#playerpic1').attr( "src" , "<%= image_path "WesleyLose.jpg", :id => "playerpic2" %>" );
+    }
+    else if (document.getElementById("leftoverlaytext").innerHTML == "CASEY") {
+    $('#playerpic1').attr( "src" , "<%= image_path "CaseyLose.jpg", :id => "playerpic2" %>" );
+    }
+    else if (document.getElementById("leftoverlaytext").innerHTML == "JORDAN") {
+    $('#playerpic1').attr( "src" , "<%= image_path "JordanLose.jpg", :id => "playerpic2" %>" );
+    }
+    else if (document.getElementById("leftoverlaytext").innerHTML == "CASEY") {
+    $('#playerpic1').attr( "src" , "<%= image_path "JakeLose.jpg", :id => "playerpic2" %>" );
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function prepNexties1() {
+      if (document.getElementById('mySelecttt1').value == "Bobby")
+      {
+      document.getElementById("InWaiting").innerHTML = "Bobby";
+      player1nexty = "Bobby"
+      player1nextyPopup = "Bobby"
+
+      }
+      else if (document.getElementById('mySelecttt1').value == "Shelby")
+      {
+          document.getElementById("InWaiting").innerHTML = "Shelby";
+          player1nexty = "Shelby"
+          player1nextyPopup = "Shelby"
+
+
+      }
+      else if (document.getElementById('mySelecttt1').value == "Zach")
+      {
+          document.getElementById("InWaiting").innerHTML = "Zach";
+          player1nexty = "Zach"
+          player1nextyPopup = "Zach"
+
+
+      }
+       else if
+       (document.getElementById('mySelecttt1').value == "Alexandra")
+       {
+           document.getElementById("InWaiting").innerHTML = "Alexandra";
+           player1nexty = "Alexandra"
+           player1nextyPopup = "Alexandra"
+
+
+       }
+       else if
+       (document.getElementById('mySelecttt1').value == "Andrew")
+       {
+           document.getElementById("InWaiting").innerHTML = "Andrew";
+           player1nexty = "Andrew"
+           player1nextyPopup = "Andrew"
+
+
+       }
+       else if
+       (document.getElementById('mySelecttt1').value == "Caleb")
+       {
+           document.getElementById("InWaiting").innerHTML = "Caleb";
+           player1nexty = "Caleb"
+           player1nextyPopup = "Caleb"
+
+
+       }
+}
+
+function prepNexties2() {
+      if (document.getElementById('mySelecttt2').value == "Bobby")
+      {
+      document.getElementById("InWaiting2").innerHTML = "Bobby";
+      player2nexty = "Bobby"
+      player2nextyPopup = "Bobby"
+
+      }
+      else if (document.getElementById('mySelecttt2').value == "Shelby")
+      {
+          document.getElementById("InWaiting2").innerHTML = "Shelby";
+          player2nexty = "Shelby"
+          player2nextyPopup = "Shelby"
+
+
+      }
+      else if (document.getElementById('mySelecttt2').value == "Zach")
+      {
+          document.getElementById("InWaiting2").innerHTML = "Zach";
+          player2nexty = "Zach"
+          player2nextyPopup = "Zach"
+
+
+      }
+       else if
+       (document.getElementById('mySelecttt2').value == "Alexandra")
+       {
+           document.getElementById("InWaiting2").innerHTML = "Alexandra";
+           player2nexty = "Alexandra"
+           player2nextyPopup = "Alexandra"
+
+
+       }
+       else if
+       (document.getElementById('mySelecttt2').value == "Andrew")
+       {
+           document.getElementById("InWaiting2").innerHTML = "Andrew";
+           player2nexty = "Andrew"
+           player2nextyPopup = "Andrew"
+
+
+       }
+       else if
+       (document.getElementById('mySelecttt2').value == "Caleb")
+       {
+           document.getElementById("InWaiting2").innerHTML = "Caleb";
+           player2nexty = "Caleb"
+           player2nextyPopup = "Caleb"
+
+
+       }
+}
+
+
+function setNexties() {
+
+  var firstplayer =  document.getElementById("InWaiting").innerHTML;
+  document.getElementById("YoureNext").innerHTML = firstplayer;
+  if (document.getElementById("Player1Nexty").innerHTML === "player 1") {
+    document.getElementById("Player1Nexty").innerHTML = player1nexty;
   }
-  else if (document.getElementById("righty").innerHTML === "JAKE") {
-    $('#playerpic2').attr( "src" , "<%= image_path "JakeWin.jpg", :id => "playerpic2" %>" );
+  else {
+  document.getElementById("Player3Nexty").innerHTML = player1nexty;
 }
-if (document.getElementById("lefty").innerHTML === "WESLEY") {
-  $('#playerpic').attr( "src" , "<%= image_path "WesleyLose.jpg", :id => "playerpic" %>" );
-}
-else if (document.getElementById("lefty").innerHTML === "CASEY") {
-  $('#playerpic').attr( "src" , "<%= image_path "CaseyLose.jpg", :id => "playerpic" %>" );
-}
-else if (document.getElementById("lefty").innerHTML === "JORDAN") {
-  $('#playerpic').attr( "src" , "<%= image_path "JordanLose.jpg", :id => "playerpic" %>" );
-}
-else if (document.getElementById("lefty").innerHTML === "JAKE") {
-  $('#playerpic').attr( "src" , "<%= image_path "JakeLose.jpg", :id => "playerpic" %>" );
-}
-
-    document.getElementById("lefty").innerHTML="DEFEAT!!!";
-    document.getElementById("righty").innerHTML="VICTORY!!!";
-}
-}
-
-
-
-
-
-function deincrementValue3()
-{
-  var value = parseInt(document.getElementById('colorthis').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value--;
-  document.getElementById('colorthis').value = value;
-  if (document.getElementById('colorthis').value > 4) {
-    document.getElementById('colorthis').style.color = "red";
-    document.getElementById('colorthis').style.background="yellow";
-    document.getElementById("Daisy").style.visibility = "visible";
+  if (document.getElementById("Player2Nexty").innerHTML === "player 2") {
+    document.getElementById("Player2Nexty").innerHTML = player2nexty;
   }
-  else
+  else {
+  document.getElementById("Player4Nexty").innerHTML = player2nexty;
+}
+if (document.getElementById("Player1NextyPopup").innerHTML === "player 1") {
+  document.getElementById("Player1NextyPopup").innerHTML = player1nextyPopup;
+}
+else {
+document.getElementById("Player3NextyPopup").innerHTML = player1nextyPopup;
+}
+if (document.getElementById("Player2NextyPopup").innerHTML === "player 2") {
+  document.getElementById("Player2NextyPopup").innerHTML = player2nextyPopup;
+}
+else {
+  document.getElementById("Player4NextyPopup").innerHTML = player2nextyPopup;
+}
+}
+
+function queuePlayerrr() {
+
+  if  (document.getElementById('selectPlayer1').value == "Bobby")
   {
-    document.getElementById('colorthis').style.color = "black";
-    document.getElementById('colorthis').style.background="white";
-    document.getElementById("Daisy").style.visibility = "hidden";
-
+      nextiesQueueee.push("Bobby");
   }
+
+  else if  (document.getElementById('selectPlayer1').value == "Shelby")
+    {
+        nextiesQueueee.push("Shelby");
+      }
+
+  else if  (document.getElementById('selectPlayer1').value == "Zach")
+  {
+      nextiesQueueee.push("Zach");
+    }
+  else if  (document.getElementById('selectPlayer1').value == "Alexandra")
+    {
+      nextiesQueueee.push("Alexandra");
+      }
+
+  else if  (document.getElementById('selectPlayer1').value == "Andrew")
+  {
+      nextiesQueueee.push("Andrew");
+    }
+  else if  (document.getElementById('selectPlayer1').value == "Caleb")
+  {
+      nextiesQueueee.push("Caleb");
+    }
+
+}
+
+function queuePlayerrrr() {
+
+  if  (document.getElementById('selectPlayer2').value == "Bobby")
+  {
+      nextiesQueueee.push("Bobby");
+  }
+
+  else if  (document.getElementById('selectPlayer2').value == "Shelby")
+    {
+        nextiesQueueee.push("Shelby");
+      }
+
+  else if  (document.getElementById('selectPlayer2').value == "Zach")
+  {
+      nextiesQueueee.push("Zach");
+    }
+  else if  (document.getElementById('selectPlayer2').value == "Alexandra")
+    {
+      nextiesQueueee.push("Alexandra");
+      }
+
+  else if  (document.getElementById('selectPlayer2').value == "Andrew")
+  {
+      nextiesQueueee.push("Andrew");
+    }
+  else if  (document.getElementById('selectPlayer2').value == "Caleb")
+  {
+      nextiesQueueee.push("Caleb");
+    }
+
+}
+
+
+function queueNextiesss() {
+document.getElementById("nextiesQueueee").innerHTML = nextiesQueueee;
+popup('NextiesDiv');
 }
 
 
 
 
+function queuePlayer1() {
 
-function changeImage() {
-      if (document.getElementById('mySelect').value == "Bobby")
-      {
-      document.getElementById("playerpic").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
+  if  (document.getElementById('mySelecttt1').value == "Bobby")
+  {
+      nextiesQueue.push("Bobby");
+  }
+
+  else if  (document.getElementById('mySelecttt1').value == "Shelby")
+    {
+        nextiesQueue.push("Shelby");
       }
-      else if (document.getElementById('mySelect').value == "Shelby")
-      {
-          document.getElementById("playerpic").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
+
+  else if  (document.getElementById('mySelecttt1').value == "Zach")
+  {
+      nextiesQueue.push("Zach");
+    }
+  else if  (document.getElementById('mySelecttt1').value == "Alexandra")
+    {
+      nextiesQueue.push("Alexandra");
       }
-      else if (document.getElementById('mySelect').value == "Zach")
-      {
-          document.getElementById("playerpic").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
+
+  else if  (document.getElementById('mySelecttt1').value == "Andrew")
+  {
+      nextiesQueue.push("Andrew");
+    }
+  else if  (document.getElementById('mySelecttt1').value == "Caleb")
+  {
+      nextiesQueue.push("Caleb");
+    }
+
+}
+
+
+function queuePlayer2() {
+
+  if  (document.getElementById('mySelecttt2').value == "Bobby")
+  {
+      nextiesQueue.push("Bobby");
+  }
+
+  else if  (document.getElementById('mySelecttt2').value == "Shelby")
+    {
+        nextiesQueue.push("Shelby");
       }
-       else if
-       (document.getElementById('mySelect').value == "Alexandra")
-       {
-           document.getElementById("playerpic").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
-       }
-       else if
-       (document.getElementById('mySelect').value == "Andrew")
-       {
-           document.getElementById("playerpic").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
-       }
-       else if
-       (document.getElementById('mySelect').value == "Caleb")
-       {
-           document.getElementById("playerpic").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
-       }
-       else if
-       (document.getElementById('mySelect').value == "Caleb")
-       {
-           document.getElementById("playerpic").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
-       }
-       else if (document.getElementById('mySelect').value == "Cameron")
-       {
-           document.getElementById("playerpic").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
-       }
-       else if (document.getElementById('mySelect').value == "Wesley")
-       {
-         $('#playerpic').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic" %>" );
-           document.getElementById("lefty").innerHTML="WESLEY";
-       }
-       else if (document.getElementById('mySelect').value == "Casey")
-       {
-         $('#playerpic').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic" %>" );
-           document.getElementById("lefty").innerHTML="CASEY";
+
+  else if  (document.getElementById('mySelecttt2').value == "Zach")
+  {
+      nextiesQueue.push("Zach");
+    }
+  else if  (document.getElementById('mySelecttt2').value == "Alexandra")
+    {
+      nextiesQueue.push("Alexandra");
+      }
+
+  else if  (document.getElementById('mySelecttt2').value == "Andrew")
+  {
+      nextiesQueue.push("Andrew");
+    }
+  else if  (document.getElementById('mySelecttt2').value == "Caleb")
+  {
+      nextiesQueue.push("Caleb");
+    }
+
+}
+
+function queueNexties() {
+document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
+}
+
+// USE SHIFT TO GET ITEMS BACK OUT OF ARRAY...
+
+
+
+  function changeImage() {
+        if (document.getElementById('mySelect').value == "Bobby")
+        {
+        document.getElementById("playerpic1").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
+        }
+        else if (document.getElementById('mySelect').value == "Shelby")
+        {
+            document.getElementById("playerpic1").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
+        }
+        else if (document.getElementById('mySelect').value == "Zach")
+        {
+            document.getElementById("playerpic1").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
+        }
+         else if
+         (document.getElementById('mySelect').value == "Alexandra")
+         {
+             document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
          }
-       else if (document.getElementById('mySelect').value == "Jordan")
-           {
-             $('#playerpic').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic" %>" );
-               document.getElementById("lefty").innerHTML="JORDAN";
+         else if
+         (document.getElementById('mySelect').value == "Andrew")
+         {
+             document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
+         }
+         else if
+         (document.getElementById('mySelect').value == "Caleb")
+         {
+             document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
+         }
+         else if
+         (document.getElementById('mySelect').value == "Caleb")
+         {
+             document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
+         }
+         else if (document.getElementById('mySelect').value == "Cameron")
+         {
+             document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
+         }
+         else if (document.getElementById('mySelect').value == "Wesley")
+         {
+           $('#playerpic1').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic1" %>" );
+             document.getElementById("leftoverlaytext").innerHTML="WESLEY";
+         }
+         else if (document.getElementById('mySelect').value == "Casey")
+         {
+           $('#playerpic1').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic1" %>" );
+             document.getElementById("leftoverlaytext").innerHTML="CASEY";
            }
-       else if (document.getElementById('mySelect').value == "Jake")
-           {
-             $('#playerpic').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic" %>" );
-             document.getElementById("lefty").innerHTML="JAKE";
-           }
-       else
-       {
-           document.getElementById("playerpic").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
-       }
+         else if (document.getElementById('mySelect').value == "Jordan")
+             {
+               $('#playerpic1').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic1" %>" );
+                 document.getElementById("leftoverlaytext").innerHTML="JORDAN";
+             }
+         else if (document.getElementById('mySelect').value == "Jake")
+             {
+               $('#playerpic1').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic1" %>" );
+               document.getElementById("leftoverlaytext").innerHTML="JAKE";
+             }
+         else
+         {
+             document.getElementById("playerpic1").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
+         }
    }
 
 
@@ -248,11 +552,6 @@ function changeImage() {
           {
               document.getElementById("playerpic2").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
           }
-          else if
-          (document.getElementById('mySelect2').value == "Caleb")
-          {
-              document.getElementById("playerpic2").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
-          }
           else if (document.getElementById('mySelect2').value == "Cameron")
           {
               document.getElementById("playerpic2").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
@@ -260,25 +559,25 @@ function changeImage() {
           else if (document.getElementById('mySelect2').value == "Wesley")
           {
             $('#playerpic2').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic2" %>" );
-              document.getElementById("righty").innerHTML="WESLEY";
+              document.getElementById("rightoverlaytext").innerHTML="WESLEY";
           }
           else if (document.getElementById('mySelect2').value == "Casey")
           {
 
             $('#playerpic2').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic2" %>" );
-              document.getElementById("righty").innerHTML="CASEY";
+              document.getElementById("rightoverlaytext").innerHTML="CASEY";
           }
           else if (document.getElementById('mySelect2').value == "Jordan")
           {
 
             $('#playerpic2').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic2" %>" );
-              document.getElementById("righty").innerHTML="JORDAN";
+              document.getElementById("rightoverlaytext").innerHTML="JORDAN";
           }
           else if (document.getElementById('mySelect2').value == "Jake")
           {
 
             $('#playerpic2').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic2" %>" );
-              document.getElementById("righty").innerHTML="JAKE";
+              document.getElementById("rightoverlaytext").innerHTML="JAKE";
           }
           else
           {
@@ -291,158 +590,256 @@ function changeImage() {
       function changeImage3() {
             if (document.getElementById('mySelect3').value == "Bobby")
             {
-            document.getElementById("playerpic3").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
+            document.getElementById("playerpic1A").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
             }
             else if (document.getElementById('mySelect3').value == "Shelby")
             {
-                document.getElementById("playerpic3").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
+                document.getElementById("playerpic1A").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
             }
             else if (document.getElementById('mySelect3').value == "Zach")
             {
-                document.getElementById("playerpic3").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
+                document.getElementById("playerpic1A").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
             }
              else if
              (document.getElementById('mySelect3').value == "Alexandra")
              {
-                 document.getElementById("playerpic3").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
+                 document.getElementById("playerpic1A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
              }
              else if
              (document.getElementById('mySelect3').value == "Andrew")
              {
-                 document.getElementById("playerpic3").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
+                 document.getElementById("playerpic1A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
              }
              else if
              (document.getElementById('mySelect3').value == "Caleb")
              {
-                 document.getElementById("playerpic3").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
-             }
-             else if
-             (document.getElementById('mySelect3').value == "Caleb")
-             {
-                 document.getElementById("playerpic3").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
+                 document.getElementById("playerpic1A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
              }
              else if (document.getElementById('mySelect3').value == "Cameron")
              {
-                 document.getElementById("playerpic3").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
+                 document.getElementById("playerpic1A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
+             }
+             else if (document.getElementById('mySelect3').value == "Wesley")
+             {
+               $('#playerpic1A').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic1A" %>" );
+                 document.getElementById("rightoverlaytext").innerHTML="WESLEY";
+             }
+             else if (document.getElementById('mySelect3').value == "Casey")
+             {
+
+               $('#playerpic1A').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic1A" %>" );
+                 document.getElementById("rightoverlaytext").innerHTML="CASEY";
+             }
+             else if (document.getElementById('mySelect3').value == "Jordan")
+             {
+
+               $('#playerpic1A').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic1A" %>" );
+                 document.getElementById("rightoverlaytext").innerHTML="JORDAN";
+             }
+             else if (document.getElementById('mySelect3').value == "Jake")
+             {
+
+               $('#playerpic1A').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic1A" %>" );
+                 document.getElementById("rightoverlaytext").innerHTML="JAKE";
              }
              else
              {
-                 document.getElementById("playerpic3").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
+                 document.getElementById("playerpic1A").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
              }
+             document.getElementById("doublesdiv1").style.visibility = "visible";
+             document.getElementById("playerpic1").style.visibility = "hidden";
          }
 
 
          function changeImage4() {
                if (document.getElementById('mySelect4').value == "Bobby")
                {
-               document.getElementById("playerpic4").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
+               document.getElementById("playerpic2A").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
                }
                else if (document.getElementById('mySelect4').value == "Shelby")
                {
-                   document.getElementById("playerpic4").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
+                   document.getElementById("playerpic2A").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
                }
                else if (document.getElementById('mySelect4').value == "Zach")
                {
-                   document.getElementById("playerpic4").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
+                   document.getElementById("playerpic2A").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
                }
                 else if
                 (document.getElementById('mySelect4').value == "Alexandra")
                 {
-                    document.getElementById("playerpic4").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
+                    document.getElementById("playerpic2A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
                 }
                 else if
                 (document.getElementById('mySelect4').value == "Andrew")
                 {
-                    document.getElementById("playerpic4").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
+                    document.getElementById("playerpic2A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
                 }
                 else if
                 (document.getElementById('mySelect4').value == "Caleb")
                 {
-                    document.getElementById("playerpic4").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
+                    document.getElementById("playerpic2A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
                 }
-                else if
-                (document.getElementById('mySelect4').value == "Caleb")
-                {
-                    document.getElementById("playerpic4").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
-                }
+
                 else if (document.getElementById('mySelect4').value == "Cameron")
                 {
-                    document.getElementById("playerpic4").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
+                    document.getElementById("playerpic2A").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
+                }
+                else if (document.getElementById('mySelect4').value == "Wesley")
+                {
+                  $('#playerpic2A').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic2A" %>" );
+                    document.getElementById("rightoverlaytext").innerHTML="WESLEY";
+                }
+                else if (document.getElementById('mySelect4').value == "Casey")
+                {
+
+                  $('#playerpic2A').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic2A" %>" );
+                    document.getElementById("rightoverlaytext").innerHTML="CASEY";
+                }
+                else if (document.getElementById('mySelect4').value == "Jordan")
+                {
+
+                  $('#playerpic2A').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic2A" %>" );
+                    document.getElementById("rightoverlaytext").innerHTML="JORDAN";
+                }
+                else if (document.getElementById('mySelect4').value == "Jake")
+                {
+
+                  $('#playerpic2A').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic2A" %>" );
+                    document.getElementById("rightoverlaytext").innerHTML="JAKE";
                 }
                 else
                 {
-                    document.getElementById("playerpic4").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
+                    document.getElementById("playerpic2A").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
                 }
+                document.getElementById("doublesdiv1").style.visibility = "visible";
+                document.getElementById("playerpic1").style.visibility = "hidden";
             }
 
 
-            function yesnoCheck() {
-            if (document.getElementById('yesCheck').checked) {
-                document.getElementById('ifYes').style.display = 'block';
-            }
-            else document.getElementById('ifYes').style.display = 'none';
+            function changeImage5() {
+                  if (document.getElementById('mySelect5').value == "Bobby")
+                  {
+                  document.getElementById("playerpic1B").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
+                  }
+                  else if (document.getElementById('mySelect5').value == "Shelby")
+                  {
+                      document.getElementById("playerpic1B").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
+                  }
+                  else if (document.getElementById('mySelect5').value == "Zach")
+                  {
+                      document.getElementById("playerpic1B").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
+                  }
+                   else if
+                   (document.getElementById('mySelect5').value == "Alexandra")
+                   {
+                       document.getElementById("playerpic1B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
+                   }
+                   else if
+                   (document.getElementById('mySelect5').value == "Andrew")
+                   {
+                       document.getElementById("playerpic1B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
+                   }
+                   else if
+                   (document.getElementById('mySelect5').value == "Caleb")
+                   {
+                       document.getElementById("playerpic1B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
+                   }
 
-        }
+                   else if (document.getElementById('mySelect5').value == "Cameron")
+                   {
+                       document.getElementById("playerpic1B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
+                   }
+                   else if (document.getElementById('mySelect5').value == "Wesley")
+                   {
+                     $('#playerpic1B').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic1B" %>" );
+                       document.getElementById("rightoverlaytext").innerHTML="WESLEY";
+                   }
+                   else if (document.getElementById('mySelect5').value == "Casey")
+                   {
+
+                     $('#playerpic1B').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic1B" %>" );
+                       document.getElementById("rightoverlaytext").innerHTML="CASEY";
+                   }
+                   else if (document.getElementById('mySelect5').value == "Jordan")
+                   {
+
+                     $('#playerpic1B').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic1B" %>" );
+                       document.getElementById("rightoverlaytext").innerHTML="JORDAN";
+                   }
+                   else if (document.getElementById('mySelect5').value == "Jake")
+                   {
+
+                     $('#playerpic1B').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic1B" %>" );
+                       document.getElementById("rightoverlaytext").innerHTML="JAKE";
+                   }
+                   else
+                   {
+                       document.getElementById("playerpic1B").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
+                   }
+                   document.getElementById("doublesdiv1").style.visibility = "visible";
+                   document.getElementById("playerpic2").style.visibility = "hidden";
+               }
 
 
+               function changeImage6() {
+                     if (document.getElementById('mySelect6').value == "Bobby")
+                     {
+                     document.getElementById("playerpic2B").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
+                     }
+                     else if (document.getElementById('mySelect6').value == "Shelby")
+                     {
+                         document.getElementById("playerpic2B").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
+                     }
+                     else if (document.getElementById('mySelect6').value == "Zach")
+                     {
+                         document.getElementById("playerpic2B").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
+                     }
+                      else if
+                      (document.getElementById('mySelect6').value == "Alexandra")
+                      {
+                          document.getElementById("playerpic2B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
+                      }
+                      else if
+                      (document.getElementById('mySelect6').value == "Andrew")
+                      {
+                          document.getElementById("playerpic2B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
+                      }
+                      else if
+                      (document.getElementById('mySelect6').value == "Caleb")
+                      {
+                          document.getElementById("playerpic2B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
+                      }
+                      else if (document.getElementById('mySelect6').value == "Cameron")
+                      {
+                          document.getElementById("playerpic2B").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
+                      }
+                      else if (document.getElementById('mySelect6').value == "Wesley")
+                      {
+                        $('#playerpic2B').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic2B" %>" );
+                          document.getElementById("rightoverlaytext").innerHTML="WESLEY";
+                      }
+                      else if (document.getElementById('mySelect6').value == "Casey")
+                      {
 
-// function goodbyepic()
-// {
-//   var value = parseInt(document.getElementById('number').value, 10);
-//   value = isNaN(value) ? 0 : value;
-//   value++;
-//   document.getElementById('number').value = value;
-//   if (document.getElementById('number').value > 4) {
-//     document.getElementById("pongpic2").style.visibility = "visible";
-//   }
-//   else
-//   {
-//     document.getElementById('number').style.color = "black";
-//     document.getElementById('number').style.background="white";
-//     document.getElementById("pongpic2").style.visibility = "hidden";
-//   }
-// }
+                        $('#playerpic2B').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic2B" %>" );
+                          document.getElementById("rightoverlaytext").innerHTML="CASEY";
+                      }
+                      else if (document.getElementById('mySelect6').value == "Jordan")
+                      {
 
+                        $('#playerpic2B').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic2B" %>" );
+                          document.getElementById("rightoverlaytext").innerHTML="JORDAN";
+                      }
+                      else if (document.getElementById('mySelect6').value == "Jake")
+                      {
 
-// $(".dropdown-menu li a").click(function(){
-//   var selText = $(this).text();
-//   $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
-// });
-
-
-// $( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
-//
-//       var $target = $( event.currentTarget );
-//
-//       $target.closest( '.btn-group' )
-//          .find( '[data-bind="label"]' ).text( $target.text() )
-//             .end()
-//          .children( '.dropdown-toggle' ).dropdown( 'toggle' );
-//
-//       return false;
-//
-//    });
-
-
-$('.dropdown-toggle').dropdown()
-
-   $('.dropdown-inverse li > a').click(function(e){
-    $('.status').text(this.innerHTML);
-});
-
-
-
-
-
-// paintIt = (element, backgroundColor, textColor) ->
-//   element.style.backgroundColor = backgroundColor
-//   if textColor?
-//     element.style.color = textColor
-//
-// $ ->
-//   $("a[data-background-color]").click (e) ->
-//     e.preventDefault()
-//
-//     backgroundColor = $(this).data("background-color")
-//     textColor = $(this).data("text-color")
-//     paintIt(this, backgroundColor, textColor)
+                        $('#playerpic2B').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic2B" %>" );
+                          document.getElementById("rightoverlaytext").innerHTML="JAKE";
+                      }
+                      else
+                      {
+                          document.getElementById("playerpic2B").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
+                      }
+                      document.getElementById("doublesdiv1").style.visibility = "visible";
+                      document.getElementById("playerpic2").style.visibility = "hidden";
+                  }

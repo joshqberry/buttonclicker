@@ -1,1 +1,1 @@
-For testing purposes. Probably does not work.
+Ping-Pong Thingamajig -- a work in progress.

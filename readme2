@@ -79,6 +79,60 @@ $('#testright').click(function(){
   $.get('/testrighty')
 });
 
+
+
+border: 1px solid black;
+
+<!-- <% @queue.push("a") %> -->
+
+<body onload="popup('NextiesDiv')">
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#b").animate({left: "+=500"}, 2000);
+    $("#b").animate({left: "-=300"}, 1000);
+});
+
+</script
+
+<div style="position:relative">
+    <div id="b" style="position:absolute;">B</div>
+</div>
+
+
+
+<button id="fade">Click to fade in vs</button><br><br>
+
+<script>
+$(document).ready(function(){
+    $("#fade").click(function(){
+        $("#vs").fadeIn();
+    });
+});
+</script>
+
+also display none
+
+
+function yesnoCheck() {
+if (document.getElementById('yesCheck').checked) {
+    document.getElementById('ifYes').style.display = 'block';
+}
+else document.getElementById('ifYes').style.display = 'none';
+
+}
+
+resources :doubles
+  resources :singles
+  resources :teams
+  resources :players
+  resources :singlesstats
+  resources :doublesstats
+
+Known issues:
+  -- can't keep connection from timing out, requires re-press to wake it up
+  -- can't seem to do this with 9V battery, although it was working fine with one button
+
 -------------
 
 Thursday 5/28 11:30 a.m.

@@ -5,100 +5,42 @@ class LedController < ApplicationController
   end
 
   def test
+    @queue = [ ]
+    @queue2 = [ "Casey"]
   end
 
   def other
   end
 
   def maybe
-
   end
 
-  def alertme
-    Pusher['test_channel'].trigger('greet', {
-  :greeting => "Hello there!"
-})
-
-
-
-render :nothing => true
-
+  def nexties
   end
 
-  def on
-    @led.on
-
-    render :nothing => true
+  def standings
   end
 
-  def off
-    @led.off
-
-    render :nothing => true
-  end
-
-  def testlefty
-  respond_to do |format|
-    format.js { render :js => "incrementValueBig();" }
-
-
-  end
-  end
-
-  def testrighty
-  respond_to do |format|
-  format.js { render :js => "incrementValue3Big();" }
-
-
-  end
-  end
-
-  def alsolefty
-    Pusher['private-button'].trigger!('lefty', { :some => 'data' })
-
-    render :nothing => true
-
-  end
-
-  def alsorighty
-    Pusher['private-button'].trigger!('righty', { :some => 'data' })
-
-    render :nothing => true
-
-  end
-
-
-  def numberupleft
+  def alsoleftup
   respond_to do |format|
     format.js { render :js => "incrementValueLeft();" }
   end
-end
-
-def numberupright
-respond_to do |format|
-  format.js { render :js => "incrementValueRight();" }
-end
-end
-
-def alsonumberup
-  Pusher['private-button'].trigger!('up', { :some => 'data' })
-
-  render :nothing => true
-
-end
-
-def alsonumberupright
-  Pusher['private-button'].trigger!('upright', { :some => 'data' })
-
-  render :nothing => true
-
-end
-
-
-
-  private
-
-  def set_up_led
-    @led = Dino::Components::Led.new(pin: 13, board: DinoRails::Application.config.board)
   end
+
+  def alsorightup
+  respond_to do |format|
+    format.js { render :js => "incrementValueRight();" }
+  end
+  end
+
+  def pushlefty
+    Pusher['private-button'].trigger!('lefty', { :some => 'data' })
+    render :nothing => true
+  end
+
+  def pushrighty
+    Pusher['private-button'].trigger!('righty', { :some => 'data' })
+    render :nothing => true
+  end
+
 end

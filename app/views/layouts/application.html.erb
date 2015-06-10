@@ -9,7 +9,331 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+
+<% if @queue == [ "josh"] %>
+
+<body onload="popup('NextiesDiv')">
+  <% elsif @queue == [ "ted"] %>
+  <body onload="popup('QueueDiv')">
+
+  <% else %>
 <body>
+  <% end %>
+
+
+  <div id="blanket" style="display:none"></div>
+
+
+    <div id="NextiesDiv" style="display:none; text-align:center; position:absolute;">
+
+        	<a href="#" onclick="popup('NextiesDiv')">Click to Close CSS Pop Up</a>
+          <br>
+          <br>
+          <br>
+          <% if @queue == [ ] %>
+          NO GAMES
+          <% else %>
+          NEXT GAME:
+          <% end %>
+          <br>
+          <br>
+
+            Singles or doubles?
+            <br>
+            <label class="radio-block">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+              onclick="oneVone()"> &nbsp;&nbsp;<span style="font-size:20px">1v1</span>&nbsp;&nbsp;&nbsp;
+            </label>
+            <label class="radio-block">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+              onclick="twoVtwo()"> &nbsp;&nbsp;<span style="font-size:20px">2v2</span>
+            </label>
+            <br>
+            <br>
+        <div id="single" style="position:absolute; margin-left:25%">
+
+
+          Select player 1:
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select player 2:
+          <br>
+          <br>
+            <select id="selectPlayer1" onchange="queuePlayerrr()" style="margin-left:-20px" >
+              <option value="Bobby">Bobby
+              <option value="Shelby">Shelby
+              <option value="Zach">Zach
+              <option value="Alexandra">Alexandra
+              <option value="Andrew">Andrew
+              <option value="Caleb">Caleb
+              <option value="Cameron">Cameron
+              <option value="Casey">Casey
+              <option value="Daniel">Daniel
+              <option value="Danielle">Danielle
+              <option value="Finn">Finn
+              <option value="Hayley">Hayley
+              <option value="Jake">Jake
+              <option value="Jess">Jess
+              <option value="John">John
+              <option value="Jordan">Jordan
+              <option value="Josh">Josh
+              <option value="Kerry">Kerry
+              <option value="Kenneth">Kenneth
+              <option value="Mackenzie">Mackenzie
+              <option value="Melissa">Melissa
+              <option value="Missy">Missy
+              <option value="Nick K.">Nick K.
+              <option value="Nick P.">Nick P.
+              <option value="Nina">Nina
+              <option value="Peter">Peter
+              <option value="Reyna">Reyna
+              <!-- <option value="Robb">Robb -->
+              <!-- <option value="Sam">Sam -->
+              <option value="Ty">Ty
+              <option value="Wesley">Wesley
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+            <select id="selectPlayer2" onchange="queuePlayerrrr()" >
+              <option value="Bobby">Bobby
+              <option value="Shelby">Shelby
+              <option value="Zach">Zach
+              <option value="Alexandra">Alexandra
+              <option value="Andrew">Andrew
+              <option value="Caleb">Caleb
+              <option value="Cameron">Cameron
+              <option value="Casey">Casey
+              <option value="Daniel">Daniel
+              <option value="Danielle">Danielle
+              <option value="Finn">Finn
+              <option value="Hayley">Hayley
+              <option value="Jake">Jake
+              <option value="Jess">Jess
+              <option value="John">John
+              <option value="Jordan">Jordan
+              <option value="Josh">Josh
+              <option value="Kerry">Kerry
+              <option value="Kenneth">Kenneth
+              <option value="Mackenzie">Mackenzie
+              <option value="Melissa">Melissa
+              <option value="Missy">Missy
+              <option value="Nick K.">Nick K.
+              <option value="Nick P.">Nick P.
+              <option value="Nina">Nina
+              <option value="Peter">Peter
+              <option value="Reyna">Reyna
+              <option value="Ty">Ty
+              <option value="Wesley">Wesley
+            </select>
+          </div>
+
+
+          <div id="double" style="position:absolute">
+            TEAM 1
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEAM 2
+            <br>
+            Select team 1 player 1:
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select team 2 player 1:
+            <br>
+            <br>
+              <select id="selectPlayer1A" onchange="queuePlayerrr()" style="margin-left:50px" >
+                <option value="Bobby">Bobby
+                <option value="Shelby">Shelby
+                <option value="Zach">Zach
+                <option value="Alexandra">Alexandra
+                <option value="Andrew">Andrew
+                <option value="Caleb">Caleb
+                <option value="Cameron">Cameron
+                <option value="Casey">Casey
+                <option value="Daniel">Daniel
+                <option value="Danielle">Danielle
+                <option value="Finn">Finn
+                <option value="Hayley">Hayley
+                <option value="Jake">Jake
+                <option value="Jess">Jess
+                <option value="John">John
+                <option value="Jordan">Jordan
+                <option value="Josh">Josh
+                <option value="Kerry">Kerry
+                <option value="Kenneth">Kenneth
+                <option value="Mackenzie">Mackenzie
+                <option value="Melissa">Melissa
+                <option value="Missy">Missy
+                <option value="Nick K.">Nick K.
+                <option value="Nick P.">Nick P.
+                <option value="Nina">Nina
+                <option value="Peter">Peter
+                <option value="Reyna">Reyna
+                <!-- <option value="Robb">Robb -->
+                <!-- <option value="Sam">Sam -->
+                <option value="Ty">Ty
+                <option value="Wesley">Wesley
+              </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <select id="selectPlayer1B" onchange="queuePlayerrr()" style="margin-left:50px" >
+                <option value="Bobby">Bobby
+                <option value="Shelby">Shelby
+                <option value="Zach">Zach
+                <option value="Alexandra">Alexandra
+                <option value="Andrew">Andrew
+                <option value="Caleb">Caleb
+                <option value="Cameron">Cameron
+                <option value="Casey">Casey
+                <option value="Daniel">Daniel
+                <option value="Danielle">Danielle
+                <option value="Finn">Finn
+                <option value="Hayley">Hayley
+                <option value="Jake">Jake
+                <option value="Jess">Jess
+                <option value="John">John
+                <option value="Jordan">Jordan
+                <option value="Josh">Josh
+                <option value="Kerry">Kerry
+                <option value="Kenneth">Kenneth
+                <option value="Mackenzie">Mackenzie
+                <option value="Melissa">Melissa
+                <option value="Missy">Missy
+                <option value="Nick K.">Nick K.
+                <option value="Nick P.">Nick P.
+                <option value="Nina">Nina
+                <option value="Peter">Peter
+                <option value="Reyna">Reyna
+                <!-- <option value="Robb">Robb -->
+                <!-- <option value="Sam">Sam -->
+                <option value="Ty">Ty
+                <option value="Wesley">Wesley
+              </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              <br>
+              <br>
+
+              Select team 1 player 2:
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select team 2 player 2:
+
+              <br>
+              <br>
+
+              <select id="selectPlayer2A" onchange="queuePlayerrrr()" style="margin-left:50px">
+                <option value="Bobby">Bobby
+                <option value="Shelby">Shelby
+                <option value="Zach">Zach
+                <option value="Alexandra">Alexandra
+                <option value="Andrew">Andrew
+                <option value="Caleb">Caleb
+                <option value="Cameron">Cameron
+                <option value="Casey">Casey
+                <option value="Daniel">Daniel
+                <option value="Danielle">Danielle
+                <option value="Finn">Finn
+                <option value="Hayley">Hayley
+                <option value="Jake">Jake
+                <option value="Jess">Jess
+                <option value="John">John
+                <option value="Jordan">Jordan
+                <option value="Josh">Josh
+                <option value="Kerry">Kerry
+                <option value="Kenneth">Kenneth
+                <option value="Mackenzie">Mackenzie
+                <option value="Melissa">Melissa
+                <option value="Missy">Missy
+                <option value="Nick K.">Nick K.
+                <option value="Nick P.">Nick P.
+                <option value="Nina">Nina
+                <option value="Peter">Peter
+                <option value="Reyna">Reyna
+                <option value="Ty">Ty
+                <option value="Wesley">Wesley
+              </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <select id="selectPlayer2B" onchange="queuePlayerrr()" style="margin-left:50px" >
+                  <option value="Bobby">Bobby
+                  <option value="Shelby">Shelby
+                  <option value="Zach">Zach
+                  <option value="Alexandra">Alexandra
+                  <option value="Andrew">Andrew
+                  <option value="Caleb">Caleb
+                  <option value="Cameron">Cameron
+                  <option value="Casey">Casey
+                  <option value="Daniel">Daniel
+                  <option value="Danielle">Danielle
+                  <option value="Finn">Finn
+                  <option value="Hayley">Hayley
+                  <option value="Jake">Jake
+                  <option value="Jess">Jess
+                  <option value="John">John
+                  <option value="Jordan">Jordan
+                  <option value="Josh">Josh
+                  <option value="Kerry">Kerry
+                  <option value="Kenneth">Kenneth
+                  <option value="Mackenzie">Mackenzie
+                  <option value="Melissa">Melissa
+                  <option value="Missy">Missy
+                  <option value="Nick K.">Nick K.
+                  <option value="Nick P.">Nick P.
+                  <option value="Nina">Nina
+                  <option value="Peter">Peter
+                  <option value="Reyna">Reyna
+                  <!-- <option value="Robb">Robb -->
+                  <!-- <option value="Sam">Sam -->
+                  <option value="Ty">Ty
+                  <option value="Wesley">Wesley
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          <br>
+          <br>
+          <span id="nextiesQueueee">hi</span>
+          <br>
+          <br>
+          <button id="queueNexties" onclick="queueNextiesss()">
+            Put nexties in queue
+          </button>
+        <br>
+        <br>
+          <span id="blah">player 1</span>&nbsp;vs.
+          <span id="blah2">player 2</span>
+          <br>
+          <br>
+            <span id="Player1NextyPopup">player 1</span>&nbsp;vs.
+            <span id="Player2NextyPopup">player 2</span>
+            <br>
+            <br>
+            <span id="Player3NextyPopup">player 3</span>&nbsp;vs.
+            <span id="Player4NextyPopup">player 4</span>
+            <br>
+            <br>
+            <%= link_to "Claim nexty!", nexties_path %>
+
+    	</div>
+      <div>
+
+
+        <div id="blanket" style="display:none"></div>
+
+  <div id="QueueDiv" style="display:none; text-align:center; position:absolute;">
+
+        <a href="#" onclick="popup('QueueDiv')">Click to Close CSS Pop Up</a>
+  </div>
+</div>
+
+
+  <a href="#" onclick="popup('NextiesDiv')">Click to Open nexties div</a><br>
+  <a href="#" onclick="popup('QueueDiv')">Click to Open queue div</a>
+
+  <br>
+  <br>
+
 
 <%= yield %>
 
