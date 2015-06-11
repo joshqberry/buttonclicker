@@ -1,0 +1,67 @@
+<div class='page-header'>
+  <h1>PingPong </h1>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4">
+      <table class="table table-striped">
+        Singles Results
+        <thead>
+          <th> Winner </th>
+          <th> Loser </th>
+          <th> Final Score </th>
+        </thead>
+        <tbody>
+          <% @singles.each do |game| %>
+          <tr>
+            <td> <%= game.winner_id %> </td>
+            <td> <%= game.loser_id %> </td>
+            <td> <%= game.winner_score %> <%= game.loser_score %> </td>
+          </tr>
+            <% end %>
+        </tbody>
+      </table>
+  </div>
+
+  <div class="col-md-4">
+      <table class="table table-striped">
+        Teams
+        <thead>
+          <th> Team Name </th>
+          <th> Player Name </th>
+          <th> Player Name </th>
+        </thead>
+        <tbody>
+          <% @teams.each do |team| %>
+          <tr>
+            <td> <%= team.team_players %> </td>
+            <td> <%= team.player1 %> </td>
+            <td> <%= team.player2 %> </td>
+          </tr>
+            <% end %>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="col-md-4">
+        <table class="table table-striped">
+          Doubles Results
+          <thead>
+            <th> Winning Team  </th>
+            <th> Losing Team  </th>
+            <th> Final Score  </th>
+          </thead>
+          <tbody>
+            <% @doubles.each do |double| %>
+            <tr>
+              <td> <%= double.teamwinner_id %> </td>
+              <td> <%= double.teamloser_id %> </td>
+              <td> <%= double.teamwinner_score %> <%= double.teamloser_score %> </td>
+            </tr>
+              <% end %>
+          </tbody>
+        </table>
+
+    </div>

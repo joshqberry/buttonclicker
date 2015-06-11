@@ -65,6 +65,9 @@ function popup(windowname) {
 
 
 
+
+
+
 function oneVone(){
   document.getElementById("single").style.visibility = "visible";
   document.getElementById("double").style.visibility = "hidden";
@@ -82,11 +85,11 @@ document.getElementById("single2score").style.visibility = "visible";
 
 function incrementValueLeft()
 {
-  var value = document.getElementById('single1score').innerHTML;
+  var value = document.getElementById('leftscore').innerHTML;
   value = isNaN(value) ? 0 : value;
   value++;
-  document.getElementById('single1score').innerHTML = value;
-  if (document.getElementById('single1score').innerHTML == 4) {
+  document.getElementById('leftscore').innerHTML = value;
+  if (value == 4) {
     winnerPicLeft();
     document.getElementById("leftoverlaytext").innerHTML = "VICTORY!!!";
     document.getElementById("rightoverlaytext").innerHTML = "DEFEAT!!!";
@@ -95,11 +98,11 @@ function incrementValueLeft()
 
 function incrementValueRight()
 {
-  var value = document.getElementById('single2score').innerHTML;
+  var value = document.getElementById('rightscore').innerHTML;
   value = isNaN(value) ? 0 : value;
   value++;
-  document.getElementById('single2score').innerHTML = value;
-  if (document.getElementById('single2score').innerHTML == 4) {
+  document.getElementById('rightscore').innerHTML = value;
+  if (value == 4) {
     winnerPicRight();
     document.getElementById("rightoverlaytext").innerHTML = "VICTORY!!!";
     document.getElementById("leftoverlaytext").innerHTML = "DEFEAT!!!";
@@ -519,8 +522,9 @@ document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
          {
              document.getElementById("playerpic1").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
          }
+         document.getElementById("doublesdiv1").style.visibility = "hidden";
+         document.getElementById("playerpic1").style.visibility = "visible";
    }
-
 
 
 
@@ -583,6 +587,8 @@ document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
           {
               document.getElementById("playerpic2").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
           }
+          document.getElementById("doublesdiv2").style.visibility = "hidden";
+          document.getElementById("playerpic2").style.visibility = "visible";
       }
 
 
@@ -648,6 +654,9 @@ document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
              }
              document.getElementById("doublesdiv1").style.visibility = "visible";
              document.getElementById("playerpic1").style.visibility = "hidden";
+						document.getElementById("leftoverlay").style.visibility = "hidden";
+						document.getElementById("rightoverlay").style.visibility = "hidden";
+
          }
 
 
@@ -776,8 +785,10 @@ document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
                    {
                        document.getElementById("playerpic1B").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
                    }
-                   document.getElementById("doublesdiv1").style.visibility = "visible";
+                   document.getElementById("doublesdiv2").style.visibility = "visible";
                    document.getElementById("playerpic2").style.visibility = "hidden";
+									document.getElementById("rightoverlay").style.visibility = "hidden";
+									document.getElementById("leftoverlay").style.visibility = "hidden";
                }
 
 
@@ -840,6 +851,6 @@ document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
                       {
                           document.getElementById("playerpic2B").src = "http://media.tumblr.com/tumblr_lmp8n9pOPW1qfuepw.png";
                       }
-                      document.getElementById("doublesdiv1").style.visibility = "visible";
+                      document.getElementById("doublesdiv2").style.visibility = "visible";
                       document.getElementById("playerpic2").style.visibility = "hidden";
                   }

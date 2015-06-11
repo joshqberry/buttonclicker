@@ -1,0 +1,32 @@
+<% if @single.errors.any? %>
+  <% @form_errors = @single.errors.count %>
+  <% @full_message_errors = @single.errors.full_messages %>
+<%= render '/shared/errors' %>
+<% end %>
+
+
+<div class='page-header'>
+  <h1> New Singles Game </h1>
+</div>
+
+
+<%= form_for(@single) do |f| %>
+
+<%= f.label :playerA_id, "Player A" %>
+<%= f.collection_select(:playerA_id, Player.all, :name, :name) %>
+
+
+<%= f.label :playerB_id, "Player B" %>
+<%= f.collection_select(:playerB_id, Player.all, :name, :name) %>
+
+
+
+<%= f.label :playerA_score %>
+<%= f.number_field :playerA_score %>
+
+<%= f.label :playerB_score %>
+<%= f.number_field :playerB_score %>
+
+<%= f.submit "Create new singles game" %>
+
+<% end %>

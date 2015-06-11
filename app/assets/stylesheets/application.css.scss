@@ -42,16 +42,29 @@
         visibility: hidden;
       }
 
+#doublesdiv1 {
+  background-color:none;
+  visibility: hidden;
+}
+
+#doublesdiv2 {
+  background-color:none;
+  visibility: hidden;
+}
+
 img.playerpic1
 {
-position: relative;
+position: absolute;
 max-width: 100%;
+left: 0;
 }
 
 img.playerpic2
 {
-position: relative;
+position: absolute;
  max-width: 100%;
+ background-color:none;
+ left: 0;
 
 }
 
@@ -72,13 +85,12 @@ position: relative;
   }
 
   img.playerpic1B
-
   {
     position: relative;
     max-width: 100%;
     background-color:none
-
   }
+
   img.playerpic2B
   {
   position: relative;
@@ -98,25 +110,15 @@ position: relative;
 }
 
 
-#doublesdiv1 {
-  background-color:none;
-  visibility: hidden;
-}
 
-#doublesdiv2 {
-  background-color:none;
-  visibility: hidden;
-}
 
 
 h2#leftoverlay {
-  position: absolute;
-
-      top: 200px;
-      left: 10px;
+      position:absolute;
+      top: 45%;
+      left: 0%;
       width: 600px;
       text-align: center;
-
    }
 
 h2 span#leftoverlaytext {
@@ -133,11 +135,10 @@ h2 span#leftoverlaytext {
 
    }
 
-
    h2#rightoverlay {
          position: absolute;
-         top: 200px;
-         left: 750px;
+         top: 45%;
+         left: 0%;
          width: 600px;
          text-align: center;
 
@@ -156,59 +157,6 @@ h2 span#leftoverlaytext {
 
       }
 
-
-
-h2#left {
-  position: absolute;
-  visibility: hidden;
-
-      top: 200px;
-      left: 10px;
-      width: 600px;
-      text-align: center;
-
-   }
-
-h2 span#left {
-  visibility: hidden;
-
-      color: white;
-      font: bold 55px/65px Helvetica, Sans-Serif;
-      letter-spacing: -1px;
-      background: rgb(0, 0, 0); /* fallback color */
-      background: rgba(0, 0, 0, 0.7);
-      padding: 10px;
-      margin-right: 15px;
-      margin-left: 45px;
-      max-width: 300px;
-
-   }
-
-
-   h2#right {
-     visibility: hidden;
-
-         position: absolute;
-         top: 200px;
-         left: 750px;
-         width: 600px;
-         text-align: center;
-      }
-
-   h2 span#right {
-     visibility: hidden;
-
-         color: white;
-         font: bold 55px/65px Helvetica, Sans-Serif;
-         letter-spacing: -1px;
-         background: rgb(0, 0, 0); /* fallback color */
-         background: rgba(0, 0, 0, 0.7);
-         padding: 10px;
-         margin-right: 15px;
-         margin-left: 45px;
-         max-width: 300px;
-
-      }
 
    h2 span.spacer {
       padding:0 5px;

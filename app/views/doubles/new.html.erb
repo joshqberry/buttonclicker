@@ -1,0 +1,29 @@
+<% if @double.errors.any? %>
+  <% @form_errors = @double.errors.count %>
+  <% @full_message_errors = @double.errors.full_messages %>
+<%= render '/shared/errors' %>
+<% end %>
+
+<%= form_for(@double) do |f| %>
+
+<%= f.label :teamA_id %>
+<%= f.collection_select(:teamA_id, Team.all, :team_players, :team_players) %>
+
+<%= f.label :teamB_id %>
+<%= f.collection_select(:teamB_id, Team.all, :team_players, :team_players) %>
+
+<%= f.label :teamwinner_id %>
+<%= f.number_field :teamwinner_id %>
+
+<%= f.label :teamloser_id %>
+<%= f.number_field :teamloser_id %>
+
+<%= f.label :teamwinner_score %>
+<%= f.number_field :teamwinner_score %>
+
+<%= f.label :teamloser_score %>
+<%= f.number_field :teamloser_score %>
+
+<%= f.submit "Create new doubles game" %>
+
+<% end %>

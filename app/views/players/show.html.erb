@@ -1,0 +1,242 @@
+<h1><%= @player.name %></h1>
+<%= hello %>
+
+<br>
+<br>
+<h1>Overall stats </h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Overall Wins</th>
+      <th>Overall Losses</th>
+      <th>Overall Ranking </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= player_total_wins + player_total_doubles_wins%></td>
+        <td><%= player_total_losses + player_total_doubles_losses %></td>
+        <td><%=  %></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <br>
+  <br>
+  <h1>Overall deep stats </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Overall Wins</th>
+        <th>Overall Losses</th>
+        <th>Overall Ranking </th>
+        <th>Overall total games played </th>
+
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= player_total_wins + player_total_doubles_wins %></td>
+          <td><%= player_total_losses + player_total_doubles_losses %></td>
+          <td><%=  %></td>
+          <td><%= player_total_wins + player_total_doubles_wins + player_total_losses + player_total_doubles_losses %></td>
+
+        </tr>
+
+      </tbody>
+    </table>
+<br>
+<br>
+<h1>Personal singles stats </h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Ranking </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= player_total_wins %></td>
+        <td><%= player_total_losses %></td>
+        <td><%=  %></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+  <br>
+  <h1>Personal singles deep stats </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Ranking </th>
+        <th>Total singles games played </th>
+
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= player_total_wins %></td>
+          <td><%= player_total_losses %></td>
+          <td><%=  %></td>
+          <td><%= player_total_wins + player_total_losses %></td>
+        </tr>
+
+      </tbody>
+    </table>
+  <br>
+  <br>
+  <h1>Personal doubles stats </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+
+        <th>doubles games won</th>
+        <th>doubles games lost</th>
+        <th>Ranking </th>
+
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+
+          <td><%= player_total_doubles_wins %></td>
+          <td><%= player_total_doubles_losses %></td>
+          <td><%=  %></td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <br>
+    <br>
+    <h1>Personal doubles deep stats </h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+
+          <th>doubles games won</th>
+          <th>doubles games lost</th>
+          <th>Ranking </th>
+
+          <th>Total doubles games played </th>
+
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+
+            <td><%= player_total_doubles_wins %></td>
+            <td><%= player_total_doubles_losses %></td>
+            <td><%=  %></td>
+
+            <td><%= player_total_doubles_wins + player_total_doubles_losses %></td>
+
+          </tr>
+        </tbody>
+      </table>
+<br>
+<br>
+<h1>Singles games </h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Single id</th>
+      <th>Player A </th>
+      <th>Player B </th>
+      <th>winner </th>
+      <th>loser </th>
+      <th>score </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+    <% @singles.each do |single| %>
+
+        <td><%= single.id %></td>
+        <td><%= single.playerA_id %></td>
+        <td><%= single.playerB_id %></td>
+        <td><%= single.winner_id %></td>
+        <td><%= single.loser_id %></td>
+        <td><%= single.winner_score %>&nbsp;--&nbsp;<%= single.loser_score %></td>
+      </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+
+
+  <br>
+  <br>
+  <h1>Doubles games </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Double id</th>
+        <th>team A </th>
+        <th>team B </th>
+        <th>winner </th>
+        <th>loser </th>
+        <th>score </th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @teams.each do |team| %>
+      <% team.doubles.each do |double| %>
+
+        <tr>
+          <td><%= double.id %></td>
+          <td><%= double.teamA_id %></td>
+          <td><%= double.teamB_id %></td>
+          <td><%= double.teamwinner_id %></td>
+          <td><%= double.teamloser_id %></td>
+          <td><%= double.teamwinner_score %>&nbsp;--&nbsp;<%= double.teamloser_score %></td>
+        </tr>
+        <% end %>
+        <% end %>
+
+      </tbody>
+    </table>
+
+<br>
+<br>
+<h1>Your teams</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Team name</th>
+      <th>Victories </th>
+      <th>Defeats </th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teams.each do |team| %>
+      <tr>
+        <td><%= team.id %></td>
+        <td><%= team.team_players %></td>
+        <td><%= team.doubles.where(teamwinner_id: team.id).count %></td>
+        <td><%= team.doubles.where(teamloser_id: team.id).count %></td>
+      </tr>
+
+      <% end %>
+
+    </tbody>
+  </table>

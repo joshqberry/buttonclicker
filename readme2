@@ -122,16 +122,16 @@ else document.getElementById('ifYes').style.display = 'none';
 
 }
 
-resources :doubles
-  resources :singles
-  resources :teams
-  resources :players
-  resources :singlesstats
-  resources :doublesstats
+
 
 Known issues:
   -- can't keep connection from timing out, requires re-press to wake it up
   -- can't seem to do this with 9V battery, although it was working fine with one button
+
+
+
+
+
 
 -------------
 

@@ -1,0 +1,14 @@
+<%= form_for(@player) do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :nickname %>
+<%= f.text_field :nickname %>
+
+<%= f.label :photo_ref %>
+<%= f.text_field :photo_ref %>
+
+<%= f.submit "Update player" %>
+
+<% end %>

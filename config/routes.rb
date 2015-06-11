@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
 
+    resources :doubles
+    resources :singles
+    resources :teams
+    resources :players
+    resources :singlesstats
+    resources :doublesstats
+
     get '/alsoleftup', to: 'led#alsoleftup'
     get '/alsorightup' => 'led#alsorightup'
 
-    get '/pushleft', to: 'led#pushlefty'
-    get '/pushright' => 'led#pushrighty'
+    get '/pushlefty', to: 'led#pushlefty'
+    get '/pushrighty' => 'led#pushrighty'
 
     root to: 'led#index'
 

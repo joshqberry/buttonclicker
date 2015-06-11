@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  playerA_name: MyString
+  playerB_name: MyString
+  winner_id: 1
+  loser_id: 1
+  winner_score: 1
+  loser_score: 1
+  playerA_score: 1
+  playerB_score: 1
+
+two:
+  playerA_name: MyString
+  playerB_name: MyString
+  winner_id: 1
+  loser_id: 1
+  winner_score: 1
+  loser_score: 1
+  playerA_score: 1
+  playerB_score: 1

@@ -1,0 +1,65 @@
+hi there
+<h1><%= @team.team_players %></h1>
+
+<br>
+<br>
+<h1>This team's doubles stats </h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Wins</th>
+      <th>Losses</th>
+      <th>Ranking </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= team_total_wins %></td>
+        <td><%= team_total_losses %></td>
+        <td><%=  %></td>
+        <td><%=  %></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Double id</th>
+      <th>vs. </th>
+      <th>winner </th>
+      <th>loser </th>
+      <th>score </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @doubles.each do |double| %>
+      <tr>
+        <td><%= double.id %></td>
+        <td><%= double.teamB_id %></td>
+        <td><%= double.teamwinner_id %></td>
+        <td><%= double.teamloser_id %></td>
+        <td><%= double.teamwinner_score %>&nbsp;--&nbsp;<%= double.teamloser_score %></td>
+
+
+      </tr>
+<% end %>
+</tbody>
+</table>
+
+<br>
+<br>
+<h1>Your players</h1>
+<table class="table table-striped">
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.name %></td>
+      </tr>
+      <% end %>
+
+    </tbody>
+  </table>

@@ -1,0 +1,20 @@
+<% if @team.errors.any? %>
+  <% @form_errors = @team.errors.count %>
+  <% @full_message_errors = @team.errors.full_messages %>
+<%= render '/shared/errors' %>
+<% end %>
+
+<%= form_for(@team) do |f| %>
+
+<%= f.label :player1 %>
+<%= f.collection_select(:player1, Player.all, :name, :name) %>
+
+<%= f.label :player2 %>
+<%= f.collection_select(:player2, Player.all, :name, :name) %>
+
+<%= f.label :team_players %>
+<%= f.text_field :team_players %>
+
+<%= f.submit "Create new team" %>
+
+<% end %>

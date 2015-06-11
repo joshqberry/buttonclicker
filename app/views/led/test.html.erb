@@ -1,315 +1,53 @@
-<button id="startgame" onclick="startGame()">
-  Start game
-</button>&nbsp;&nbsp;
-
-<button id="clickme">
-  Click for toggle
-</button>&nbsp;&nbsp;
-
-<button id="right">move vs.</button>&nbsp;&nbsp;
-
-<div id="blahblah">text here</div>
-
-<div class="row">
-  <div class="col-md-3">
-    <h1>&nbsp;&nbsp; Pong Thing!</h1>
-  </div>
-
-
-<div class="col-md-6">
-
-  <br>
-  <br>
-  Select player 1:
-
-    <select id="mySelect" onchange="changeImage()">
-      <option value="Bobby">Bobby
-      <option value="Shelby">Shelby
-      <option value="Zach">Zach
-      <option value="Alexandra">Alexandra
-      <option value="Andrew">Andrew
-      <option value="Caleb">Caleb
-      <option value="Cameron">Cameron
-      <option value="Casey">Casey
-      <option value="Daniel">Daniel
-      <option value="Danielle">Danielle
-      <option value="Finn">Finn
-      <option value="Hayley">Hayley
-      <option value="Jake">Jake
-      <option value="Jess">Jess
-      <option value="John">John
-      <option value="Jordan">Jordan
-      <option value="Josh">Josh
-      <option value="Kerry">Kerry
-      <option value="Kenneth">Kenneth
-      <option value="Mackenzie">Mackenzie
-      <option value="Melissa">Melissa
-      <option value="Missy">Missy
-      <option value="Nick K.">Nick K.
-      <option value="Nick P.">Nick P.
-      <option value="Nina">Nina
-      <option value="Peter">Peter
-      <option value="Reyna">Reyna
-      <!-- <option value="Robb">Robb -->
-      <!-- <option value="Sam">Sam -->
-      <option value="Ty">Ty
-      <option value="Wesley">Wesley
-    </select>
-
-
-    &nbsp;&nbsp;&nbsp;&nbsp;Select player 2:
-
-    <select id="mySelect2" onchange="changeImage2()">
-      <option value="Bobby">Bobby
-      <option value="Shelby">Shelby
-      <option value="Zach">Zach
-      <option value="Alexandra">Alexandra
-      <option value="Andrew">Andrew
-      <option value="Caleb">Caleb
-      <option value="Cameron">Cameron
-      <option value="Casey">Casey
-      <option value="Daniel">Daniel
-      <option value="Danielle">Danielle
-      <option value="Finn">Finn
-      <option value="Hayley">Hayley
-      <option value="Jake">Jake
-      <option value="Jess">Jess
-      <option value="John">John
-      <option value="Jordan">Jordan
-      <option value="Josh">Josh
-      <option value="Kerry">Kerry
-      <option value="Kenneth">Kenneth
-      <option value="Mackenzie">Mackenzie
-      <option value="Melissa">Melissa
-      <option value="Missy">Missy
-      <option value="Nick K.">Nick K.
-      <option value="Nick P.">Nick P.
-      <option value="Nina">Nina
-      <option value="Peter">Peter
-      <option value="Reyna">Reyna
-      <option value="Ty">Ty
-      <option value="Wesley">Wesley
-    </select>
-
-    Team 1:
-
-  <select id="mySelect3" onchange="changeImage3()">
-    <option value="Bobby">Bobby
-    <option value="Shelby">Shelby
-    <option value="Zach">Zach
-    <option value="Alexandra">Alexandra
-    <option value="Andrew">Andrew
-    <option value="Caleb">Caleb
-    <option value="Cameron">Cameron
-    <option value="Casey">Casey
-    <option value="Daniel">Daniel
-    <option value="Danielle">Danielle
-    <option value="Finn">Finn
-    <option value="Hayley">Hayley
-    <option value="Jake">Jake
-    <option value="Jess">Jess
-    <option value="John">John
-    <option value="Jordan">Jordan
-    <option value="Josh">Josh
-    <option value="Kerry">Kerry
-    <option value="Kenneth">Kenneth
-    <option value="Mackenzie">Mackenzie
-    <option value="Melissa">Melissa
-    <option value="Missy">Missy
-    <option value="Nick K.">Nick K.
-    <option value="Nick P.">Nick P.
-    <option value="Nina">Nina
-    <option value="Peter">Peter
-    <option value="Reyna">Reyna
-    <!-- <option value="Robb">Robb
-    <option value="Sam">Sam -->
-    <option value="Ty">Ty
-    <option value="Wesley">Wesley
-  </select>
-
-
-    <select id="mySelect4" onchange="changeImage4()">
-      <option value="Bobby">Bobby
-      <option value="Shelby">Shelby
-      <option value="Zach">Zach
-      <option value="Alexandra">Alexandra
-      <option value="Andrew">Andrew
-      <option value="Caleb">Caleb
-      <option value="Cameron">Cameron
-      <option value="Casey">Casey
-      <option value="Daniel">Daniel
-      <option value="Danielle">Danielle
-      <option value="Finn">Finn
-      <option value="Hayley">Hayley
-      <option value="Jake">Jake
-      <option value="Jess">Jess
-      <option value="John">John
-      <option value="Jordan">Jordan
-      <option value="Josh">Josh
-      <option value="Kerry">Kerry
-      <option value="Kenneth">Kenneth
-      <option value="Mackenzie">Mackenzie
-      <option value="Melissa">Melissa
-      <option value="Missy">Missy
-      <option value="Nick K.">Nick K.
-      <option value="Nick P.">Nick P.
-      <option value="Nina">Nina
-      <option value="Peter">Peter
-      <option value="Reyna">Reyna
-      <!-- <option value="Robb">Robb
-      <option value="Sam">Sam -->
-      <option value="Ty">Ty
-      <option value="Wesley">Wesley
-    </select>
-
-    Team 2:
-
-    <select id="mySelect5" onchange="changeImage5()">
-    <option value="Bobby">Bobby
-    <option value="Shelby">Shelby
-    <option value="Zach">Zach
-    <option value="Alexandra">Alexandra
-    <option value="Andrew">Andrew
-    <option value="Caleb">Caleb
-    <option value="Cameron">Cameron
-    <option value="Casey">Casey
-    <option value="Daniel">Daniel
-    <option value="Danielle">Danielle
-    <option value="Finn">Finn
-    <option value="Hayley">Hayley
-    <option value="Jake">Jake
-    <option value="Jess">Jess
-    <option value="John">John
-    <option value="Jordan">Jordan
-    <option value="Josh">Josh
-    <option value="Kerry">Kerry
-    <option value="Kenneth">Kenneth
-    <option value="Mackenzie">Mackenzie
-    <option value="Melissa">Melissa
-    <option value="Missy">Missy
-    <option value="Nick K.">Nick K.
-    <option value="Nick P.">Nick P.
-    <option value="Nina">Nina
-    <option value="Peter">Peter
-    <option value="Reyna">Reyna
-    <!-- <option value="Robb">Robb
-    <option value="Sam">Sam -->
-    <option value="Ty">Ty
-    <option value="Wesley">Wesley
-    </select>
-
-
-    <select id="mySelect6" onchange="changeImage6()">
-      <option value="Bobby">Bobby
-      <option value="Shelby">Shelby
-      <option value="Zach">Zach
-      <option value="Alexandra">Alexandra
-      <option value="Andrew">Andrew
-      <option value="Caleb">Caleb
-      <option value="Cameron">Cameron
-      <option value="Casey">Casey
-      <option value="Daniel">Daniel
-      <option value="Danielle">Danielle
-      <option value="Finn">Finn
-      <option value="Hayley">Hayley
-      <option value="Jake">Jake
-      <option value="Jess">Jess
-      <option value="John">John
-      <option value="Jordan">Jordan
-      <option value="Josh">Josh
-      <option value="Kerry">Kerry
-      <option value="Kenneth">Kenneth
-      <option value="Mackenzie">Mackenzie
-      <option value="Melissa">Melissa
-      <option value="Missy">Missy
-      <option value="Nick K.">Nick K.
-      <option value="Nick P.">Nick P.
-      <option value="Nina">Nina
-      <option value="Peter">Peter
-      <option value="Reyna">Reyna
-      <!-- <option value="Robb">Robb
-      <option value="Sam">Sam -->
-      <option value="Ty">Ty
-      <option value="Wesley">Wesley
-    </select>
-
-    <button id="leftup", onclick="incrementValueLeft()">
-      leftup
-    </button>
-    <button id="rightup", onclick="incrementValueRight()">
-      rightup
-    </button>
-    <button id="alsoleftup">
-      alsoleftup
-    </button>
-    <button id="alsorightup">
-      alsorightup
-    </button>
-    <button id="pushleft">
-      pushleft
-    </button>
-    <button id="pushright">
-      pushright
-    </button>
-
-  </div>
-  </div>
-
-
-<br>
-<br>
-
   <section class="row">
 
     <!--ROW LEFT-->
 
    <article class="col-sm-12 col-md-6" style="height:750px">
 
-      <div id="single1score" style="position:absolute; height:750px; width:96%;
+      <div id="single1score" style="position:relative; height:750px; width:97%;
       font-size: 620px; color:black; padding-right:100px; letter-spacing: -50px; line-height:720px;
       text-align:center; background-color:green; opacity:0.2;">
-        0
+        <div id="leftscore">0</div>
+        <h2 id="leftoverlay"><span id="leftoverlaytext">Awaiting  player</span></h2>
+
+
       </div>
-
-
-      <img class="playerpic1" id="playerpic1" style="height:750px; width:100%; z-index:-1">
+      <img class="playerpic1" id="playerpic1" style="top:0px; height:750px; width:95%; z-index:-1">
       </img>
 
-      <div id="doublesdiv1" style="top:0px; bottom:0px; left:0px; right:0px; position:absolute; height:750px; width:96%;
+      <div id="doublesdiv1" style="top:0px; bottom:0px; left:0px; right:0px; position:absolute; height:750px; width:94%;
       font-size:300px; color:black; letter-spacing: -50px;
-      text-align:center; margin-left:15px">
+      text-align:center; margin-left:15px;">
 
       <img class="playerpic1A" id="playerpic1A" style="height:370px; width:100%; z-index:-1; vertical-align:top">
       </img>
-
 
       <img class="playerpic2A" id="playerpic2A" style="height:370px; width:100%; z-index:-1; vertical-align:top; margin-top:-47px">
       </img>
 
     </div>
 
-
-
    </article>
+
 
    <article class="col-sm-12 col-md-6" style="padding-right:0px">
 
      <!--ROW RIGHT-->
 
-
-      <div id="single2score" style="position:absolute; height:750px; width:98%;
+      <div id="single2score" style="position:relative; height:750px; width:96%;
       font-size: 620px; color:black; padding-right:100px; letter-spacing: -50px; line-height:720px;
       text-align:center; background-color:green; opacity:0.2;">
-       0
+      <div id="rightscore">0</div>
+       <h2 id="rightoverlay"><span id="rightoverlaytext">Awaiting player</span></h2>
+
+
       </div>
-
-
-    <img class="playerpic2" id="playerpic2" style="height:750px; width:100%; z-index:-1">
-    </img>
+      <img class="playerpic2" id="playerpic2" style="top:0px; height:750px; width:94%; margin-left:15px; z-index:-1">
+      </img>
 
     <div id="doublesdiv2" style="top:0px; bottom:0px; left:0px; right:0px; position:absolute; height:750px; width:98%;
     font-size:300px; color:black; letter-spacing: -50px;
-    text-align:center;  margin-left:14px">
+    text-align:center;  margin-left:14px;">
 
     <img class="playerpic1B" id="playerpic1B" style="height:370px; width:100%; z-index:-1; vertical-align:top">
     </img>
@@ -332,16 +70,273 @@
 <br>
   <div class="row">
 
-    <div id="vs" style="position:absolute; left:43%; top:50%; text-align:center;
+    <div id="vs" style="position:absolute; left:43%; top:0%; text-align:center;
     font-size:100px; background-color:orange; display:none; line-height:200px;  opacity:0.9; z-index:1">VS
     </div>
 
-    <h2 id="leftoverlay"><span id="leftoverlaytext">Awaiting  player</span></h2>
-    <h2 id="rightoverlay"><span id="rightoverlaytext">Awaiting player</span></h2>
 
   </div>
 
+  <button id="startgame" onclick="startGame()">
+    Start game
+  </button>&nbsp;&nbsp;
 
+  <button id="clickme">
+    Click for toggle
+  </button>&nbsp;&nbsp;
+
+  <button id="right">move vs.</button>&nbsp;&nbsp;
+
+
+  <div class="row">
+    <!-- <div class="col-md-3">
+      <h1>&nbsp;&nbsp; Pong Thing!</h1>
+    </div> -->
+
+
+  <div class="col-md-6">
+
+    <br>
+    <br>
+    Select player 1:
+
+      <select id="mySelect" onchange="changeImage()">
+        <option value="Bobby">Bobby
+        <option value="Shelby">Shelby
+        <option value="Zach">Zach
+        <option value="Alexandra">Alexandra
+        <option value="Andrew">Andrew
+        <option value="Caleb">Caleb
+        <option value="Cameron">Cameron
+        <option value="Casey">Casey
+        <option value="Daniel">Daniel
+        <option value="Danielle">Danielle
+        <option value="Finn">Finn
+        <option value="Hayley">Hayley
+        <option value="Jake">Jake
+        <option value="Jess">Jess
+        <option value="John">John
+        <option value="Jordan">Jordan
+        <option value="Josh">Josh
+        <option value="Kerry">Kerry
+        <option value="Kenneth">Kenneth
+        <option value="Mackenzie">Mackenzie
+        <option value="Melissa">Melissa
+        <option value="Missy">Missy
+        <option value="Nick K.">Nick K.
+        <option value="Nick P.">Nick P.
+        <option value="Nina">Nina
+        <option value="Peter">Peter
+        <option value="Reyna">Reyna
+        <option value="Robb">Robb -->
+        <!-- <option value="Sam">Sam -->
+        <!-- <option value="Ty">Ty -->
+         <option value="Wesley">Wesley
+      </select>
+
+
+       &nbsp;&nbsp;&nbsp;&nbsp;Select player 2:
+
+       <select id="mySelect2" onchange="changeImage2()">
+        <option value="Bobby">Bobby
+        <option value="Shelby">Shelby
+        <option value="Zach">Zach
+        <option value="Alexandra">Alexandra
+        <option value="Andrew">Andrew
+        <option value="Caleb">Caleb
+        <option value="Cameron">Cameron
+        <option value="Casey">Casey
+        <option value="Daniel">Daniel
+        <option value="Danielle">Danielle
+        <option value="Finn">Finn
+        <option value="Hayley">Hayley
+        <option value="Jake">Jake
+        <option value="Jess">Jess
+        <option value="John">John
+        <option value="Jordan">Jordan
+        <option value="Josh">Josh
+        <option value="Kerry">Kerry
+        <option value="Kenneth">Kenneth
+        <option value="Mackenzie">Mackenzie
+        <option value="Melissa">Melissa
+        <option value="Missy">Missy
+        <option value="Nick K.">Nick K.
+        <option value="Nick P.">Nick P.
+        <option value="Nina">Nina
+        <option value="Peter">Peter
+        <option value="Reyna">Reyna
+        <option value="Ty">Ty
+        <option value="Wesley">Wesley
+      </select>
+
+      <!-- Team 1:
+
+    <select id="mySelect3" onchange="changeImage3()">
+      <option value="Bobby">Bobby
+      <option value="Shelby">Shelby
+      <option value="Zach">Zach
+      <option value="Alexandra">Alexandra
+      <option value="Andrew">Andrew
+      <option value="Caleb">Caleb
+      <option value="Cameron">Cameron
+      <option value="Casey">Casey
+      <option value="Daniel">Daniel
+      <option value="Danielle">Danielle
+      <option value="Finn">Finn
+      <option value="Hayley">Hayley
+      <option value="Jake">Jake
+      <option value="Jess">Jess
+      <option value="John">John
+      <option value="Jordan">Jordan
+      <option value="Josh">Josh
+      <option value="Kerry">Kerry
+      <option value="Kenneth">Kenneth
+      <option value="Mackenzie">Mackenzie
+      <option value="Melissa">Melissa
+      <option value="Missy">Missy
+      <option value="Nick K.">Nick K.
+      <option value="Nick P.">Nick P.
+      <option value="Nina">Nina
+      <option value="Peter">Peter
+      <option value="Reyna">Reyna -->
+      <!-- <option value="Robb">Robb
+      <option value="Sam">Sam -->
+      <!-- <option value="Ty">Ty
+      <option value="Wesley">Wesley
+    </select> -->
+
+
+      <!-- <select id="mySelect4" onchange="changeImage4()">
+        <option value="Bobby">Bobby
+        <option value="Shelby">Shelby
+        <option value="Zach">Zach
+        <option value="Alexandra">Alexandra
+        <option value="Andrew">Andrew
+        <option value="Caleb">Caleb
+        <option value="Cameron">Cameron
+        <option value="Casey">Casey
+        <option value="Daniel">Daniel
+        <option value="Danielle">Danielle
+        <option value="Finn">Finn
+        <option value="Hayley">Hayley
+        <option value="Jake">Jake
+        <option value="Jess">Jess
+        <option value="John">John
+        <option value="Jordan">Jordan
+        <option value="Josh">Josh
+        <option value="Kerry">Kerry
+        <option value="Kenneth">Kenneth
+        <option value="Mackenzie">Mackenzie
+        <option value="Melissa">Melissa
+        <option value="Missy">Missy
+        <option value="Nick K.">Nick K.
+        <option value="Nick P.">Nick P.
+        <option value="Nina">Nina
+        <option value="Peter">Peter
+        <option value="Reyna">Reyna -->
+        <!-- <option value="Robb">Robb
+        <option value="Sam">Sam -->
+        <!-- <option value="Ty">Ty
+        <option value="Wesley">Wesley
+      </select>
+
+      Team 2:
+
+      <select id="mySelect5" onchange="changeImage5()">
+      <option value="Bobby">Bobby
+      <option value="Shelby">Shelby
+      <option value="Zach">Zach
+      <option value="Alexandra">Alexandra
+      <option value="Andrew">Andrew
+      <option value="Caleb">Caleb
+      <option value="Cameron">Cameron
+      <option value="Casey">Casey
+      <option value="Daniel">Daniel
+      <option value="Danielle">Danielle
+      <option value="Finn">Finn
+      <option value="Hayley">Hayley
+      <option value="Jake">Jake
+      <option value="Jess">Jess
+      <option value="John">John
+      <option value="Jordan">Jordan
+      <option value="Josh">Josh
+      <option value="Kerry">Kerry
+      <option value="Kenneth">Kenneth
+      <option value="Mackenzie">Mackenzie
+      <option value="Melissa">Melissa
+      <option value="Missy">Missy
+      <option value="Nick K.">Nick K.
+      <option value="Nick P.">Nick P.
+      <option value="Nina">Nina
+      <option value="Peter">Peter
+      <option value="Reyna">Reyna -->
+      <!-- <option value="Robb">Robb
+      <option value="Sam">Sam -->
+      <!-- <option value="Ty">Ty
+      <option value="Wesley">Wesley
+      </select> -->
+
+
+      <!-- <select id="mySelect6" onchange="changeImage6()">
+        <option value="Bobby">Bobby
+        <option value="Shelby">Shelby
+        <option value="Zach">Zach
+        <option value="Alexandra">Alexandra
+        <option value="Andrew">Andrew
+        <option value="Caleb">Caleb
+        <option value="Cameron">Cameron
+        <option value="Casey">Casey
+        <option value="Daniel">Daniel
+        <option value="Danielle">Danielle
+        <option value="Finn">Finn
+        <option value="Hayley">Hayley
+        <option value="Jake">Jake
+        <option value="Jess">Jess
+        <option value="John">John
+        <option value="Jordan">Jordan
+        <option value="Josh">Josh
+        <option value="Kerry">Kerry
+        <option value="Kenneth">Kenneth
+        <option value="Mackenzie">Mackenzie
+        <option value="Melissa">Melissa
+        <option value="Missy">Missy
+        <option value="Nick K.">Nick K.
+        <option value="Nick P.">Nick P.
+        <option value="Nina">Nina
+        <option value="Peter">Peter
+        <option value="Reyna">Reyna -->
+        <!-- <option value="Robb">Robb
+        <option value="Sam">Sam -->
+        <!-- <option value="Ty">Ty
+        <option value="Wesley">Wesley
+      </select> -->
+
+      <button id="leftup", onclick="incrementValueLeft()">
+        left
+      </button>
+      <button id="rightup", onclick="incrementValueRight()">
+        right
+      </button>
+      <!-- <button id="alsoleftup">
+        alsoleftup
+      </button>
+      <button id="alsorightup">
+        alsorightup
+      </button>
+      <button id="pushleft">
+        pushleft
+      </button>
+      <button id="pushright">
+        pushright
+      </button> -->
+
+    </div>
+    </div>
+
+
+
+    <!-- <a href="#" onclick="popup('NextiesDiv')">Click to Open nexties div</a><br>
+    <a href="#" onclick="popup('QueueDiv')">Click to Open queue div</a> -->
 
 
      <script>
@@ -358,14 +353,26 @@
   complete: function() {
          // Animation complete.
   }
-       });
+});   $( "#single2score" ).animate({
+         width: "toggle",
+         height: "toggle"
+       }, {
+       duration: 5000,
+     specialEasing: {
+      width: "linear",
+      height: "easeOutBounce"
+     },
+     complete: function() {
+            // Animation complete.
+     }
+          });
      });
 
   $( "#right" ).click(function() {
 
   $( "#vs" ).animate({
       opacity: 1,
-      top: "+=290",
+      top: "+=260",
       height: "toggle"
     }, 500, function() {
       // Animation complete.

@@ -1,0 +1,11 @@
+<div id="error_explanation">
+  <div class="alert alert-danger">
+  <ul>
+    <%= pluralize(@form_errors, "error") %> prohibited you from saving:
+
+  <% @full_message_errors.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+</div>

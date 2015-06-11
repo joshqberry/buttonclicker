@@ -15,7 +15,6 @@
 <body onload="popup('NextiesDiv')">
   <% elsif @queue == [ "ted"] %>
   <body onload="popup('QueueDiv')">
-
   <% else %>
 <body>
   <% end %>
@@ -328,14 +327,24 @@
 </div>
 
 
-  <a href="#" onclick="popup('NextiesDiv')">Click to Open nexties div</a><br>
-  <a href="#" onclick="popup('QueueDiv')">Click to Open queue div</a>
 
-  <br>
-  <br>
+
+
 
 
 <%= yield %>
+
+<!-- <p>&nbsp;&nbsp;<%= link_to "Players", players_path %>&nbsp;|&nbsp;
+<%= link_to "Teams", teams_path %>&nbsp;|&nbsp;
+<%= link_to "Singles", singles_path %>&nbsp;|&nbsp;
+<%= link_to "Doubles", doubles_path %>&nbsp;|&nbsp;
+<%= link_to "Singlesstats", singlesstats_path %>&nbsp;|&nbsp;
+<%= link_to "Doublesstats", doublesstats_path %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<%= link_to "Create a Player", new_player_path %>&nbsp;|&nbsp;
+<%= link_to "Create a Team", new_team_path %>&nbsp;|&nbsp;
+<%= link_to "New Singles Game", new_single_path %>&nbsp;|&nbsp;
+<%= link_to "New Doubles Game", new_double_path %></p>
+<br> -->
 
 </body>
 </html>

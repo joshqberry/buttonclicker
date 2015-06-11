@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  teamA_id: MyString
+  teamB_id: MyString
+  teamwinner_id: 1
+  teamloser_id: 1
+  teamwinner_score: 1
+  teamloser_score: 1
+
+two:
+  teamA_id: MyString
+  teamB_id: MyString
+  teamwinner_id: 1
+  teamloser_id: 1
+  teamwinner_score: 1
+  teamloser_score: 1
