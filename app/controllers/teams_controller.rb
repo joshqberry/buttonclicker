@@ -11,8 +11,8 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
       if @team.save
 
-        @team.players << Player.where(name: @team.player1)
-       @team.players << Player.where(name: @team.player2)
+        @team.players << Player.where(name: @team.teammember1)
+       @team.players << Player.where(name: @team.teammember2)
 
         redirect_to teams_path
       else
@@ -51,11 +51,11 @@ class TeamsController < ApplicationController
 private
 
 def team_params
-      params.require(:team).permit(:player1, :player2, :team_players, :player_ids => [])
+      params.require(:team).permit(:teammember1, :teammember2, :team_players, :player_ids => [])
     end
 
     def players
-      @teamplayer1 = @team.player1
+      @teamplayer1 = @team.teammember1
       puts @teamplayer1
     end
 

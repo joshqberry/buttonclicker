@@ -12,12 +12,12 @@
 
 <%= form_for(@single) do |f| %>
 
-<%= f.label :playerA_id, "Player A" %>
-<%= f.collection_select(:playerA_id, Player.all, :name, :name) %>
+<%= f.label :playerA_name, "Player A" %>
+<%= f.collection_select(:playerA_name, Player.all, :name, :name) %>
 
 
-<%= f.label :playerB_id, "Player B" %>
-<%= f.collection_select(:playerB_id, Player.all, :name, :name) %>
+<%= f.label :playerB_name, "Player B" %>
+<%= f.collection_select(:playerB_name, Player.all, :name, :name) %>
 
 
 

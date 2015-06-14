@@ -23,8 +23,8 @@
 
     <% @singles.each do |single| %>
       <tr>
-        <td><%= link_to single.playerA_id, player_path(@player) %></td>
-        <td><%= link_to single.playerB_id, player_path(@player) %></td>
+        <td><%= link_to single.playerA_name, player_path(@player) %></td>
+        <td><%= link_to single.playerB_name, player_path(@player) %></td>
         <td><%= single.winner_id %></td>
         <td><%= single.loser_id %></td>
         <td><%= single.winner_score %></td>

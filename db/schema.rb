@@ -11,17 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610221800) do
+ActiveRecord::Schema.define(version: 20150614174424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "double_stats", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "double_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "doubles", force: :cascade do |t|
     t.string   "teamA_id"
@@ -41,20 +34,6 @@ ActiveRecord::Schema.define(version: 20150610221800) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "doublesstats", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "double_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "player_teams", force: :cascade do |t|
-    t.integer  "player_id"
-    t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "players", force: :cascade do |t|
     t.string   "name"
     t.string   "nickname"
@@ -63,10 +42,13 @@ ActiveRecord::Schema.define(version: 20150610221800) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "remove_typoed_tables", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "players_teams", force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "team_id"
   end
+
+  add_index "players_teams", ["player_id"], name: "index_players_teams_on_player_id", using: :btree
+  add_index "players_teams", ["team_id"], name: "index_players_teams_on_team_id", using: :btree
 
   create_table "singles", force: :cascade do |t|
     t.string   "playerA_name"
@@ -96,4 +78,6 @@ ActiveRecord::Schema.define(version: 20150610221800) do
     t.datetime "updated_at",   null: false
   end
 
+  add_foreign_key "players_teams", "players"
+  add_foreign_key "players_teams", "teams"
 end

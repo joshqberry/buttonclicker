@@ -19,8 +19,8 @@
 
     <% @teams.each do |team| %>
       <tr>
-        <td><%= team.player1 %></td>
-        <td><%= team.player2 %></td>
+        <td><%= team.teammember1 %></td>
+        <td><%= team.teammember2 %></td>
         <td><%= link_to team.team_players, team_path(team) %></td>
 
       </tr>

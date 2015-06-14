@@ -20,8 +20,8 @@ class SinglesController < ApplicationController
 
       if @single.save
 
-        @single.players << Player.where(name: @single.playerA_id)
-        @single.players << Player.where(name: @single.playerB_id)
+        @single.players << Player.where(name: @single.playerA_name)
+        @single.players << Player.where(name: @single.playerB_name)
 
 
         redirect_to singles_path
@@ -77,10 +77,10 @@ class SinglesController < ApplicationController
       def set_winnerid
           @single = Single.last
         if @single.playerA_score > @single.playerB_score
-          @player = Player.where(name: @single.playerA_id)
+          @player = Player.where(name: @single.playerA_name)
           @single.winner_id = @player[0].id
         else
-          @player = Player.where(name: @single.playerB_id)
+          @player = Player.where(name: @single.playerB_name)
           @single.winner_id = @player[0].id
         end
           @single.save
@@ -89,17 +89,17 @@ class SinglesController < ApplicationController
         def set_loserid
             @single = Single.last
           if @single.playerA_score < @single.playerB_score
-            @player = Player.where(name: @single.playerA_id)
+            @player = Player.where(name: @single.playerA_name)
             @single.loser_id = @player[0].id
           else
-            @player = Player.where(name: @single.playerB_id)
+            @player = Player.where(name: @single.playerB_name)
             @single.loser_id = @player[0].id
           end
             @single.save
           end
 
   def single_params
-      params.require(:single).permit(:playerA_id, :playerB_id, :winner_id, :loser_id,
+      params.require(:single).permit(:playerA_name, :playerB_name, :winner_id, :loser_id,
       :winner_score, :loser_score, :playerA_score, :playerB_score, :ended_at)
     end
 

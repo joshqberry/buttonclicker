@@ -21,11 +21,11 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:id])
     @singles = Single.where(
-      Single.arel_table[:playerA_id].eq(@player.name).or(
-      Single.arel_table[:playerB_id].eq(@player.name)))
+      Single.arel_table[:playerA_name].eq(@player.name).or(
+      Single.arel_table[:playerB_name].eq(@player.name)))
     @teams = Team.where(
-      Team.arel_table[:player1].eq(@player.name).or(
-      Team.arel_table[:player2].eq(@player.name)))
+      Team.arel_table[:teammember1].eq(@player.name).or(
+      Team.arel_table[:teammember2].eq(@player.name)))
     @doubles = Double.all
     # (
     #     Double.arel_table[:playerA1_id].eq(@player.name).or(
