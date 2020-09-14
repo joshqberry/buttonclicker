@@ -7,7 +7,12 @@ class LedController < ApplicationController
   def test
     @queue = [ ]
     @queue2 = [ "Casey"]
+    @single = Single.new
+    @double = Double.new
+    @nexty = Nexty.first
   end
+
+
 
   def other
   end
@@ -42,5 +47,12 @@ class LedController < ApplicationController
     Pusher['private-button'].trigger!('righty', { :some => 'data' })
     render :nothing => true
   end
+
+  private
+
+  def single_params
+      params.require(:single).permit(:playerA_name, :playerB_name, :winner_id, :loser_id,
+      :winner_score, :loser_score, :playerA_score, :playerB_score)
+    end
 
 end

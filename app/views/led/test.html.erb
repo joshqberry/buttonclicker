@@ -1,3 +1,5 @@
+
+
   <section class="row">
 
     <!--ROW LEFT-->
@@ -81,12 +83,27 @@
     Start game
   </button>&nbsp;&nbsp;
 
+  <button id="whatever" onclick="placePlayer()">
+Place playerfromqueue
+  </button>&nbsp;&nbsp;
+
   <button id="clickme">
     Click for toggle
   </button>&nbsp;&nbsp;
 
   <button id="right">move vs.</button>&nbsp;&nbsp;
 
+  <div id="guh">text</div>
+
+  <div id="buh">more text
+  </div>
+
+  <button id="boopy" onclick="sendScore()">store score</button>&nbsp;&nbsp;
+
+  <div id="hobo">
+  </div>
+  <%= @nexty.singlesqueue %><br>
+  <%= @nexty.doublesqueue %>
 
   <div class="row">
     <!-- <div class="col-md-3">
@@ -98,76 +115,26 @@
 
     <br>
     <br>
+    <br>
+    <br>
+
     Select player 1:
 
-      <select id="mySelect" onchange="changeImage()">
-        <option value="Bobby">Bobby
-        <option value="Shelby">Shelby
-        <option value="Zach">Zach
-        <option value="Alexandra">Alexandra
-        <option value="Andrew">Andrew
-        <option value="Caleb">Caleb
-        <option value="Cameron">Cameron
-        <option value="Casey">Casey
-        <option value="Daniel">Daniel
-        <option value="Danielle">Danielle
-        <option value="Finn">Finn
-        <option value="Hayley">Hayley
-        <option value="Jake">Jake
-        <option value="Jess">Jess
-        <option value="John">John
-        <option value="Jordan">Jordan
-        <option value="Josh">Josh
-        <option value="Kerry">Kerry
-        <option value="Kenneth">Kenneth
-        <option value="Mackenzie">Mackenzie
-        <option value="Melissa">Melissa
-        <option value="Missy">Missy
-        <option value="Nick K.">Nick K.
-        <option value="Nick P.">Nick P.
-        <option value="Nina">Nina
-        <option value="Peter">Peter
-        <option value="Reyna">Reyna
-        <option value="Robb">Robb -->
-        <!-- <option value="Sam">Sam -->
-        <!-- <option value="Ty">Ty -->
-         <option value="Wesley">Wesley
-      </select>
+    <%= collection_select(:single, :playerA_name, Player.all, :name, :name, {},
+{:onchange => "changeImage()", :id => "playerAselect"}) %>
+
+<br>
+<br>
+
+Select player 2:
+
+<%= collection_select(:single, :playerB_name, Player.all, :name, :name, {},
+{:onchange => "changeImage2()", :id => "playerBselect"}) %>
 
 
-       &nbsp;&nbsp;&nbsp;&nbsp;Select player 2:
 
-       <select id="mySelect2" onchange="changeImage2()">
-        <option value="Bobby">Bobby
-        <option value="Shelby">Shelby
-        <option value="Zach">Zach
-        <option value="Alexandra">Alexandra
-        <option value="Andrew">Andrew
-        <option value="Caleb">Caleb
-        <option value="Cameron">Cameron
-        <option value="Casey">Casey
-        <option value="Daniel">Daniel
-        <option value="Danielle">Danielle
-        <option value="Finn">Finn
-        <option value="Hayley">Hayley
-        <option value="Jake">Jake
-        <option value="Jess">Jess
-        <option value="John">John
-        <option value="Jordan">Jordan
-        <option value="Josh">Josh
-        <option value="Kerry">Kerry
-        <option value="Kenneth">Kenneth
-        <option value="Mackenzie">Mackenzie
-        <option value="Melissa">Melissa
-        <option value="Missy">Missy
-        <option value="Nick K.">Nick K.
-        <option value="Nick P.">Nick P.
-        <option value="Nina">Nina
-        <option value="Peter">Peter
-        <option value="Reyna">Reyna
-        <option value="Ty">Ty
-        <option value="Wesley">Wesley
-      </select>
+
+
 
       <!-- Team 1:
 
@@ -335,8 +302,8 @@
 
 
 
-    <!-- <a href="#" onclick="popup('NextiesDiv')">Click to Open nexties div</a><br>
-    <a href="#" onclick="popup('QueueDiv')">Click to Open queue div</a> -->
+    <a href="#" onclick="popup('NextiesDiv')">Click to Open nexties div</a><br>
+    <a href="#" onclick="popup('QueueDiv')">Click to Open queue div</a>
 
 
      <script>

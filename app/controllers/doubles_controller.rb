@@ -47,7 +47,7 @@ private
 
 def double_params
     params.require(:double).permit(:teamA_id, :teamB_id, :teamwinner_id, :teamloser_id,
-    :teamwinner_score, :teamloser_score, :ended_at)
+    :teamwinner_score, :teamloser_score)
   end
 
 end

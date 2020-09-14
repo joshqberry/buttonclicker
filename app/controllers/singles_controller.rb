@@ -100,7 +100,7 @@ class SinglesController < ApplicationController
 
   def single_params
       params.require(:single).permit(:playerA_name, :playerB_name, :winner_id, :loser_id,
-      :winner_score, :loser_score, :playerA_score, :playerB_score, :ended_at)
+      :winner_score, :loser_score, :playerA_score, :playerB_score)
     end
 
   end

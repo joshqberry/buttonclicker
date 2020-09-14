@@ -56,151 +56,37 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select player 2:
           <br>
           <br>
-            <select id="selectPlayer1" onchange="queuePlayerrr()" style="margin-left:-20px" >
-              <option value="Bobby">Bobby
-              <option value="Shelby">Shelby
-              <option value="Zach">Zach
-              <option value="Alexandra">Alexandra
-              <option value="Andrew">Andrew
-              <option value="Caleb">Caleb
-              <option value="Cameron">Cameron
-              <option value="Casey">Casey
-              <option value="Daniel">Daniel
-              <option value="Danielle">Danielle
-              <option value="Finn">Finn
-              <option value="Hayley">Hayley
-              <option value="Jake">Jake
-              <option value="Jess">Jess
-              <option value="John">John
-              <option value="Jordan">Jordan
-              <option value="Josh">Josh
-              <option value="Kerry">Kerry
-              <option value="Kenneth">Kenneth
-              <option value="Mackenzie">Mackenzie
-              <option value="Melissa">Melissa
-              <option value="Missy">Missy
-              <option value="Nick K.">Nick K.
-              <option value="Nick P.">Nick P.
-              <option value="Nina">Nina
-              <option value="Peter">Peter
-              <option value="Reyna">Reyna
-              <!-- <option value="Robb">Robb -->
-              <!-- <option value="Sam">Sam -->
-              <option value="Ty">Ty
-              <option value="Wesley">Wesley
-            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+          <%= collection_select(:single, :playerA_name, Player.all, :name, :name, {},
+      {:onchange => "queueSinglesPlayer()", :id => "selectSinglesPlayer1"}) %>
 
+          <%= collection_select(:single, :playerB_name, Player.all, :name, :name, {},
+      {:onchange => "queueSinglesPlayer2()", :id => "selectSinglesPlayer2"}) %>
 
-            <select id="selectPlayer2" onchange="queuePlayerrrr()" >
-              <option value="Bobby">Bobby
-              <option value="Shelby">Shelby
-              <option value="Zach">Zach
-              <option value="Alexandra">Alexandra
-              <option value="Andrew">Andrew
-              <option value="Caleb">Caleb
-              <option value="Cameron">Cameron
-              <option value="Casey">Casey
-              <option value="Daniel">Daniel
-              <option value="Danielle">Danielle
-              <option value="Finn">Finn
-              <option value="Hayley">Hayley
-              <option value="Jake">Jake
-              <option value="Jess">Jess
-              <option value="John">John
-              <option value="Jordan">Jordan
-              <option value="Josh">Josh
-              <option value="Kerry">Kerry
-              <option value="Kenneth">Kenneth
-              <option value="Mackenzie">Mackenzie
-              <option value="Melissa">Melissa
-              <option value="Missy">Missy
-              <option value="Nick K.">Nick K.
-              <option value="Nick P.">Nick P.
-              <option value="Nina">Nina
-              <option value="Peter">Peter
-              <option value="Reyna">Reyna
-              <option value="Ty">Ty
-              <option value="Wesley">Wesley
-            </select>
+<br>
+<br>
+      <span id="SinglesPlayer1NextyPopup">player 1</span>&nbsp;vs.
+      <span id="SinglesPlayer2NextyPopup">player 2</span>
+
           </div>
 
 
           <div id="double" style="position:absolute">
             TEAM 1
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEAM 2
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEAM 2
             <br>
             Select team 1 player 1:
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select team 2 player 1:
             <br>
             <br>
-              <select id="selectPlayer1A" onchange="queuePlayerrr()" style="margin-left:50px" >
-                <option value="Bobby">Bobby
-                <option value="Shelby">Shelby
-                <option value="Zach">Zach
-                <option value="Alexandra">Alexandra
-                <option value="Andrew">Andrew
-                <option value="Caleb">Caleb
-                <option value="Cameron">Cameron
-                <option value="Casey">Casey
-                <option value="Daniel">Daniel
-                <option value="Danielle">Danielle
-                <option value="Finn">Finn
-                <option value="Hayley">Hayley
-                <option value="Jake">Jake
-                <option value="Jess">Jess
-                <option value="John">John
-                <option value="Jordan">Jordan
-                <option value="Josh">Josh
-                <option value="Kerry">Kerry
-                <option value="Kenneth">Kenneth
-                <option value="Mackenzie">Mackenzie
-                <option value="Melissa">Melissa
-                <option value="Missy">Missy
-                <option value="Nick K.">Nick K.
-                <option value="Nick P.">Nick P.
-                <option value="Nina">Nina
-                <option value="Peter">Peter
-                <option value="Reyna">Reyna
-                <!-- <option value="Robb">Robb -->
-                <!-- <option value="Sam">Sam -->
-                <option value="Ty">Ty
-                <option value="Wesley">Wesley
-              </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= collection_select(:team, :teammember1, Player.all, :name, :name, {},
+        {:onchange => "queueDoublesPlayer1A()", :id => "selectDoublesPlayer1A"}) %>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-              <select id="selectPlayer1B" onchange="queuePlayerrr()" style="margin-left:50px" >
-                <option value="Bobby">Bobby
-                <option value="Shelby">Shelby
-                <option value="Zach">Zach
-                <option value="Alexandra">Alexandra
-                <option value="Andrew">Andrew
-                <option value="Caleb">Caleb
-                <option value="Cameron">Cameron
-                <option value="Casey">Casey
-                <option value="Daniel">Daniel
-                <option value="Danielle">Danielle
-                <option value="Finn">Finn
-                <option value="Hayley">Hayley
-                <option value="Jake">Jake
-                <option value="Jess">Jess
-                <option value="John">John
-                <option value="Jordan">Jordan
-                <option value="Josh">Josh
-                <option value="Kerry">Kerry
-                <option value="Kenneth">Kenneth
-                <option value="Mackenzie">Mackenzie
-                <option value="Melissa">Melissa
-                <option value="Missy">Missy
-                <option value="Nick K.">Nick K.
-                <option value="Nick P.">Nick P.
-                <option value="Nina">Nina
-                <option value="Peter">Peter
-                <option value="Reyna">Reyna
-                <!-- <option value="Robb">Robb -->
-                <!-- <option value="Sam">Sam -->
-                <option value="Ty">Ty
-                <option value="Wesley">Wesley
-              </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= collection_select(:team, :teammember2, Player.all, :name, :name, {},
+        {:onchange => "queueDoublesPlayer1B()", :id => "selectDoublesPlayer1B"}) %>
+
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
               <br>
               <br>
@@ -211,75 +97,26 @@
               <br>
               <br>
 
-              <select id="selectPlayer2A" onchange="queuePlayerrrr()" style="margin-left:50px">
-                <option value="Bobby">Bobby
-                <option value="Shelby">Shelby
-                <option value="Zach">Zach
-                <option value="Alexandra">Alexandra
-                <option value="Andrew">Andrew
-                <option value="Caleb">Caleb
-                <option value="Cameron">Cameron
-                <option value="Casey">Casey
-                <option value="Daniel">Daniel
-                <option value="Danielle">Danielle
-                <option value="Finn">Finn
-                <option value="Hayley">Hayley
-                <option value="Jake">Jake
-                <option value="Jess">Jess
-                <option value="John">John
-                <option value="Jordan">Jordan
-                <option value="Josh">Josh
-                <option value="Kerry">Kerry
-                <option value="Kenneth">Kenneth
-                <option value="Mackenzie">Mackenzie
-                <option value="Melissa">Melissa
-                <option value="Missy">Missy
-                <option value="Nick K.">Nick K.
-                <option value="Nick P.">Nick P.
-                <option value="Nina">Nina
-                <option value="Peter">Peter
-                <option value="Reyna">Reyna
-                <option value="Ty">Ty
-                <option value="Wesley">Wesley
-              </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <%= collection_select(:team, :teammember1, Player.all, :name, :name, {},
+          {:onchange => "queueDoublesPlayer2A()", :id => "selectDoublesPlayer2A"}) %>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
-                <select id="selectPlayer2B" onchange="queuePlayerrr()" style="margin-left:50px" >
-                  <option value="Bobby">Bobby
-                  <option value="Shelby">Shelby
-                  <option value="Zach">Zach
-                  <option value="Alexandra">Alexandra
-                  <option value="Andrew">Andrew
-                  <option value="Caleb">Caleb
-                  <option value="Cameron">Cameron
-                  <option value="Casey">Casey
-                  <option value="Daniel">Daniel
-                  <option value="Danielle">Danielle
-                  <option value="Finn">Finn
-                  <option value="Hayley">Hayley
-                  <option value="Jake">Jake
-                  <option value="Jess">Jess
-                  <option value="John">John
-                  <option value="Jordan">Jordan
-                  <option value="Josh">Josh
-                  <option value="Kerry">Kerry
-                  <option value="Kenneth">Kenneth
-                  <option value="Mackenzie">Mackenzie
-                  <option value="Melissa">Melissa
-                  <option value="Missy">Missy
-                  <option value="Nick K.">Nick K.
-                  <option value="Nick P.">Nick P.
-                  <option value="Nina">Nina
-                  <option value="Peter">Peter
-                  <option value="Reyna">Reyna
-                  <!-- <option value="Robb">Robb -->
-                  <!-- <option value="Sam">Sam -->
-                  <option value="Ty">Ty
-                  <option value="Wesley">Wesley
-                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <%= collection_select(:team, :teammember2, Player.all, :name, :name, {},
+          {:onchange => "queueDoublesPlayer2B()", :id => "selectDoublesPlayer2B"}) %>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
-
+                <br>
+                <br>
+                  <span id="DoublesPlayer1ANextyPopup">player 1</span>&nbsp;vs.
+                  <span id="DoublesPlayer1BNextyPopup">player 2</span>
+                  <br>
+                  <br>
+                  <span id="DoublesPlayer2ANextyPopup">player 3</span>&nbsp;vs.
+                  <span id="DoublesPlayer2BNextyPopup">player 4</span>
 
             </div>
             <br>
@@ -292,24 +129,19 @@
             <br>
           <br>
           <br>
-          <span id="nextiesQueueee">hi</span>
+          <span id="nextiesQueue">hi</span>
           <br>
           <br>
-          <button id="queueNexties" onclick="queueNextiesss()">
+          <button id="queueNexties" onclick="queueNexties()">
             Put nexties in queue
           </button>
         <br>
         <br>
-          <span id="blah">player 1</span>&nbsp;vs.
-          <span id="blah2">player 2</span>
-          <br>
-          <br>
-            <span id="Player1NextyPopup">player 1</span>&nbsp;vs.
-            <span id="Player2NextyPopup">player 2</span>
-            <br>
-            <br>
-            <span id="Player3NextyPopup">player 3</span>&nbsp;vs.
-            <span id="Player4NextyPopup">player 4</span>
+        <button id="setNexties" onclick="setNexties()">
+          Set nexties
+        </button>
+
+
             <br>
             <br>
             <%= link_to "Claim nexty!", nexties_path %>
@@ -334,7 +166,7 @@
 
 <%= yield %>
 
-<!-- <p>&nbsp;&nbsp;<%= link_to "Players", players_path %>&nbsp;|&nbsp;
+<p>&nbsp;&nbsp;<%= link_to "Players", players_path %>&nbsp;|&nbsp;
 <%= link_to "Teams", teams_path %>&nbsp;|&nbsp;
 <%= link_to "Singles", singles_path %>&nbsp;|&nbsp;
 <%= link_to "Doubles", doubles_path %>&nbsp;|&nbsp;
@@ -343,8 +175,9 @@
 <%= link_to "Create a Player", new_player_path %>&nbsp;|&nbsp;
 <%= link_to "Create a Team", new_team_path %>&nbsp;|&nbsp;
 <%= link_to "New Singles Game", new_single_path %>&nbsp;|&nbsp;
-<%= link_to "New Doubles Game", new_double_path %></p>
-<br> -->
+<%= link_to "New Doubles Game", new_double_path %>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<%= link_to "Main", test_path %></p>
+<br>
 
 </body>
 </html>

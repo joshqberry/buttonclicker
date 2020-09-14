@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :singlesstats
     resources :doublesstats
 
+    get '/nexties' => 'nexties#update'
+
     get '/alsoleftup', to: 'led#alsoleftup'
     get '/alsorightup' => 'led#alsorightup'
 

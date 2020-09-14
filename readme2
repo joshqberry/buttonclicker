@@ -130,8 +130,69 @@ Known issues:
 
 
 
+popup('NextiesDiv');
 
 
+
+
+
+
+
+
+
+
+
+var firstplayer =  document.getElementById("InWaiting").innerHTML;
+document.getElementById("YoureNext").innerHTML = firstplayer;
+if (document.getElementById("Player1Nexty").innerHTML === "player 1") {
+  document.getElementById("Player1Nexty").innerHTML = player1nexty;
+}
+else {
+document.getElementById("Player3Nexty").innerHTML = player1nexty;
+}
+if (document.getElementById("Player2Nexty").innerHTML === "player 2") {
+  document.getElementById("Player2Nexty").innerHTML = player2nexty;
+}
+else {
+document.getElementById("Player4Nexty").innerHTML = player2nexty;
+}
+if (document.getElementById("Player1NextyPopup").innerHTML === "player 1") {
+document.getElementById("Player1NextyPopup").innerHTML = player1nextyPopup;
+}
+else {
+document.getElementById("Player3NextyPopup").innerHTML = player1nextyPopup;
+}
+if (document.getElementById("Player2NextyPopup").innerHTML === "player 2") {
+document.getElementById("Player2NextyPopup").innerHTML = player2nextyPopup;
+}
+else {
+document.getElementById("Player4NextyPopup").innerHTML = player2nextyPopup;
+}
+}
+
+Don't think I need the following anymore, but just in case:
+
+function setNexties() {
+	var thistry = document.getElementById('hobo').innerHTML;
+	document.getElementById('guh').innerHTML = thistry;
+}
+
+
+-------------
+
+JEEZ, THAT'S a good lesson: I was having issues recognizing the inner HTML of divs -- that's
+because you had EXTRA SPACES IN THOSE DIVS. Which mattered when I was trying to match a string.
+Damn, that was stupid error.
+
+WOW so this doesn't work:
+function changeImagejs() {
+	document.getElementById('playertwat').value = document.getElementById('guh').innerHTML;
+	}
+... but this does:
+function changeImagejs() {
+document.getElementById('guh').innerHTML = document.getElementById('playertwat').value;
+	}
+... it would behoove me to understand why...
 
 -------------
 

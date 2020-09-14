@@ -1,10 +1,19 @@
-var player1nexty = " ";
-var player2nexty = " ";
-var player1nextyPopup = " ";
-var player2nextyPopup = " ";
-var nextiesQueue = [ ];
-var nextiesQueueee = [ ];
+var SinglesPlayer1NextyPopup = " "
+var SinglesPlayer2NextyPopup = " "
+var DoublesPlayer1ANextyPopup = " "
+var DoublesPlayer1BNextyPopup = " "
+var DoublesPlayer2ANextyPopup = " "
+var DoublesPlayer2BNextyPopup = " "
+var singlesNextiesQueue = [ ];
+var doublesNextiesQueue = [ ];
+var typeofGame = " ";
+
+
+
+var nextiesQueuejjj = [ ];
 var ppplayer = " ";
+
+
 
 function toggle(div_id) {
 	var el = document.getElementById(div_id);
@@ -71,17 +80,35 @@ function popup(windowname) {
 function oneVone(){
   document.getElementById("single").style.visibility = "visible";
   document.getElementById("double").style.visibility = "hidden";
+	typeofGame = "single";
 }
 
 function twoVtwo(){
   document.getElementById("double").style.visibility = "visible";
   document.getElementById("single").style.visibility = "hidden";
+	typeofGame = "double";
+
 }
 
-function startGame() {
-document.getElementById("single1score").style.visibility = "visible";
-document.getElementById("single2score").style.visibility = "visible";
+
+
+
+function sendScore() {
+	var theleft = document.getElementById('leftscore').innerHTML;
+	var theright = document.getElementById('rightscore').innerHTML;
+	var theleftplayer = document.getElementById('playerAselect').value;
+	var therightplayer = document.getElementById('playerBselect').value;
+
+	$.ajax({
+    url: "/singles",
+    type: "POST",
+    data: {single: {playerA_name: theleftplayer, playerB_name: therightplayer,
+		playerA_score: theleft, playerB_score: theright}}
+});
 }
+
+
+
 
 function incrementValueLeft()
 {
@@ -93,6 +120,7 @@ function incrementValueLeft()
     winnerPicLeft();
     document.getElementById("leftoverlaytext").innerHTML = "VICTORY!!!";
     document.getElementById("rightoverlaytext").innerHTML = "DEFEAT!!!";
+		sendScore();
   }
 }
 
@@ -178,332 +206,139 @@ function winnerPicRight() {
 
 
 
-function prepNexties1() {
-      if (document.getElementById('mySelecttt1').value == "Bobby")
-      {
-      document.getElementById("InWaiting").innerHTML = "Bobby";
-      player1nexty = "Bobby"
-      player1nextyPopup = "Bobby"
-
-      }
-      else if (document.getElementById('mySelecttt1').value == "Shelby")
-      {
-          document.getElementById("InWaiting").innerHTML = "Shelby";
-          player1nexty = "Shelby"
-          player1nextyPopup = "Shelby"
 
 
-      }
-      else if (document.getElementById('mySelecttt1').value == "Zach")
-      {
-          document.getElementById("InWaiting").innerHTML = "Zach";
-          player1nexty = "Zach"
-          player1nextyPopup = "Zach"
 
 
-      }
-       else if
-       (document.getElementById('mySelecttt1').value == "Alexandra")
-       {
-           document.getElementById("InWaiting").innerHTML = "Alexandra";
-           player1nexty = "Alexandra"
-           player1nextyPopup = "Alexandra"
+
+//////////////// Show user the players to be added to nexties queue /////////////////////
 
 
-       }
-       else if
-       (document.getElementById('mySelecttt1').value == "Andrew")
-       {
-           document.getElementById("InWaiting").innerHTML = "Andrew";
-           player1nexty = "Andrew"
-           player1nextyPopup = "Andrew"
-
-
-       }
-       else if
-       (document.getElementById('mySelecttt1').value == "Caleb")
-       {
-           document.getElementById("InWaiting").innerHTML = "Caleb";
-           player1nexty = "Caleb"
-           player1nextyPopup = "Caleb"
-
-
-       }
+function queueSinglesPlayer() {
+	document.getElementById('SinglesPlayer1NextyPopup').innerHTML = document.getElementById('selectSinglesPlayer1').value;
 }
 
-function prepNexties2() {
-      if (document.getElementById('mySelecttt2').value == "Bobby")
-      {
-      document.getElementById("InWaiting2").innerHTML = "Bobby";
-      player2nexty = "Bobby"
-      player2nextyPopup = "Bobby"
-
-      }
-      else if (document.getElementById('mySelecttt2').value == "Shelby")
-      {
-          document.getElementById("InWaiting2").innerHTML = "Shelby";
-          player2nexty = "Shelby"
-          player2nextyPopup = "Shelby"
-
-
-      }
-      else if (document.getElementById('mySelecttt2').value == "Zach")
-      {
-          document.getElementById("InWaiting2").innerHTML = "Zach";
-          player2nexty = "Zach"
-          player2nextyPopup = "Zach"
-
-
-      }
-       else if
-       (document.getElementById('mySelecttt2').value == "Alexandra")
-       {
-           document.getElementById("InWaiting2").innerHTML = "Alexandra";
-           player2nexty = "Alexandra"
-           player2nextyPopup = "Alexandra"
-
-
-       }
-       else if
-       (document.getElementById('mySelecttt2').value == "Andrew")
-       {
-           document.getElementById("InWaiting2").innerHTML = "Andrew";
-           player2nexty = "Andrew"
-           player2nextyPopup = "Andrew"
-
-
-       }
-       else if
-       (document.getElementById('mySelecttt2').value == "Caleb")
-       {
-           document.getElementById("InWaiting2").innerHTML = "Caleb";
-           player2nexty = "Caleb"
-           player2nextyPopup = "Caleb"
-
-
-       }
+function queueSinglesPlayer2() {
+	document.getElementById('SinglesPlayer2NextyPopup').innerHTML = document.getElementById('selectSinglesPlayer2').value;
 }
+
+function queueDoublesPlayer1A() {
+	document.getElementById('DoublesPlayer1ANextyPopup').innerHTML = document.getElementById('selectDoublesPlayer1A').value;
+}
+
+function queueDoublesPlayer1B() {
+	document.getElementById('DoublesPlayer1BNextyPopup').innerHTML = document.getElementById('selectDoublesPlayer1B').value;
+}
+
+function queueDoublesPlayer2A() {
+	document.getElementById('DoublesPlayer2ANextyPopup').innerHTML = document.getElementById('selectDoublesPlayer2A').value;
+}
+
+function queueDoublesPlayer2B() {
+	document.getElementById('DoublesPlayer2BNextyPopup').innerHTML = document.getElementById('selectDoublesPlayer2B').value;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+function queueNexties() {
+	if (typeofGame == "single") {
+		var singleOne = document.getElementById('SinglesPlayer1NextyPopup').innerHTML;
+		var singleTwo = document.getElementById('SinglesPlayer2NextyPopup').innerHTML;
+		singlesNextiesQueue.push(singleOne);
+		singlesNextiesQueue.push(singleTwo);
+		document.getElementById("nextiesQueue").innerHTML = singlesNextiesQueue;
+	}
+	else if (typeofGame == "double") {
+	var DoubleOneA = document.getElementById('DoublesPlayer1ANextyPopup').innerHTML;
+	var DoubleOneB = document.getElementById('DoublesPlayer1BNextyPopup').innerHTML;
+	var DoubleTwoA = document.getElementById('DoublesPlayer2ANextyPopup').innerHTML;
+	var DoubleTwoB = document.getElementById('DoublesPlayer2BNextyPopup').innerHTML;
+	doublesNextiesQueue.push(DoubleOneA);
+	doublesNextiesQueue.push(DoubleOneB);
+	doublesNextiesQueue.push(DoubleTwoA);
+	doublesNextiesQueue.push(DoubleTwoB);
+	document.getElementById("nextiesQueue").innerHTML = doublesNextiesQueue;
+	}
+}
+
 
 
 function setNexties() {
-
-  var firstplayer =  document.getElementById("InWaiting").innerHTML;
-  document.getElementById("YoureNext").innerHTML = firstplayer;
-  if (document.getElementById("Player1Nexty").innerHTML === "player 1") {
-    document.getElementById("Player1Nexty").innerHTML = player1nexty;
-  }
-  else {
-  document.getElementById("Player3Nexty").innerHTML = player1nexty;
-}
-  if (document.getElementById("Player2Nexty").innerHTML === "player 2") {
-    document.getElementById("Player2Nexty").innerHTML = player2nexty;
-  }
-  else {
-  document.getElementById("Player4Nexty").innerHTML = player2nexty;
-}
-if (document.getElementById("Player1NextyPopup").innerHTML === "player 1") {
-  document.getElementById("Player1NextyPopup").innerHTML = player1nextyPopup;
-}
-else {
-document.getElementById("Player3NextyPopup").innerHTML = player1nextyPopup;
-}
-if (document.getElementById("Player2NextyPopup").innerHTML === "player 2") {
-  document.getElementById("Player2NextyPopup").innerHTML = player2nextyPopup;
-}
-else {
-  document.getElementById("Player4NextyPopup").innerHTML = player2nextyPopup;
-}
-}
-
-function queuePlayerrr() {
-
-  if  (document.getElementById('selectPlayer1').value == "Bobby")
-  {
-      nextiesQueueee.push("Bobby");
-  }
-
-  else if  (document.getElementById('selectPlayer1').value == "Shelby")
-    {
-        nextiesQueueee.push("Shelby");
-      }
-
-  else if  (document.getElementById('selectPlayer1').value == "Zach")
-  {
-      nextiesQueueee.push("Zach");
-    }
-  else if  (document.getElementById('selectPlayer1').value == "Alexandra")
-    {
-      nextiesQueueee.push("Alexandra");
-      }
-
-  else if  (document.getElementById('selectPlayer1').value == "Andrew")
-  {
-      nextiesQueueee.push("Andrew");
-    }
-  else if  (document.getElementById('selectPlayer1').value == "Caleb")
-  {
-      nextiesQueueee.push("Caleb");
-    }
-
-}
-
-function queuePlayerrrr() {
-
-  if  (document.getElementById('selectPlayer2').value == "Bobby")
-  {
-      nextiesQueueee.push("Bobby");
-  }
-
-  else if  (document.getElementById('selectPlayer2').value == "Shelby")
-    {
-        nextiesQueueee.push("Shelby");
-      }
-
-  else if  (document.getElementById('selectPlayer2').value == "Zach")
-  {
-      nextiesQueueee.push("Zach");
-    }
-  else if  (document.getElementById('selectPlayer2').value == "Alexandra")
-    {
-      nextiesQueueee.push("Alexandra");
-      }
-
-  else if  (document.getElementById('selectPlayer2').value == "Andrew")
-  {
-      nextiesQueueee.push("Andrew");
-    }
-  else if  (document.getElementById('selectPlayer2').value == "Caleb")
-  {
-      nextiesQueueee.push("Caleb");
-    }
-
-}
-
-
-function queueNextiesss() {
-document.getElementById("nextiesQueueee").innerHTML = nextiesQueueee;
-popup('NextiesDiv');
-}
-
-
-
-
-function queuePlayer1() {
-
-  if  (document.getElementById('mySelecttt1').value == "Bobby")
-  {
-      nextiesQueue.push("Bobby");
-  }
-
-  else if  (document.getElementById('mySelecttt1').value == "Shelby")
-    {
-        nextiesQueue.push("Shelby");
-      }
-
-  else if  (document.getElementById('mySelecttt1').value == "Zach")
-  {
-      nextiesQueue.push("Zach");
-    }
-  else if  (document.getElementById('mySelecttt1').value == "Alexandra")
-    {
-      nextiesQueue.push("Alexandra");
-      }
-
-  else if  (document.getElementById('mySelecttt1').value == "Andrew")
-  {
-      nextiesQueue.push("Andrew");
-    }
-  else if  (document.getElementById('mySelecttt1').value == "Caleb")
-  {
-      nextiesQueue.push("Caleb");
-    }
-
-}
-
-
-function queuePlayer2() {
-
-  if  (document.getElementById('mySelecttt2').value == "Bobby")
-  {
-      nextiesQueue.push("Bobby");
-  }
-
-  else if  (document.getElementById('mySelecttt2').value == "Shelby")
-    {
-        nextiesQueue.push("Shelby");
-      }
-
-  else if  (document.getElementById('mySelecttt2').value == "Zach")
-  {
-      nextiesQueue.push("Zach");
-    }
-  else if  (document.getElementById('mySelecttt2').value == "Alexandra")
-    {
-      nextiesQueue.push("Alexandra");
-      }
-
-  else if  (document.getElementById('mySelecttt2').value == "Andrew")
-  {
-      nextiesQueue.push("Andrew");
-    }
-  else if  (document.getElementById('mySelecttt2').value == "Caleb")
-  {
-      nextiesQueue.push("Caleb");
-    }
-
-}
-
-function queueNexties() {
-document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
+	$.ajax({
+		url: "/nexties",
+		type: "GET",
+		data: {nexty: {singlesqueue: ["fart", "dart"] }}
+	});
 }
 
 // USE SHIFT TO GET ITEMS BACK OUT OF ARRAY...
 
+function placePlayer() {
+	var hooptydo = document.getElementById("guh").innerHTML;
+	if (hooptydo == "text") {
+	document.getElementById("buh").innerHTML = "howdy";
+	$('#playerpic1').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic1" %>" );
+}
+}
+
+
+
+
+function startGame() {
+
+	document.getElementById("single1score").style.visibility = "visible";
+	document.getElementById("single2score").style.visibility = "visible";
+	var whatevs = document.getElementById('hobo').innerHTML;
+	if (whatevs == "bill") {
+	document.getElementById("buh").innerHTML = whatevs;
+	}
+	else {
+	document.getElementById("buh").innerHTML = "nope";
+	}
+	}
+
+
 
 
   function changeImage() {
-        if (document.getElementById('mySelect').value == "Bobby")
+        if (document.getElementById('playerAselect').value == "Bobby")
         {
         document.getElementById("playerpic1").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
         }
-        else if (document.getElementById('mySelect').value == "Shelby")
+        else if (document.getElementById('playerAselect').value == "Shelby")
         {
             document.getElementById("playerpic1").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
         }
-        else if (document.getElementById('mySelect').value == "Zach")
+        else if (document.getElementById('playerAselect').value == "Zach")
         {
             document.getElementById("playerpic1").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
         }
          else if
-         (document.getElementById('mySelect').value == "Alexandra")
+         (document.getElementById('playerAselect').value == "Alexandra")
          {
              document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
          }
          else if
-         (document.getElementById('mySelect').value == "Andrew")
+         (document.getElementById('playerAselect').value == "Andrew")
          {
              document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
          }
          else if
-         (document.getElementById('mySelect').value == "Caleb")
+         (document.getElementById('playerAselect').value == "Caleb")
          {
              document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
          }
-         else if
-         (document.getElementById('mySelect').value == "Caleb")
-         {
-             document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
-         }
-         else if (document.getElementById('mySelect').value == "Cameron")
+         else if (document.getElementById('playerAselect').value == "Cameron")
          {
              document.getElementById("playerpic1").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
          }
-         else if (document.getElementById('mySelect').value == "Wesley")
+         else if (document.getElementById('playerAselect').value == "Wesley")
          {
            $('#playerpic1').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic1" %>" );
              document.getElementById("leftoverlaytext").innerHTML="WESLEY";
          }
-         else if (document.getElementById('mySelect').value == "Casey")
+         else if (document.getElementById('playerAselect').value == "Casey")
          {
            $('#playerpic1').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic1" %>" );
              document.getElementById("leftoverlaytext").innerHTML="CASEY";
@@ -529,55 +364,55 @@ document.getElementById("nextiesQueue").innerHTML = nextiesQueue;
 
 
    function changeImage2() {
-         if (document.getElementById('mySelect2').value == "Bobby")
+         if (document.getElementById('playerBselect').value == "Bobby")
          {
          document.getElementById("playerpic2").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/543c7c56e4b0163ac9a493b9/1413250134393/Bobby.jpg?format=300w";
          }
-         else if (document.getElementById('mySelect2').value == "Shelby")
+         else if (document.getElementById('playerBselect').value == "Shelby")
          {
              document.getElementById("playerpic2").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/548f8bdee4b05d9d70d184da/1418693598182/card_IMG_6008.JPG?format=300w";
          }
-         else if (document.getElementById('mySelect2').value == "Zach")
+         else if (document.getElementById('playerBselect').value == "Zach")
          {
              document.getElementById("playerpic2").src = "http://static1.squarespace.com/static/53309fa5e4b074b4d261c908/t/54384c69e4b0d6cfdfcd1177/1412975721419/?format=300w";
          }
           else if
-          (document.getElementById('mySelect2').value == "Alexandra")
+          (document.getElementById('playerBselect').value == "Alexandra")
           {
               document.getElementById("playerpic2").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/197/card_pic.JPG";
           }
           else if
-          (document.getElementById('mySelect2').value == "Andrew")
+          (document.getElementById('playerBselect').value == "Andrew")
           {
               document.getElementById("playerpic2").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/198/card_DSC_0013.JPG";
           }
           else if
-          (document.getElementById('mySelect2').value == "Caleb")
+          (document.getElementById('playerBselect').value == "Caleb")
           {
               document.getElementById("playerpic2").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/199/card_profile-pic.jpg";
           }
-          else if (document.getElementById('mySelect2').value == "Cameron")
+          else if (document.getElementById('playerBselect').value == "Cameron")
           {
               document.getElementById("playerpic2").src = "https://students-gschool-production.s3.amazonaws.com/uploads/user/avatar/200/card_DSC_0021.JPG";
           }
-          else if (document.getElementById('mySelect2').value == "Wesley")
+          else if (document.getElementById('playerBselect').value == "Wesley")
           {
             $('#playerpic2').attr( "src" , "<%= image_path "WesleyMain.jpg", :id => "playerpic2" %>" );
               document.getElementById("rightoverlaytext").innerHTML="WESLEY";
           }
-          else if (document.getElementById('mySelect2').value == "Casey")
+          else if (document.getElementById('playerBselect').value == "Casey")
           {
 
             $('#playerpic2').attr( "src" , "<%= image_path "CaseyMain.jpg", :id => "playerpic2" %>" );
               document.getElementById("rightoverlaytext").innerHTML="CASEY";
           }
-          else if (document.getElementById('mySelect2').value == "Jordan")
+          else if (document.getElementById('playerBselect').value == "Jordan")
           {
 
             $('#playerpic2').attr( "src" , "<%= image_path "JordanMain.jpg", :id => "playerpic2" %>" );
               document.getElementById("rightoverlaytext").innerHTML="JORDAN";
           }
-          else if (document.getElementById('mySelect2').value == "Jake")
+          else if (document.getElementById('playerBselect').value == "Jake")
           {
 
             $('#playerpic2').attr( "src" , "<%= image_path "JakeMain.jpg", :id => "playerpic2" %>" );
